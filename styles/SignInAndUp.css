@@ -28,9 +28,7 @@ h2{
     box-shadow: 10px 8px 8px black;
 }
 
-.containerForm {
 
-}
 
 .input{
     width: 100%;
@@ -68,4 +66,20 @@ a{
     color: black;
 }
 
+.containterErrorMessage{
+    background-color: red;
+    opacity: 0.6;
+    border-color: red;
+    display: flex;
+justify-content: center;
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
 
+}
+.containerFormError{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
