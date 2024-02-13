@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -16,6 +18,7 @@
         <input type="submit" value="Connexion" class="button">
         <p>Vous n'avez pas de compte ? <a href="SignUp.php"><strong>Inscrivez-vous</strong><a/> </p>
     </form>
+
 </div>
 </body>
 </html>
