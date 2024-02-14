@@ -12,7 +12,8 @@ body{
 .containerLogoMenu{
     display: flex;
     flex-direction: row;
-    margin-bottom: 4vh;
+    margin: 4vh;
+
 }
 
 .containterLogOutMenu{
@@ -59,8 +60,8 @@ nav a{
 }
 
 nav a:hover{
-    color: orange;
-    border-bottom: 2px solid gold;
+    color: #C6DCBA;
+    border-bottom: 2px solid #C6DCBA;
 }
 
 .sous{
@@ -91,3 +92,5 @@ nav > ul li:hover .sous{
     content:" ▼";
     font-size: 12px;
 }
+
+
