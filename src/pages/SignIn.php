@@ -2,9 +2,9 @@
 
 global $pdo;
 session_start();
-require '../Config/DataBase.php';
+require '../Core/DataBase.php';
 if (isset($_SESSION['id_utilisateur'])) {
-    header("Location: ../index.php");
+    header("Location: ../../public/index.php");
     exit;
 }
 $printError = false;
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['passw
             if ($user && password_verify($password, $user['mot_de_passe'])) {
                 $_SESSION['id_utilisateur'] = $user['id_utilisateur'];
                 $_SESSION['email_utilisateur'] = $user['email'];
-                 header("Location: ../index.php");
+                 header("Location: ../../public/index.php");
                 exit;
             } }else {
                 $errorMessage = 'Email ou mot de passe incorrect.';

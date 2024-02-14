@@ -1,5 +1,5 @@
 <?php
-require '../Config/database.php';
+require '../Core/DataBase.php';
 
 $message = '';
 global $pdo;
