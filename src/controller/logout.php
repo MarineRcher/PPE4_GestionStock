@@ -8,7 +8,7 @@ $_SESSION = array();
 session_destroy();
 
 // Redirection vers la page de connexion
-header("Location: ../pages/SignIn.php");
+header("Location: ../Vue/SignIn.php");
 exit;
 ?>
 
