@@ -1,18 +1,38 @@
 <?php
 
 namespace model;
+require '../Core/DataBase.php';
 
-class Users
+class Users extends \Database
 {
+
     public $name;
     public $lastName;
     public $email;
 
-    public function __construct($name, $lastName, $email)
+    public $role;
+
+    public function __construct()
     {
-        $this->name = $name;
-        $this->lastName=$lastName;
-        $this->email=$email;
+
+    }
+
+    public function verify_user($email)
+    {
+
+        global $pdo;
+        $sql = "SELECT id_utilisateur, email, mot_de_passe FROM utilisateurs WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!empty($user)) {
+                return $user;
+            }
+        else {
+
+
+        }
+
     }
 
 }

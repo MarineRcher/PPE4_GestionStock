@@ -1,33 +1,14 @@
 <?php
+// Inclure le fichier contenant la classe LoginController
+include '../Controller/LoginController.php';
 
-global $pdo;
-session_start();
-require '../Core/DataBase.php';
-if (isset($_SESSION['id_utilisateur'])) {
-    header("Location: ../../public/index.php");
-    exit;
-}
-$printError = false;
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['password'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// Créer une instance de LoginController
+$loginController = new LoginController();
 
-    $sql = "SELECT id_utilisateur, email, mot_de_passe FROM utilisateurs WHERE email = :email";
+// Appeler la méthode login() pour gérer la connexion
+$errorMessage = $loginController->login(); // Récupérer la valeur retournée par la méthode login()
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!empty($user)) {
-            if ($user && password_verify($password, $user['mot_de_passe'])) {
-                $_SESSION['id_utilisateur'] = $user['id_utilisateur'];
-                $_SESSION['email_utilisateur'] = $user['email'];
-                 header("Location: ../../public/index.php");
-                exit;
-            } }else {
-                $errorMessage = 'Email ou mot de passe incorrect.';
-                $printError = True;
-            }
-}
+// Maintenant, $errorMessage contient le message d'erreur, s'il y en a un
 
 ?>
 
@@ -40,16 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['passw
 </head>
 <body>
 <div class="containerFormError">
-<?php if ($printError == True){
-?>
-    <div class='containterErrorMessage'>
-
-        <?= $errorMessage ?>
-    </div>
-<?php
-}
-?>
-
+    <?php if ($errorMessage): ?>
+        <p class="containterErrorMessage"><?= $errorMessage ?></p>
+    <?php endif; ?>
     <form action="SignIn.php" method="POST" class="form">
     <h2 id="ed">Connexion</h2>
 
