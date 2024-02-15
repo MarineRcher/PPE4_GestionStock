@@ -8,7 +8,7 @@ class Controller {
 
     // Charger la vue
     public function view(string $view, $data = []) {
-        $viewPath = 'src/Vue/' . $view . '.php';
+        $viewPath = '../Vue/' . $view . '.php';
         if(file_exists($viewPath)) {
             require_once $viewPath;
         } else {

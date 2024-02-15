@@ -1,14 +1,18 @@
 <?php
-// Inclure le fichier contenant la classe LoginController
-include '../Controller/LoginController.php';
 
+// Inclure le fichier contenant la classe LoginController
+require_once '../controller/LoginController.php';
+include_once '../model/Users.php';
 // Créer une instance de LoginController
 $loginController = new LoginController();
 
 // Appeler la méthode login() pour gérer la connexion
-$errorMessage = $loginController->login(); // Récupérer la valeur retournée par la méthode login()
+$errorMessage = $loginController->login();
+$email = "marine.richer41@gmail.com";
+$user_data = new \model\Users();
+$user_data = $user_data->verify_user($email);
+var_dump($user_data);
 
-// Maintenant, $errorMessage contient le message d'erreur, s'il y en a un
 
 ?>
 

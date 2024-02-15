@@ -14,13 +14,14 @@ class Users extends \Database
 
     public function __construct()
     {
-
+$this->connect();
     }
 
-    public function verify_user($email)
+    public function verify_user(string $email)
     {
 
         global $pdo;
+
         $sql = "SELECT id_utilisateur, email, mot_de_passe FROM utilisateurs WHERE email = :email";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['email' => $email]);
