@@ -8,10 +8,7 @@ $loginController = new LoginController();
 
 // Appeler la méthode login() pour gérer la connexion
 $errorMessage = $loginController->login();
-$email = "marine.richer41@gmail.com";
-$user_data = new \model\Users();
-$user_data = $user_data->verify_user($email);
-var_dump($user_data);
+
 
 
 ?>

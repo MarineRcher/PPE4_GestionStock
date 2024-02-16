@@ -15,7 +15,7 @@ class LoginController extends Controller {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['password'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-var_dump($email);
+
             $user_data = $this->model('Users');
            $user_data = $user_data->verify_user($email);
 
@@ -37,7 +37,7 @@ var_dump($email);
             return $errorMessage;
         }
 
-return 'not work';
+
     }
 }
 ?>

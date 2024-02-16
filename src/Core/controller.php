@@ -2,8 +2,9 @@
 class Controller {
     // Charger le modèle
     public function model(string $model) {
+        $modelClass = 'model\\' . $model; // Add the namespace to the class name
         require_once '../model/' . $model . '.php';
-        return new $model();
+        return new $modelClass(); // Instantiate the class with the namespace
     }
 
     // Charger la vue
