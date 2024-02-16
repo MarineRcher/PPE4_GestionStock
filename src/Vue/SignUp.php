@@ -1,7 +1,13 @@
 <?php
-require '../Core/DataBase.php';
+// Inclure le fichier contenant la classe LoginController
+require_once '../controller/RegisterController.php';
+include_once '../model/Users.php';
+// Créer une instance de LoginController
+$registerUser = new RegisterController();
 
-$message = '';
+// Appeler la méthode login() pour gérer la connexion
+$errorMessage = $registerUser->addUser();
+
 
 
 ?>
@@ -16,10 +22,10 @@ $message = '';
 </head>
 <body>
 <div class="containerFormError">
-<?php if(!empty($message)){ ?>
+<?php if(!empty($errorMessage)){ ?>
     <div class='containterErrorMessage'>
 
-        <?= $message ?>
+        <?= $errorMessage ?>
     </div>
 <?php
 }?>

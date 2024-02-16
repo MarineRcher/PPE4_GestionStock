@@ -9,8 +9,6 @@ $loginController = new LoginController();
 // Appeler la méthode login() pour gérer la connexion
 $errorMessage = $loginController->login();
 
-
-
 ?>
 
 <!doctype html>

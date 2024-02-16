@@ -47,7 +47,7 @@ h2{
 }
 
 .button{
-    background-color: #222d41;
+    background-color: #C6DCBA;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -57,8 +57,8 @@ h2{
 }
 .button:hover{
     background-color: white;
-    color: #222d41;
-    border: 1px solid #222d41;
+    color: #C6DCBA;
+    border: 1px solid #C6DCBA;
 }
 
 a{

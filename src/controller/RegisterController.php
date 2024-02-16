@@ -6,23 +6,40 @@ class RegisterController extends Controller {
     public function addUser()
     {
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_POST['password'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'], $_POST['lastName'], $_POST['email'], $_POST['password']) && $_POST['email'] !== "") {
+
             if ($_POST['passwordConfirm'] == $_POST['password']) {
-                $nom = $_POST['name'];
-                $prenom = $_POST['lastName'];
+                $prenom = $_POST['name'];
+                $nom = $_POST['lastName'];
                 $email = $_POST['email'];
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hashage du mot de passe
+                $motDePasse = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hashage du mot de passe
 
+                $user_data = $this->model('Users');
 
-                if ($user) {
+                $user_data = $user_data-> verifyEmail($email);
+                if (!isset($user)) {
                     $message = 'Cet email est déjà utilisé.';
                 } else {
-                   AddUser();
+
+                    $user_data = $this->model('Users');
+
+                    $user_data->registreUtilisateur($nom, $prenom, $email, $motDePasse);
+
+                    $user_data->AddUser();
+
+
+                   header("Location: ../Vue/SignIn.php");
                 }
             } else {
                 $message = 'Les deux mot de passes doivent être les mêmes';
+
             }
+
+        } else {
+            $message="Merci de remplir vos coordonnées";
+
         }
+        return $message;
     }
 
 }
