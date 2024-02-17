@@ -1,29 +1,37 @@
 <?php
+
 class Database {
+
     private string $host = 'db';
-    private string $dbname = 'GSB';
-    private string $username = 'user';
-    private string $password = 'password';
+    private string $dbname = 'gsb';
+    private string $username = 'nouvel_utilisateur';
+    private string $password = 'mot_de_passe';
+
     private $dbHandler; // destine a contenir la connexion a la base de donnees (une instance de pdo)
     private $statement;
     private $error;
     protected $pdo;
 
+
+
+
     public function connect()
     {
-        try {
-            $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname;charset=utf8", $this->username, $this->password);
+        try
+        {
+            $pdo = new PDO('mysql:host=db;dbname=gsb;charset=utf8', 'nouvel_utilisateur', 'mot_de_passe');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $pdo; // Retourne l'objet PDO
+            echo "Connected successfully";
         } catch(PDOException $e) {
-            die("Impossible de se connecter à la base de données : " . $e->getMessage());
-        }
+error_log("Connection failed: " . $e->getMessage());
+die("Connection failed: " . $e->getMessage());
+}
     }
 
     public function __construct()
     {
         // Set DSN
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=db;dbname=gsb';
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION

@@ -18,12 +18,10 @@ services:
   db:
     image: mysql:latest
     container_name: mysql_db_stock
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=caching_sha2_password
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: GSB
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: gsb
     ports:
       - "3306"
     volumes:
