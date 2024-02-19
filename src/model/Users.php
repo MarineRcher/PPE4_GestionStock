@@ -16,6 +16,8 @@ class Users extends \Database
 
     public $role;
 
+    protected $pdo;
+
     public function __construct()
     {
 
@@ -40,10 +42,7 @@ class Users extends \Database
         if (!empty($user)) {
                 return $user;
             }
-        else {
 
-
-        }
 
     }
 
@@ -65,21 +64,6 @@ class Users extends \Database
         return $message;
     }
 
-    public function VerifyEmail($email)
-    {
-        $sql = "SELECT id_utilisateur, email FROM utilisateurs WHERE email = :email";
-        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!empty($user)) {
-            return $user;
-
-        }
-        else {
-
-
-        }
-    }
 
 }

@@ -4,8 +4,8 @@ class Database {
 
     private string $host = 'db';
     private string $dbname = 'gsb';
-    private string $username = 'nouvel_utilisateur';
-    private string $password = 'mot_de_passe';
+    private string $username = 'root';
+    private string $password = 'root';
 
     private $dbHandler; // destine a contenir la connexion a la base de donnees (une instance de pdo)
     private $statement;
@@ -19,13 +19,15 @@ class Database {
     {
         try
         {
-            $pdo = new PDO('mysql:host=db;dbname=gsb;charset=utf8', 'nouvel_utilisateur', 'mot_de_passe');
+            $pdo = new PDO('mysql:host=db;dbname=gsb;charset=utf8', 'root', 'root');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully";
+
+            return $pdo;
         } catch(PDOException $e) {
-error_log("Connection failed: " . $e->getMessage());
-die("Connection failed: " . $e->getMessage());
+            error_log("Connection failed: " . $e->getMessage());
+            die("Connection failed: " . $e->getMessage());
 }
+
     }
 
     public function __construct()

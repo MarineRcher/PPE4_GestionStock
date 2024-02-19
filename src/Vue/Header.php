@@ -20,7 +20,7 @@
             <li><a href="HomePage.php">Accueil</a></li>
             <li class="deroulant"><a href="#">Médicaments &ensp;</a>
                 <ul class="sous">
-                    <li><a href="#">Gestion de stock</a></li>
+                    <li><a href="MedicationStock.php">Gestion de stock</a></li>
                     <li><a href="#">Demandes</a></li>
                 </ul>
             </li>

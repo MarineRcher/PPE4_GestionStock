@@ -16,8 +16,9 @@ class RegisterController extends Controller {
 
                 $user_data = $this->model('Users');
 
-                $user_data = $user_data-> verifyEmail($email);
-                if (!isset($user)) {
+                $user = $user_data-> verify_user($email);
+
+                if (!empty($user)) {
                     $message = 'Cet email est déjà utilisé.';
                 } else {
 
