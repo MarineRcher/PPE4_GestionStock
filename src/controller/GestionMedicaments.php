@@ -7,10 +7,15 @@
         {
            $modelMedicaments = $this->model('Medications');
            $dataMedicaments = $modelMedicaments->selectMedicaments();
-           if(!empty($dataMedicaments)){
+
                return $dataMedicaments;
-           }
+
         }
+
+        public function rechercherMedicament(){
+
+        }
+
 
     }
 ?>

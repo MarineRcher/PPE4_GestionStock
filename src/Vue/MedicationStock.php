@@ -12,34 +12,36 @@ $dataMedicaments = $medicaments->selectMedicament();
 
 ?>
 
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Titre de la page</title>
+
     <link rel="stylesheet" href="../styles/MedicationStock.css">
 
-</head>
-<body>
+
 <?php require '../Vue/Header.php'; ?>
+<form method="GET">
+    <input type="search" name="a" placeholder="Recherche..." />
+    <input type="submit" value="Valider" />
+</form>
+    <?php
+    // Vérifie si $dataMedicaments est vide
+    if (empty($dataMedicaments)) {
+        echo '<tr><td colspan="3">Aucun médicament en stock</td></tr>';
+    } else {
+        // Si $dataMedicaments n'est pas vide, afficher les données
+        echo("
 <table>
-<tr>
-    <td>Nom</td>
-    <td>Description</td>
-    <td>Quantite</td>
-</tr>
-<?php
-
-
-echo("
-<tr>
-    <td>".$dataMedicaments['nom']."</td>
-    <td>".$dataMedicaments['description']."</td>
-    <td>".$dataMedicaments['quantite_disponible']."</td>
-</tr>
-");
-
-?>
+    <tr>
+        <td>Nom</td>
+        <td>Description</td>
+        <td>Quantité</td>
+    </tr>
+    <tr>
+        <td>".$dataMedicaments['nom']."</td>
+        <td>".$dataMedicaments['description']."</td>
+        <td>".$dataMedicaments['quantite_disponible']."</td>
+    </tr>
+    ");
+    }
+    ?>
 </table>
 </body>
 </html>
