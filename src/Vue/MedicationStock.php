@@ -17,6 +17,9 @@ $dataMedicaments = $medicaments->selectMedicament();
 
 
 <?php require '../Vue/Header.php'; ?>
+
+<h2>Médicament</h2>
+<div class="containerSearchTable">
 <form method="GET">
     <input type="search" name="a" placeholder="Recherche..." />
     <input type="submit" value="Valider" />
@@ -30,9 +33,9 @@ $dataMedicaments = $medicaments->selectMedicament();
         echo("
 <table>
     <tr>
-        <td>Nom</td>
-        <td>Description</td>
-        <td>Quantité</td>
+        <td class='enTete'>Nom</td>
+        <td class='enTete'>Description</td>
+        <td class='enTete'>Quantité</td>
     </tr>
     <tr>
         <td>".$dataMedicaments['nom']."</td>
@@ -42,6 +45,8 @@ $dataMedicaments = $medicaments->selectMedicament();
     ");
     }
     ?>
+
 </table>
+</div>
 </body>
 </html>

@@ -1,8 +1,23 @@
-table{
-    border-collapse: collapse
+.containerSearchTable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 5vh;
 }
 
-td{
-    border: 1px solid black;
+table {
+    border-collapse: collapse;
+    margin-top: 1vh;
+    width: 90%;
+}
+
+
+td {
+    border-bottom: 1px solid #e8e6e6;
     padding: 10px;
+}
+
+.enTete{
+    border-top: 1.7px solid #e8e6e6;
 }
