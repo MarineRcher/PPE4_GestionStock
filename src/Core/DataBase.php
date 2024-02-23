@@ -27,12 +27,11 @@ class Database {
             error_log("Connection failed: " . $e->getMessage());
             die("Connection failed: " . $e->getMessage());
 }
-
     }
 
     public function __construct()
     {
-        // Set DSN
+
         $dsn = 'mysql:host=db;dbname=gsb';
         $options = array(
             PDO::ATTR_PERSISTENT => true,
@@ -44,7 +43,7 @@ class Database {
             $this->dbHandler = new PDO($dsn, $this->username, $this->password, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            echo $this->error;
+            return $this->error;
         }
     }
 

@@ -13,7 +13,6 @@
         }
 
         public function rechercherMedicament(){
-
         }
 
 

@@ -20,9 +20,8 @@ $dataMedicaments = $medicaments->selectMedicament();
 
 <h2>Médicament</h2>
 <div class="containerSearchTable">
-<form method="GET">
-    <input type="search" name="a" placeholder="Recherche..." />
-    <input type="submit" value="Valider" />
+<form class="searchBar" method="GET">
+    <input class="inputSearchBar" type="search" name="a" placeholder="Rechercher..." />
 </form>
     <?php
     // Vérifie si $dataMedicaments est vide
