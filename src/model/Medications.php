@@ -5,12 +5,13 @@ require '../Core/DataBase.php';
 
 class Medications extends \Database
 {
-    public $name;
-    public $description;
+    public $CIP;
+    public $nom;
+    public $type;
 
-    public $quantity;
+    public $quantite;
 
-    public $price;
+    public $prix;
 
     protected $pdo;
     public function __construct ()
@@ -21,24 +22,39 @@ class Medications extends \Database
 
     }
 
-    public function Medicament($name, $description, $quantity, $price)
+    public function Medicament($CIP, $nom, $type, $quantite, $prix)
     {
-        $this-> name = $name;
-        $this-> description = $description;
-        $this-> quantity = $quantity;
-        $this-> price = $price;
+        $this-> CIP = $CIP;
+        $this-> nom = $nom;
+        $this-> type = $type;
+        $this-> quantite = $quantite;
+        $this-> prix = $prix;
+    }
+    public function rechercheNom( $nom)
+    {
+        $this-> nom = $nom;
     }
 
     public function selectMedicaments()
     {
-        $sql= "select * from stocks where type = :type";
+        $sql= "select distinct nom, CIP, type, quantite_disponible, prix from medicaments ";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
-        $stmt->execute(['type' => 'medicament']);
-        $medicaments = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $medicaments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!empty($medicaments)){
             return $medicaments;
         }
+    }
+
+    public function rechercherMedicaments()
+    {
+        $sql= "select distinct nom, CIP, type, quantite_disponible, prix from medicaments where nom like :nom ";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute([':nom' =>  $this->nom . '%']);
+        $medicaments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+       return $medicaments;
     }
 
 }

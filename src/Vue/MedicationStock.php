@@ -1,51 +1,84 @@
 <?php
-// Inclure le fichier contenant la classe LoginController
+// Inclure le fichier contenant la classe GestionMedicaments
 require_once '../controller/GestionMedicaments.php';
 include_once '../model/Medications.php';
-// Créer une instance de LoginController
+
+// Créer une instance de GestionMedicaments
 $medicaments = new GestionMedicaments();
 
-// Appeler la méthode login() pour gérer la connexion
-$dataMedicaments = $medicaments->selectMedicament();
+// Initialiser la variable $dataMedicaments
+$dataMedicaments = [];
 
+// Vérifiez si le formulaire a été soumis
+if (isset($_POST['nom']) && !empty($_POST['nom'])) {
 
+    $dataMedicaments = $medicaments->rechercherMedicament();
+} else {
 
+    $dataMedicaments = $medicaments->selectMedicament();
+}
 ?>
 
 
+<head>
+    <meta charset="utf-8">
+    <title>Laboratoire GSB</title>
     <link rel="stylesheet" href="../styles/MedicationStock.css">
+</head>
 
-
+<body>
 <?php require '../Vue/Header.php'; ?>
+<div class="containerTitleTable">
+    <h2>Médicaments</h2>
+    <div class="containerTitleTable">
+        <div class="containerSearchTable">
+            <div class="containerSearchButton">
+            <form class="searchBar" method="POST">
+                <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher..." ">
+                <input type = "submit"  value = "Rechercher" class="buttonRechercher">
 
-<h2>Médicament</h2>
-<div class="containerSearchTable">
-<form class="searchBar" method="GET">
-    <input class="inputSearchBar" type="search" name="a" placeholder="Rechercher..." />
-</form>
-    <?php
-    // Vérifie si $dataMedicaments est vide
-    if (empty($dataMedicaments)) {
-        echo '<tr><td colspan="3">Aucun médicament en stock</td></tr>';
-    } else {
-        // Si $dataMedicaments n'est pas vide, afficher les données
-        echo("
-<table>
-    <tr>
-        <td class='enTete'>Nom</td>
-        <td class='enTete'>Description</td>
-        <td class='enTete'>Quantité</td>
-    </tr>
-    <tr>
-        <td>".$dataMedicaments['nom']."</td>
-        <td>".$dataMedicaments['description']."</td>
-        <td>".$dataMedicaments['quantite_disponible']."</td>
-    </tr>
-    ");
-    }
-    ?>
+            </form>
+                <div class="buttons">
+                    <button class="buttonHistorique">Historique</button>
+                    <form method="POST" action="">
+                    <button class="buttonCommander" type="submit" name='medicamentsSelectionne[]'>Commander</button>
 
-</table>
+
+                </div>
+            </div>
+            <?php
+            // Vérifie si $dataMedicaments est vide
+            if (empty($dataMedicaments)) {
+                echo '<div>Aucun médicament en stock</div>';
+            } else {
+                // Si $dataMedicaments n'est pas vide, afficher les données
+                echo "<table>
+                    <tr> 
+                        <th class='enTete'></th>
+                        <th class='enTete'>CIP</th>
+                        <th class='enTete'>Nom</th>
+                        <th class='enTete'>Type</th>
+                        <th class='enTete'>Quantité</th>
+                        <th class='enTete'>Prix</th>
+                    </tr>";
+                foreach ($dataMedicaments as $item) {
+                    echo "<tr>
+    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIP']."'></td>          
+    <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIP']."' > ".$item['CIP']."</a></td>
+    <td>".$item['nom']."</td>
+    <td>".$item['type']."</td>
+    <td>".$item['quantite_disponible']."</td>
+    <td>".$item['prix']."</td>
+</tr>";
+                }
+                echo "</table>";
+            }
+            ?>
+
+        </div>
+    </div>
+    </form>
 </div>
+
 </body>
 </html>
