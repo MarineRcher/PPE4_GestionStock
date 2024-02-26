@@ -1,21 +1,15 @@
 <?php
 session_start();
 var_dump($_SESSION['medicamentsSelectionne']);
-
 if (isset($_SESSION['medicamentsSelectionne'])) {
     $medicamentsSelectionne = $_SESSION['medicamentsSelectionne'];
 
-    // Vous pouvez maintenant parcourir $medicamentsSelectionne pour afficher les données
     foreach ($medicamentsSelectionne as $medicament) {
         if (is_array($medicament)) {
-            echo "CIP: " . htmlspecialchars($medicament['CIP']) . ", Nom: " . htmlspecialchars($medicament['nom']) . ", Type: " . htmlspecialchars($medicament['type']) . ", Quantité disponible: " . htmlspecialchars($medicament['quantite_disponible']) . ", Prix: " . htmlspecialchars($medicament['prix']) . "<br>";
+            echo "CIP: " . htmlspecialchars($medicament['CIP'] ?? '') . ", Nom: " . htmlspecialchars($medicament['nom'] ?? 'Inconnu') . ", Type: " . htmlspecialchars($medicament['type'] ?? 'Non spécifié') . ", Quantité disponible: " . htmlspecialchars($medicament['quantite_disponible'] ?? '0') . ", Prix: " . htmlspecialchars($medicament['prix'] ?? '0') . "<br>";
         } else {
             echo "Erreur : médicament attendu comme tableau, obtenu comme chaîne.";
-           var_dump($medicamentsSelectionne);
-
         }
-
-
     }
 }
 
