@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Inclure le fichier contenant la classe GestionMedicaments
 require_once '../controller/GestionMedicaments.php';
 include_once '../model/Medications.php';
@@ -16,6 +17,14 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
 } else {
 
     $dataMedicaments = $medicaments->selectMedicament();
+}
+
+if (!empty($_POST['medicamentsSelectionne'])) {
+
+    $_SESSION['medicamentsSelectionne'] = array_map(function($item) {
+        list($CIP, $nom, $type, $quantite, $prix) = explode('|', $item);
+        return ['CIP' => $CIP, 'nom' => $nom, 'type' => $type, 'quantite_disponible' => $quantite, 'prix' => $prix];
+    }, $_POST['medicamentsSelectionne']);
 }
 ?>
 
@@ -41,7 +50,7 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
                 <div class="buttons">
                     <button class="buttonHistorique">Historique</button>
                     <form method="POST" action="">
-                    <button class="buttonCommander" type="submit" name='medicamentsSelectionne[]'>Commander</button>
+                    <button class="buttonCommander" type="submit" name='medicamentsSelectionne[]' ><a href="FormulaireCommande.php">Commander</a></button>
 
 
                 </div>
@@ -52,28 +61,33 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
                 echo '<div>Aucun médicament en stock</div>';
             } else {
                 // Si $dataMedicaments n'est pas vide, afficher les données
-                echo "<table>
-                    <tr> 
-                        <th class='enTete'></th>
-                        <th class='enTete'>CIP</th>
-                        <th class='enTete'>Nom</th>
-                        <th class='enTete'>Type</th>
-                        <th class='enTete'>Quantité</th>
-                        <th class='enTete'>Prix</th>
-                    </tr>";
+            echo "<table>
+        <tr>
+            <th class='enTete'></th>
+            <th class='enTete'>CIP</th>
+            <th class='enTete'>Nom</th>
+            <th class='enTete'>Type</th>
+            <th class='enTete'>Quantité</th>
+            <th class='enTete'>Prix</th>
+        </tr>";
                 foreach ($dataMedicaments as $item) {
+                    $medicamentInfo = $item['CIP'] . '|' . $item['nom'] . '|' . $item['type'] . '|' . $item['quantite_disponible'] . '|' . $item['prix'];
+
                     echo "<tr>
-    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIP']."'></td>          
-    <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIP']."' > ".$item['CIP']."</a></td>
-    <td>".$item['nom']."</td>
-    <td>".$item['type']."</td>
-    <td>".$item['quantite_disponible']."</td>
-    <td>".$item['prix']."</td>
-</tr>";
+        <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $medicamentInfo . "'></td>
+        <td>" .$item['CIP'] . "</td>
+        <td>" . $item['nom']. "</td>
+        <td>" .$item['type'] . "</td>
+        <td>" .$item['quantite_disponible'] . "</td>
+        <td>" .$item['prix'] . "</td>
+    </tr>";
                 }
+
                 echo "</table>";
             }
             ?>
+
+
 
         </div>
     </div>

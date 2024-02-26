@@ -57,4 +57,5 @@ class Medications extends \Database
        return $medicaments;
     }
 
+
 }
