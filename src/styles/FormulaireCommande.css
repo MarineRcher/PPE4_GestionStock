@@ -4,6 +4,16 @@
     margin: 0;
     padding: 0;
 }
+.error{
+    background-color: red;
+    opacity: 0.6;
+    border-color: red;
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    padding: 30px;
+    border-radius: 8px;
+}
 
 h2{
     margin-left: 3vh;
@@ -14,4 +24,29 @@ h2{
 
 .containerForm{
     background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 2vh;
+    width: 90%;
+    border-top: 2px solid #e8e6e6;
+
+}
+
+a{
+    text-decoration-line: none;
+}
+
+td {
+    border-top: 1px solid #e8e6e6;
+    border-bottom: 1px solid #e8e6e6;
+    padding: 10px;
+}
+
+
+
+.enTete{
+    border-top: 1.7px solid #e8e6e6;
+    padding: 10px;
 }

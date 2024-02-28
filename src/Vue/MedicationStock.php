@@ -11,7 +11,7 @@ $medicaments = new GestionMedicaments();
 $dataMedicaments = [];
 
 // Vérifiez si le formulaire a été soumis
-if (isset($_POST['nom']) && !empty($_POST['nom'])) {
+if (isset($_POST['nom'])) {
 
     $dataMedicaments = $medicaments->rechercherMedicament();
 } else {
@@ -20,7 +20,6 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
 }
 
 if (!empty($_POST['medicamentsSelectionne'])) {
-echo 'here';
     $_SESSION['medicamentsSelectionne'] = array_map(function($item) {
         list($CIP, $nom, $type, $quantite, $prix) = explode('|', $item);
         return ['CIP' => $CIP, 'nom' => $nom, 'type' => $type, 'quantite_disponible' => $quantite, 'prix' => $prix];

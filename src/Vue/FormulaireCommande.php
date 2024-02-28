@@ -1,16 +1,11 @@
 <?php
 session_start();
-var_dump($_SESSION['medicamentsSelectionne']);
+
 if (isset($_SESSION['medicamentsSelectionne'])) {
     $medicamentsSelectionne = $_SESSION['medicamentsSelectionne'];
 
-    foreach ($medicamentsSelectionne as $medicament) {
-        if (is_array($medicament)) {
-            echo "CIP: " . htmlspecialchars($medicament['CIP'] ?? '') . ", Nom: " . htmlspecialchars($medicament['nom'] ?? 'Inconnu') . ", Type: " . htmlspecialchars($medicament['type'] ?? 'Non spécifié') . ", Quantité disponible: " . htmlspecialchars($medicament['quantite_disponible'] ?? '0') . ", Prix: " . htmlspecialchars($medicament['prix'] ?? '0') . "<br>";
-        } else {
-            echo "Erreur : médicament attendu comme tableau, obtenu comme chaîne.";
-        }
-    }
+} else {
+    $error= 'pas de medicament selectionne';
 }
 
 ?>
@@ -27,6 +22,7 @@ if (isset($_SESSION['medicamentsSelectionne'])) {
 <div class="containerTitleTable">
     <h2>Médicaments</h2>
     <?php
+    if (empty($error)) {
 
         // Si $dataMedicaments n'est pas vide, afficher les données
         echo "<table>
@@ -38,24 +34,22 @@ if (isset($_SESSION['medicamentsSelectionne'])) {
                         <th class='enTete'>Quantité</th>
                         <th class='enTete'>Prix</th>
                     </tr>";
-        foreach ($dataMedicaments as $item) {
+        foreach ($medicamentsSelectionne as $medicament) {
             echo "<tr>
-    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIP']."'></td>          
-    <td>".$item['CIP']."</td>
-    <td>".$item['nom']."</td>
-    <td>".$item['type']."</td>
-    <td>".$item['quantite_disponible']."</td>
-    <td>".$item['prix']."</td>
+          
+    <td>" . $medicament['CIP'] . "</td>
+    <td>" . $medicament['nom'] . "</td>
+    <td>" . $medicament['type'] . "</td>
+    <td>" . $medicament['quantite_disponible'] . "</td>
+    <td>" . $medicament['prix'] . "</td>
 </tr>";
         }
         echo "</table>";
-
+    }else{
+        echo  "<div class='error'>" . $error . "</div>";
+    }
     ?>
-    <div class="containerForm">
-            <form class="" method="POST">
-                <label></label>
 
-    </form>
 </div>
 
 </body>
