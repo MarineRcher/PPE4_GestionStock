@@ -34,6 +34,10 @@ class Medications extends \Database
     {
         $this-> nom = $nom;
     }
+    public function rechercheCIP($CIP)
+    {
+        $this-> CIP = $CIP;
+    }
 
     public function selectMedicaments()
     {
@@ -57,5 +61,34 @@ class Medications extends \Database
        return $medicaments;
     }
 
+    public function panierMedicaments()
+    {
+        $sql = "SELECT DISTINCT CIP, nom, type, quantite_disponible, prix FROM medicaments WHERE CIP = :CIP";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':CIP', $this->CIP, PDO::PARAM_STR); // Liez le paramètre CIP correctement.
+        $stmt->execute(); // Exécutez la requête préparée.
+        $medicaments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($medicaments)){
+            return $medicaments;
+
+        }
+    }
+ public function commande()
+    {
+        $sql = "INSERT INTO commandes (id_utilisateur, date_disponibilite) VALUES (:id_utilisateur, :date_disponibilite)";
+        $stmt = $this->pdo->prepare($sql);
+
+        if ($stmt->execute([
+            ':id_utilisateur' => $this->nom,
+            ':date_disponibilite' => $this->prenom,
+
+        ])) {
+            $message = 'Commande env.';
+        } else {
+            $message = 'Erreur lors de la création du compte.';
+        }
+        return $message;
+    }
 
 }

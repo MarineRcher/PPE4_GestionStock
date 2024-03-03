@@ -34,6 +34,7 @@ table {
 
 }
 
+
 a{
     text-decoration-line: none;
 }
@@ -42,6 +43,7 @@ td {
     border-top: 1px solid #e8e6e6;
     border-bottom: 1px solid #e8e6e6;
     padding: 10px;
+
 }
 
 
@@ -49,4 +51,52 @@ td {
 .enTete{
     border-top: 1.7px solid #e8e6e6;
     padding: 10px;
+}
+th, td {
+    text-align: center; /* Centre le texte */
+    vertical-align: middle; /* Centre le texte verticalement */
+}
+
+
+.inputQuantity{
+    background-color: white;
+    border: 0.7px #e3e5e6 solid;
+    border-radius: 3px;
+    width: 20%;
+    height: 10%;
+    padding-left: 1vh;
+}
+
+.formulaireCommande{
+    background-color: white;
+    margin: 5vh;
+    border-radius: 4px;
+
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.LabelInputButton{
+        width: 20%;
+    margin: 1vh;
+    padding: 1vh;
+
+}
+
+Input, button {
+    color: #0845ff;
+    border: #0845ff solid 1px;
+}
+Input:hover{
+    background-color: #0845ff;
+    border: #afaeae;
+    color: white;
+}
+button:hover {
+    background-color: #0845ff;
+    border: #afaeae;
+    color: white;
 }
