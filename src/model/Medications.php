@@ -1,7 +1,7 @@
 <?php
 namespace model;
 use PDO;
-require '../Core/DataBase.php';
+require_once '../Core/DataBase.php';
 
 class Medications extends \Database
 {
@@ -16,8 +16,8 @@ class Medications extends \Database
     protected $pdo;
     public function __construct ()
     {
-        parent::__construct(); // Call the parent constructor
-        $this->pdo = $this->connect(); // Assign the PDO instance to $this->pdo
+        parent::__construct();
+        $this->pdo = $this->connect();
 
 
     }
@@ -71,24 +71,8 @@ class Medications extends \Database
 
         if (!empty($medicaments)){
             return $medicaments;
-
         }
     }
- public function commande()
-    {
-        $sql = "INSERT INTO commandes (id_utilisateur, date_disponibilite) VALUES (:id_utilisateur, :date_disponibilite)";
-        $stmt = $this->pdo->prepare($sql);
 
-        if ($stmt->execute([
-            ':id_utilisateur' => $this->nom,
-            ':date_disponibilite' => $this->prenom,
-
-        ])) {
-            $message = 'Commande env.';
-        } else {
-            $message = 'Erreur lors de la création du compte.';
-        }
-        return $message;
-    }
 
 }

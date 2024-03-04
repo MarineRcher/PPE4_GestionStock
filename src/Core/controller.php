@@ -1,6 +1,7 @@
 <?php
+namespace src\Core;
 class Controller {
-    // Charger le modèle
+
     public function model(string $model) {
         $modelClass = 'model\\' . $model; // Add the namespace to the class name
         require_once '../model/' . $model . '.php';

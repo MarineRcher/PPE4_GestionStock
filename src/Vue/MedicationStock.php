@@ -24,7 +24,6 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
 
 }
 
-var_dump($_SESSION['medicamentsSelectionne']);
 ?>
 
 

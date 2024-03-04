@@ -1,7 +1,10 @@
 <?php
-    include '../Core/controller.php';
+include_once '../Core/controller.php';
+use src\Core\Controller;
 
-    class GestionMedicaments extends \Controller{
+$controller = new Controller();
+    class GestionMedicaments extends Controller{
+
 
         public function selectMedicament()
         {
@@ -41,30 +44,7 @@
             }
         }
 
-        public function commandeMedicament()
-        {
-            // Vérification de la soumission du formulaire
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIP'], $_POST['nom'], $_POST['type'], $_POST['quantite_disponible']) && $_POST['prix'] !== "") {
 
-
-                    $CIP = $_POST['CIP'];
-                    $nom = $_POST['nom'];
-                    $type = $_POST['type'];
-                    $quantite_disponible = $_POST['quantite_disponible'];
-                   $prix = $_POST['prix'];
-
-                    $modelMedicaments = $this->model('Medications');
-                    $modelMedicaments->Medicament($CIP, $nom, $type, $quantite_disponible,$prix);
-                     $modelMedicaments->commande();
-                        header("Location: ../Vue/MedicationStock.php");
-
-
-            } else {
-                $message="Merci de remplir les champs vides";
-
-            }
-            return $message;
-        }
 
 
 

@@ -4,8 +4,12 @@ session_start();
 // Inclure le fichier contenant la classe GestionMedicaments
 require_once '../controller/GestionMedicaments.php';
 include_once '../model/Medications.php';
+require_once '../controller/CommandesController.php';
+include_once '../model/Commandes.php';
 
-// Créer une instance de GestionMedicaments
+$commande = new CommandesController();
+$errorMessage = $commande->commandeMedicament();
+
 $medicaments = new GestionMedicaments();
 
 
@@ -15,6 +19,8 @@ if (isset($_POST['medicamentsSelectionne']) && !empty($_POST['medicamentsSelecti
 } else {
     $error = 'Pas de médicament sélectionné.';
 }
+
+if (isset($_POST['quantite_disponible'])){$_POST['quantite_disponible'] = [];}
 
 ?>
 
@@ -26,13 +32,20 @@ if (isset($_POST['medicamentsSelectionne']) && !empty($_POST['medicamentsSelecti
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require '../Vue/Header.php';
+if(!empty($errorMessage)){ ?>
+    <div class='containterErrorMessage'>
+
+        <?= $errorMessage ?>
+    </div>
+    <?php
+}?>
 <div class="containerTitleTable">
     <h2>Médicaments</h2>
     <div class="formulaireCommande">
     <?php
     if (empty($error)) {
-        echo '<form method=POST > ';
+        echo '<form method=POST action=""> ';
         echo "<table>
                     <tr> 
                         <th class='enTete'>CIP</th>
@@ -44,14 +57,20 @@ if (isset($_POST['medicamentsSelectionne']) && !empty($_POST['medicamentsSelecti
         foreach ($medicamentsSelectionne as $group) {
             foreach ($group as $item) {
                 echo "<tr>";
-                echo "<td name='" . $item['CIP'] . "'>" . ($item['CIP'] ?? 'Non spécifié') . "</td>";
-                echo "<td name='" . $item['nom'] . "'>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
-                echo "<td name='" . $item['type'] . "'>" . ($item['type'] ?? 'Non spécifié') . "</td>";
-                 echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['quantite_disponible'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
-                 echo "<td name='" . $item['prix'] . "'>" . ($item['prix'] ?? '0') . "</td>";
+                echo "<td>" . ($item['CIP'] ?? 'Non spécifié') . "</td>";
+                echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
+                echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
+                echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIP'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
+                echo "<td>" . ($item['prix'] ?? '0') . "</td>";
+                // Ajout des champs cachés pour chaque médicament
+                echo "<input name='cip[]' type='hidden' value='" . ($item['CIP'] ?? '') . "' >";
+                echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
+                echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";
+                echo "<input name='prix[]' type='hidden' value='" . ($item['prix'] ?? '') . "' >";
                 echo "</tr>";
             }
         }
+
 
         echo "</table>";
 
