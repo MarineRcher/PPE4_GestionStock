@@ -10,7 +10,7 @@ include_once '../model/Medications.php';
 $medicaments = new GestionMedicaments();
 
 // Vérifiez si le formulaire a été soumis
-if (isset($_POST['nom'])) {
+if (isset($_POST['CIS'])) {
 
     $dataMedicaments = $medicaments->rechercherMedicament();
 } else {
@@ -41,14 +41,14 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
         <div class="containerSearchTable">
             <div class="containerSearchButton">
                 <form class="searchBar" method="POST">
-                    <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher..." ">
+                    <input class="inputSearchBar" id="CIS" type="search" name="CIS" placeholder="Rechercher..." ">
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">
 
                     <button class="buttonHistorique">Historique</button>
                     <form method="POST" action="FormulaireCommande.php" id="monFormulaire">
-                       <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]" >Commander</button>
+                       <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]" >Réserver</button>
 
                 </div>
             </div>
@@ -63,21 +63,19 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
             echo "<table>
                 <tr>
                     <th class='enTete'></th>
-                    <th class='enTete'>CIP</th>
+                    <th class='enTete'>CIS</th>
                     <th class='enTete'>Nom</th>
                     <th class='enTete'>Type</th>
                     <th class='enTete'>Quantité</th>
-                    <th class='enTete'>Prix</th>
                 </tr>";
                     foreach ($dataMedicaments as $item) {
 
                                 echo "<tr>
-                    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIP'] . "'></td>
-                    <td>" .$item['CIP'] . "</td>
+                    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIS'] . "'></td>
+                    <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIS'] . "'>" .$item['CIS'] . "</a></td>
                     <td>" . $item['nom']. "</td>
                     <td>" .$item['type'] . "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
-                    <td>" .$item['prix'] . "</td>
                 </tr>";
                         }
                 echo'</form>';

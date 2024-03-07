@@ -1,6 +1,9 @@
 <?php
 
-include '../Core/Controller.php';
+include_once '../Core/controller.php';
+use src\Core\Controller;
+
+$controller = new Controller();
 
 class LoginController extends Controller {
     public function login()

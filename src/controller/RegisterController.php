@@ -1,6 +1,8 @@
 <?php
+include_once '../Core/controller.php';
+use src\Core\Controller;
 
-include '../Core/controller.php';
+$controller = new Controller();
 class RegisterController extends Controller {
 
     public function addUser()

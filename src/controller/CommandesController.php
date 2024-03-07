@@ -8,28 +8,32 @@ class CommandesController extends Controller{
 
     public function commandeMedicament()
     {
+
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cip'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible']) ) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIS'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible']) ) {
+            if(!empty($_POST['selectedDate'])) {
 
+                $CIS = $_POST['CIS'];
+                $quantite_choisi = $_POST['quantite_disponible'];
+                $date_resolution = $_POST['selectedDate'];
 
-            $CIP = $_POST['cip'];
-            $quantite_choisi = $_POST['quantite_disponible'];
-            $date_resolution = $_POST['selectedDate'];
+                $modelCommande = $this->model('Commandes');
+                $modelCommande->premiereCommande($date_resolution);
+                $error = $modelCommande->commande();
 
-            $modelCommande = $this->model('Commandes');
-            $modelCommande->premiereCommande($date_resolution);
-            $error=$modelCommande->commande();
-
-            $combinedArray = array_combine($CIP, $quantite_choisi);
-            foreach($combinedArray as $cip => $quantite) {
-                $modelCommande->detailCommande($cip, $quantite);
-                $errorDetail = $modelCommande->detailCommandeRequete();
+                $combinedArray = array_combine($CIS, $quantite_choisi);
+                foreach ($combinedArray as $cis => $quantite) {
+                    $modelCommande->detailCommande($cis, $quantite);
+                    $errorDetail = $modelCommande->detailCommandeRequete();
+                }
+                header("Location: ../Vue/MedicationStock.php");
+                //return $error and $errorDetail;
+            }else{
+                return 'Renseignez une date de réservation';
             }
-            header("Location: ../Vue/MedicationStock.php");
-            return $error and $errorDetail;
 
         } else {
-            return "Merci de remplir les champs vides";
+           return "Merci de remplir les champs vides";
 
         }
 

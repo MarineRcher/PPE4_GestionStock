@@ -48,25 +48,23 @@ if(!empty($errorMessage)){ ?>
         echo '<form method=POST action=""> ';
         echo "<table>
                     <tr> 
-                        <th class='enTete'>CIP</th>
+                        <th class='enTete'>CIS</th>
                         <th class='enTete'>Nom</th>
                         <th class='enTete'>Type</th>
                         <th class='enTete'>Quantité</th>
-                        <th class='enTete'>Prix</th>
                     </tr>";
         foreach ($medicamentsSelectionne as $group) {
             foreach ($group as $item) {
                 echo "<tr>";
-                echo "<td>" . ($item['CIP'] ?? 'Non spécifié') . "</td>";
+                echo "<td>" . ($item['CIS'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
-                echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIP'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
-                echo "<td>" . ($item['prix'] ?? '0') . "</td>";
+                echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
+
                 // Ajout des champs cachés pour chaque médicament
-                echo "<input name='cip[]' type='hidden' value='" . ($item['CIP'] ?? '') . "' >";
+                echo "<input name='CIS[]' type='hidden' value='" . ($item['CIS'] ?? '') . "' >";
                 echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
                 echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";
-                echo "<input name='prix[]' type='hidden' value='" . ($item['prix'] ?? '') . "' >";
                 echo "</tr>";
             }
         }
@@ -76,7 +74,7 @@ if(!empty($errorMessage)){ ?>
 
       echo '<label class="LabelInputButton" for="start"><strong>Date de reservation</strong></label>';
 
-        echo'<input class="LabelInputButton" type="date" id="start" name="selectedDate" min="2020-01-01" max="2030-12-31" />';
+        echo'<input class="LabelInputButton" placeholder="dd/mm/yyyy" type="date" id="start" name="selectedDate" min="2020-01-01" max="2030-12-31" />';
 
 
         echo "<button class='LabelInputButton' type='submit'>Commander</button>";

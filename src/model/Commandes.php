@@ -18,7 +18,7 @@ class Commandes extends \Database
 
     public $quantite;
 
-    public $CIP;
+    public $CIS;
 
 
 
@@ -34,21 +34,23 @@ class Commandes extends \Database
         $this-> dateReservation = $dateReservation;
     }
 
-    public function detailCommande($CIP, $quantite)
+    public function detailCommande($CIS, $quantite)
     {
-        $this-> CIP = $CIP;
+        $this-> CIS = $CIS;
         $this-> quantite = $quantite;
     }
     public function commande()
     {
+        $_SESSION['IDCommande'] =[];
         $sql = "INSERT INTO commandes (id_utilisateur, date_disponibilite) VALUES (:id_utilisateur, :date_disponibilite)";
         $stmt = $this->pdo->prepare($sql);
-        $_SESSION['IDCommande'] = $this->pdo->lastInsertId();
+
         if ($stmt->execute([
             ':id_utilisateur' => $_SESSION['id_utilisateur'],
             ':date_disponibilite' => $this->dateReservation,
 
         ])) {
+            $_SESSION['IDCommande'] = $this->pdo->lastInsertId();
             $message = 'Commande envoye.';
 
         } else {
@@ -58,12 +60,12 @@ class Commandes extends \Database
     }
     public function detailCommandeRequete()
     {
-        $sql = "INSERT INTO details_commande (id_commande, id_med, quantite) VALUES (:lastInsertId, (select id_med from medicaments where CIP=:CIP limit 1), :quantite)";
+        $sql = "INSERT INTO details_commande (id_commande, id_med, quantite) VALUES (:lastInsertId, (select id_med from medicaments where CIS=:CIS limit 1), :quantite)";
         $stmt = $this->pdo->prepare($sql);
 
         if ($stmt->execute([
             ':lastInsertId' => $_SESSION['IDCommande'],
-            ':CIP' => $this->CIP,
+            ':CIS' => $this->CIS,
             ':quantite' => $this->quantite,
 
         ])) {

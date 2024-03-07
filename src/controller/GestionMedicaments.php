@@ -15,10 +15,10 @@ $controller = new Controller();
         }
 
         public function rechercherMedicament(){
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])){
-                $nom = $_POST['nom'];
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIS'])){
+                $CIS = $_POST['CIS'];
                 $modelMedicaments = $this->model('Medications');
-                $modelMedicaments->rechercheNom($nom);
+                $modelMedicaments->rechercheCIS($CIS);
                 $dataMedicaments = $modelMedicaments->rechercherMedicaments();
 
                 return $dataMedicaments;
@@ -28,10 +28,10 @@ $controller = new Controller();
         public function panierMedicament() {
             $dataMedicaments = []; // Initialiser en dehors de la boucle
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['medicamentsSelectionne'])) {
-                $CIPs = $_POST['medicamentsSelectionne'];
-                foreach ($CIPs as $item) {
+                $CIS = $_POST['medicamentsSelectionne'];
+                foreach ($CIS as $item) {
                     $modelMedicaments = $this->model('Medications');
-                    $modelMedicaments->rechercheCIP($item);
+                    $modelMedicaments->rechercheCIS($item);
                     $medicamentInfo = $modelMedicaments->panierMedicaments();
                     if (!empty($medicamentInfo)) { // Vérifier si les données ne sont pas vides
                         $dataMedicaments[] = $medicamentInfo; // Ajouter au tableau
