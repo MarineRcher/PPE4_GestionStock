@@ -16,10 +16,7 @@ $medicaments = new GestionMedicaments();
 if (isset($_POST['medicamentsSelectionne']) && !empty($_POST['medicamentsSelectionne'])) {
     $medicamentsSelectionne = $medicaments->panierMedicament();
 
-} else {
-    $error = 'Pas de médicament sélectionné.';
 }
-
 if (isset($_POST['quantite_disponible'])){$_POST['quantite_disponible'] = [];}
 
 ?>

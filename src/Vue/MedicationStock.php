@@ -5,7 +5,6 @@ require_once '../controller/GestionMedicaments.php';
 include_once '../model/Medications.php';
 
 
-
 // Créer une instance de GestionMedicaments
 $medicaments = new GestionMedicaments();
 

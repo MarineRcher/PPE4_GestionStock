@@ -18,18 +18,14 @@
     <nav>
         <ul>
             <li><a href="HomePage.php">Accueil</a></li>
-            <li class="deroulant"><a href="#">Médicaments &ensp;</a>
+            <li class="deroulant" ><a href="#">Gestion de stock &ensp;</a>
                 <ul class="sous">
-                    <li><a href="MedicationStock.php">Gestion de stock</a></li>
-                    <li><a href="#">Demandes</a></li>
+                    <li><a href="MedicationStock.php">Médicaments</a></li>
                 </ul>
             </li>
-            <li class="deroulant"><a href="#">Matériels &ensp;</a>
-                <ul class="sous">
-                    <li><a href="#">Gestion de stock</a></li>
-                    <li><a href="#">Demandes</a></li>
-                </ul>
-            </li>
+            <li class="deroulant"><a href="#">Demandes</a></li>
+            <li class="deroulant"><a href="#">Fournisseurs</a></li>
+            <li class="deroulant"><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
 
         </ul>
     </nav>

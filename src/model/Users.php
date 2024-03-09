@@ -32,9 +32,14 @@ class Users extends \Database
         $this-> email = $email;
         $this-> motDePasse = $motDePasse;
     }
+    public function updateRole($role):void
+    {
+        $this-> role = $role;
+    }
+
     public function verify_user(string $email)
     {
-        $sql = "SELECT id_utilisateur, email, mot_de_passe FROM utilisateurs WHERE email = :email";
+        $sql = "SELECT id_utilisateur, email, mot_de_passe, role FROM utilisateurs WHERE email = :email";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -62,6 +67,37 @@ class Users extends \Database
             $message = 'Erreur lors de la création du compte.';
         }
         return $message;
+    }
+
+    public function GestionUtilisateurs()
+    {
+        $sql = "SELECT id_utilisateur, nom, prenom, email, role FROM utilisateurs";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $users;
+    }
+
+    public function selectUtilisateurs($id)
+    {
+        $sql = "SELECT id_utilisateur, nom, prenom, email, role FROM utilisateurs where id_utilisateur=:id";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute( [':id' => $id]);
+        $users = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $users;
+    }
+    public function MiseAJoutRole($id)
+    {
+        $sql = "update gsb.utilisateurs set role=:role where id_utilisateur=:id";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        if($stmt->execute( [':id' => $id, ':role' => $this->role])){
+            return "Role modifie avec succes";
+        }else {
+            return 'Erreur lors de la modification de role';
+        }
+
     }
 
 

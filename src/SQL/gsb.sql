@@ -3,21 +3,6 @@ DROP DATABASE IF EXISTS gsb;
 create database gsb;
 use gsb;
 
-drop table if exists `roles`;
-
-
-CREATE TABLE `roles` (
-                         `id_role` int (11) PRIMARY KEY auto_increment NOT NULL,
-                         `nom_role` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `roles`
---
-
-INSERT INTO `roles` (`id_role`, `nom_role`)
-VALUES (1, 'admin'),(2, 'user'),(5, 'superUser');
-
 
 drop table if exists utilisateurs;
 
@@ -27,11 +12,11 @@ CREATE TABLE `utilisateurs` (
 `prenom` varchar(255) DEFAULT NULL,
 `email` varchar(255) DEFAULT NULL,
 `mot_de_passe` varchar(255) DEFAULT NULL,
-`id_role` int(11) DEFAULT NULL
+`role` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `utilisateurs`
 
-    ADD KEY `id_role_fk` (`id_role`);
+
+
 
 drop table if exists commandes;
 
@@ -92,11 +77,7 @@ ALTER TABLE `mouvements`
     ADD CONSTRAINT `mouvements_ibfk_1` FOREIGN KEY (`id_med`) REFERENCES `medicaments` (`id_med`),
     ADD CONSTRAINT `mouvements_ibfk_2` FOREIGN KEY (`id_commande`) REFERENCES `commandes` (`id_commande`);
 
---
--- Contraintes pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-    ADD CONSTRAINT `id_role_fk` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`);
+
 COMMIT;
 
 

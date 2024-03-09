@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.containerTitleTable{
+    background-color: #f4f5f7;
+    margin: 0;
+    padding: 0;
+}
+h2{
+    margin-left: 3vh;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+form{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.buttonRechercher{
+    background-color: #0845ff;
+    color: white;
+    padding: 1vh;
+    border: none;
+    border-radius: 4px;
+    margin-left: 1vh;
+}
+
+.buttonRechercher:hover{
+    background-color: white;
+    color: #0845ff;
+    padding: 1vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+    margin-left: 1vh;
+}
+
+.containerSearchTable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    margin: 5vh;
+    background-color: white;
+    padding: 3vh;
+    border: 0.7px #e3e5e6 solid;
+}
+.inputSearchBar{
+    background-color: #f5f5f5;
+    border: 0.7px #e3e5e6 solid;
+    border-radius: 3px;
+    width: 200%;
+    height: 90%;
+    padding-left: 1vh;
+
+}
+
+.containerSearchButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    max-height: 50px;
+}
+
+.containerTable{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    margin: 5vh;
+    background-color: white;
+    padding: 3vh;
+    border: 0.7px #e3e5e6 solid;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+
+}
+.buttonRole{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #0845ff;
+    color: white;
+    padding: 1vh;
+    border: none;
+    border-radius: 4px;
+}
+
+.buttonRole:hover{
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    color: #0845ff;
+    padding: 1vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 2vh;
+    width: 90%;
+    border-top: 2px solid #e8e6e6;
+    background-color: white;
+
+}
+
+td {
+    border-top: 1px solid #e8e6e6;
+    border-bottom: 1px solid #e8e6e6;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.enTete{
+    border-top: 1.7px solid #e8e6e6;
+    padding: 10px;
+    text-align: center;
+}
+
+

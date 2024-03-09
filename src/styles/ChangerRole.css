@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.containerTitleTable{
+    background-color: #f4f5f7;
+    margin: 0;
+    padding: 0;
+}
+.error{
+    background-color: red;
+    opacity: 0.6;
+    border-color: red;
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+h2{
+    margin-left: 3vh;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.containerForm{
+    background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 2vh;
+    width: 90%;
+    border-top: 2px solid #e8e6e6;
+
+}
+
+
+a{
+    text-decoration-line: none;
+}
+
+td {
+    border-top: 1px solid #e8e6e6;
+    border-bottom: 1px solid #e8e6e6;
+    padding: 10px;
+
+}
+
+
+
+.enTete{
+    border-top: 1.7px solid #e8e6e6;
+    padding: 10px;
+}
+th, td {
+    text-align: center; /* Centre le texte */
+    vertical-align: middle; /* Centre le texte verticalement */
+}
+
+
+
+.formulaireRole{
+    background-color: white;
+    margin: 5vh;
+    border-radius: 4px;
+
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+
+button {
+    color: #0845ff;
+    border: #0845ff solid 1px;
+
+    width: 20%;
+    margin: 1vh;
+    padding: 1vh;
+
+}
+button:hover {
+    background-color: #0845ff;
+    border: #afaeae;
+    color: white;
+
+    width: 20%;
+    margin: 1vh;
+    padding: 1vh;
+}
+
+.boutton{
+    display: flex;
+    justify-content: flex-end;
+    margin: 5vh;
+}

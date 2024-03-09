@@ -4,3 +4,6 @@
 - Form commande : input quantité peu voyant
 - Enlever colonne prix par quantité qui reste en stock dans form commande
 - Format date formulaire commande en format usa
+
+
+- Ajout table "trace_utilisateur" 

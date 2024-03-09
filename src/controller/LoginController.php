@@ -26,6 +26,8 @@ class LoginController extends Controller {
                 if (password_verify($password, $user_data['mot_de_passe'])) {
                     $_SESSION['id_utilisateur'] = $user_data['id_utilisateur'];
                     $_SESSION['email_utilisateur'] = $user_data['email'];
+                    $_SESSION['role'] = $user_data['role'];
+
                     header("Location: ../Vue/HomePage.php");
 
                     exit;
