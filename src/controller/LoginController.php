@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once '../Core/controller.php';
 use src\Core\Controller;
 
@@ -8,7 +8,7 @@ $controller = new Controller();
 class LoginController extends Controller {
     public function login()
     {
-        session_start();
+
         if (isset($_SESSION['id_utilisateur'])) {
             header("Location: ../Vue/HomePage.php");
             exit;
@@ -24,7 +24,7 @@ class LoginController extends Controller {
 
             if (!empty($user_data)) {
                 if (password_verify($password, $user_data['mot_de_passe'])) {
-                    $_SESSION['id_utilisateur'] = $user_data['id_utilisateur'];
+                   $_SESSION['id_utilisateur'] = $user_data['id_utilisateur'];
                     $_SESSION['email_utilisateur'] = $user_data['email'];
                     $_SESSION['role'] = $user_data['role'];
 

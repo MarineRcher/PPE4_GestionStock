@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 // Inclure le fichier contenant la classe GestionMedicaments
 require_once '../controller/GestionMedicaments.php';
 include_once '../model/Medications.php';

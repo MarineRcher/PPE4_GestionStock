@@ -1,4 +1,5 @@
 <?php
+
 include_once '../Core/controller.php';
 use src\Core\Controller;
 
@@ -37,6 +38,15 @@ class CommandesController extends Controller{
 
         }
 
+
+    }
+
+    public function selectCommandeParUtilisateur()
+    {
+
+        $modelCommande = $this->model('Commandes');
+        $commandesParUtilisateur = $modelCommande->selectCommandesParUtilisateur();
+        return $commandesParUtilisateur;
 
     }
 }

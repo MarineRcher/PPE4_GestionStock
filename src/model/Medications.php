@@ -39,7 +39,7 @@ class Medications extends \Database
 
     public function selectMedicaments()
     {
-        $sql= "select distinct nom, CIS, type, quantite_disponible from medicaments limit 200";
+        $sql= "select CIS, S.nom, type, S.quantite_disponible from gsb.stock as S join gsb.medicaments as M on M. id_stock = S.id_stock";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute();
         $medicaments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ class Medications extends \Database
 
     public function rechercherMedicaments()
     {
-        $sql= "select distinct nom, CIS, type, quantite_disponible from medicaments where CIS like :CIS ";
+        $sql= "select CIS, S.nom, type, S.quantite_disponible from gsb.stock as S join gsb.medicaments as M on M. id_stock = S.id_stock where CIS like :CIS ";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute([':CIS' =>  $this->CIS . '%']);
         $medicaments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,7 +61,7 @@ class Medications extends \Database
 
     public function panierMedicaments()
     {
-        $sql = "SELECT DISTINCT CIS, nom, type, quantite_disponible FROM medicaments WHERE CIS = :CIS";
+        $sql = "select CIS, S.nom, type, S.quantite_disponible from gsb.stock as S join gsb.medicaments as M on M. id_stock = S.id_stock WHERE CIS = :CIS";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':CIS', $this->CIS, PDO::PARAM_STR); // Liez le paramètre CIS correctement.
         $stmt->execute(); // Exécutez la requête préparée.

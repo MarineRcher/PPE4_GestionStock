@@ -23,7 +23,7 @@
                     <li><a href="MedicationStock.php">Médicaments</a></li>
                 </ul>
             </li>
-            <li class="deroulant"><a href="#">Demandes</a></li>
+            <li class="deroulant"><a href="Demandes.php">Demandes</a></li>
             <li class="deroulant"><a href="#">Fournisseurs</a></li>
             <li class="deroulant"><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
 
