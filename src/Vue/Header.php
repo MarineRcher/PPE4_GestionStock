@@ -21,6 +21,8 @@
             <li class="deroulant" ><a href="#">Gestion de stock &ensp;</a>
                 <ul class="sous">
                     <li><a href="MedicationStock.php">Médicaments</a></li>
+                    <li><a href="SubtanceActiveStock.php">Subtances Actives</a></li>
+                    <li><a href="MaterielStock.php">Matériels</a></li>
                 </ul>
             </li>
             <li class="deroulant"><a href="Demandes.php">Demandes</a></li>

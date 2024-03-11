@@ -2,25 +2,23 @@
 session_start();
 
 // Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/GestionMedicaments.php';
-include_once '../model/Medications.php';
+require_once '../controller/MaterielController.php';
+include_once '../model/Materiel.php';
 
 
 // Créer une instance de GestionMedicaments
-$medicaments = new GestionMedicaments();
+$materiel= new \controller\MaterielController();
 
 // Vérifiez si le formulaire a été soumis
-if (isset($_POST['CIS'])) {
-
-    $dataMedicaments = $medicaments->rechercherMedicament();
+if (isset($_POST['nom'])) {
+    $dataMateriel = $materiel->rechercherMateriel();
 } else {
-
-    $dataMedicaments = $medicaments->selectMedicament();
+    $dataMateriel = $materiel->selectMateriel();
 }
-$medicamentsSelectionne= [];
-$_SESSION['medicamentsSelectionne'] = [];
-if (!empty($_POST['medicamentsSelectionne']) ) {
-    $_SESSION['medicamentsSelectionne'] =  $_POST['medicamentsSelectionne'];
+$materielSelectionne= [];
+$_SESSION['materielSelectionne'] = [];
+if (!empty($_POST['materielSelectionne']) ) {
+    $_SESSION['materielSelectionne'] =  $_POST['materielSelectionne'];
 
 }
 
@@ -36,50 +34,46 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
 <body>
 <?php require '../Vue/Header.php'; ?>
 <div class="containerTitleTable">
-    <h2>Médicaments</h2>
+    <h2>Matériel</h2>
     <div class="containerTitleTable">
         <div class="containerSearchTable">
             <div class="containerSearchButton">
                 <form class="searchBar" method="POST">
-                    <input class="inputSearchBar" id="CIS" type="search" name="CIS" placeholder="Rechercher..." ">
+                    <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher..." ">
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">
 
                     <button class="buttonHistorique">Historique</button>
                     <form method="POST" action="FormulaireCommande.php" id="monFormulaire">
-                       <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]" >Réserver</button>
+                        <button class="buttonCommander" type="submit" name="materielSelectionne[]">Réserver</button>
 
                 </div>
             </div>
             <?php
             // Vérifie si $dataMedicaments est vide
-            if (empty($dataMedicaments)) {
-                echo '<div>Aucun médicament en stock</div>';
+            if (empty($dataMateriel)) {
+                echo '<div>Aucun matériel en stock</div>';
             } else {
 
 
                 // Si $dataMedicaments n'est pas vide, afficher les données
-            echo "<table>
+                echo "<table>
                 <tr>
                     <th class='enTete'></th>
-                    <th class='enTete'>CIS</th>
-                    <th class='enTete'>Nom</th>
-                    <th class='enTete'>Type</th>
+                    <th class='enTete'>Nom</th>  
                     <th class='enTete'>Quantité</th>
                 </tr>";
-                    foreach ($dataMedicaments as $item) {
+                foreach ($dataMateriel as $item) {
 
-                                echo "<tr>
-                    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIS'] . "'></td>
-                    <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIS'] . "'>" .$item['CIS'] . "</a></td>
+                    echo "<tr>
+                    <td><input type='checkbox' name='materielSelectionne[]' value='" . $item['id_stock'] . "'></td>
                     <td>" . $item['nom']. "</td>
-                    <td>" .$item['type'] . "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
                 </tr>";
-                        }
+                }
                 echo'</form>';
-            echo "</table>";
+                echo "</table>";
 
 
 
@@ -88,7 +82,7 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
 
         </div>
 
-        </div>
+    </div>
 
 </div>
 
