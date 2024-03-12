@@ -25,8 +25,10 @@
                     <li><a href="MaterielStock.php">Matériels</a></li>
                 </ul>
             </li>
-            <li class="deroulant"><a href="Demandes.php">Demandes</a></li>
+            <li><a href="Demandes.php">Demandes</a></li>
             <li class="deroulant"><a href="#">Fournisseurs</a></li>
+            <li><a href="#">Gestion fournisseurs</a></li>
+            <li><a href="#">Commandes</a></li>
             <li class="deroulant"><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
 
         </ul>
