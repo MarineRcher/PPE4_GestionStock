@@ -26,4 +26,24 @@ class MaterielController extends Controller
         }
 
     }
+
+    public function panierMateriel() {
+        $dataSubtanceActive = []; // Initialiser en dehors de la boucle
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['materielSelectionne'])) {
+            $stock = $_POST['materielSelectionne'];
+
+            foreach ($stock as $item) {
+                $modelMateriel = $this->model('Materiel');
+                $modelMateriel->panier($item);
+                $materielInfo = $modelMateriel->panierMateriel();
+                if (!empty($materielInfo)) { // Vérifier si les données ne sont pas vides
+                    $dataMateriel[] = $materielInfo; // Ajouter au tableau
+                }
+            }
+            return $dataMateriel;
+
+        } else {
+            echo "Sélectionnez du matériel";
+        }
+    }
 }

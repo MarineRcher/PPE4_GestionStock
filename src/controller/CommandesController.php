@@ -6,15 +6,14 @@ use src\Core\Controller;
 $controller = new Controller();
 class CommandesController extends Controller{
 
-
-    public function commandeMedicament()
+     public function commande()
     {
 
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIS'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible']) ) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible']) ) {
             if(!empty($_POST['selectedDate'])) {
 
-                $CIS = $_POST['CIS'];
+                $idStock = $_POST['id_stock'];
                 $quantite_choisi = $_POST['quantite_disponible'];
                 $date_resolution = $_POST['selectedDate'];
 
@@ -22,19 +21,19 @@ class CommandesController extends Controller{
                 $modelCommande->premiereCommande($date_resolution);
                 $error = $modelCommande->commande();
 
-                $combinedArray = array_combine($CIS, $quantite_choisi);
-                foreach ($combinedArray as $cis => $quantite) {
-                    $modelCommande->detailCommande($cis, $quantite);
-                    $errorDetail = $modelCommande->detailCommandeRequete();
+                $combinedArray = array_combine($idStock, $quantite_choisi);
+                foreach ($combinedArray as $stock => $quantite) {
+                    $modelCommande->detailCommande( $quantite);
+                    $errorDetail = $modelCommande->detailCommandeRequete($stock);
                 }
-                header("Location: ../Vue/MedicationStock.php");
+                header("Location: ../Vue/HomePage.php");
                 //return $error and $errorDetail;
             }else{
                 return 'Renseignez une date de réservation';
             }
 
         } else {
-           return "Merci de remplir les champs vides";
+          // return "Merci de remplir les champs vides";
 
         }
 
@@ -49,4 +48,6 @@ class CommandesController extends Controller{
         return $commandesParUtilisateur;
 
     }
+
+
 }

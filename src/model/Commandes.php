@@ -35,9 +35,9 @@ class Commandes extends \Database
         $this-> dateReservation = $dateReservation;
     }
 
-    public function detailCommande($CIS, $quantite)
+    public function detailCommande($quantite)
     {
-        $this-> CIS = $CIS;
+
         $this-> quantite = $quantite;
     }
     public function commande()
@@ -59,7 +59,7 @@ class Commandes extends \Database
         }
         return $message;
     }
-    public function detailCommandeRequete()
+    public function detailCommandeRequeteMedicament()
     {
         $sql = "INSERT INTO details_commande (id_commande, id_stock, quantite) VALUES (:lastInsertId, (select S.id_stock from gsb.stock as S join gsb.medicaments as M on M. id_stock = S.id_stock where CIS=:CIS limit 1), :quantite)";
         $stmt = $this->pdo->prepare($sql);
@@ -67,6 +67,23 @@ class Commandes extends \Database
         if ($stmt->execute([
             ':lastInsertId' => $_SESSION['IDCommande'],
             ':CIS' => $this->CIS,
+            ':quantite' => $this->quantite,
+
+        ])) {
+            $message = 'Commande envoye.';
+        } else {
+            $message = 'Erreur lors de l\'envoie';
+        }
+        return $message;
+    }
+    public function detailCommandeRequete($idStock)
+    {
+        $sql = "INSERT INTO details_commande (id_commande, id_stock, quantite) VALUES (:lastInsertId, :idStock, :quantite)";
+        $stmt = $this->pdo->prepare($sql);
+
+        if ($stmt->execute([
+            ':lastInsertId' => $_SESSION['IDCommande'],
+            ':idStock' => $idStock,
             ':quantite' => $this->quantite,
 
         ])) {

@@ -6,7 +6,7 @@ require_once '../controller/SubtanceActiveController.php';
 include_once '../model/Materiel.php';
 
 
-// Créer une instance de GestionMedicaments
+// Créer une instance
 $SubtanceActive = new \controller\SubtanceActiveController();
 
 // Vérifiez si le formulaire a été soumis
@@ -36,7 +36,7 @@ if (!empty($_POST['subtanceActiveSelectionne']) ) {
 <body>
 <?php require '../Vue/Header.php'; ?>
 <div class="containerTitleTable">
-    <h2>Médicaments</h2>
+    <h2>Subtances actives</h2>
     <div class="containerTitleTable">
         <div class="containerSearchTable">
             <div class="containerSearchButton">
@@ -47,7 +47,7 @@ if (!empty($_POST['subtanceActiveSelectionne']) ) {
                 <div class="buttons">
 
                     <button class="buttonHistorique">Historique</button>
-                    <form method="POST" action="FormulaireCommande.php" id="monFormulaire">
+                    <form method="POST" action="CommandeSubtanceActive.php" id="monFormulaire">
                         <button class="buttonCommander" type="submit" name="subtanceActiveSelectionne[]" >Réserver</button>
 
                 </div>
@@ -87,7 +87,7 @@ if (!empty($_POST['subtanceActiveSelectionne']) ) {
 
             }
             ?>
-            ?>
+
 
         </div>
 

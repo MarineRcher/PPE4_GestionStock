@@ -27,4 +27,23 @@ class SubtanceActiveController extends Controller
         }
 
     }
+    public function panierSubtanceActive() {
+        $dataSubtanceActive = []; // Initialiser en dehors de la boucle
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['subtanceActiveSelectionne'])) {
+            $CIS = $_POST['subtanceActiveSelectionne'];
+
+            foreach ($CIS as $item) {
+                $modelSubtanceActive = $this->model('SubtanceActive');
+                $modelSubtanceActive->rechercheCIS($item);
+                $subtanceActiveInfo = $modelSubtanceActive->panierSubtanceActive();
+                if (!empty($subtanceActiveInfo)) { // Vérifier si les données ne sont pas vides
+                    $dataSubtanceActive[] = $subtanceActiveInfo; // Ajouter au tableau
+                }
+            }
+             return $dataSubtanceActive;
+
+        } else {
+            echo "Sélectionnez des subtances actives";
+        }
+    }
 }

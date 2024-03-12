@@ -4,11 +4,12 @@ session_start();
 // Inclure le fichier contenant la classe GestionMedicaments
 require_once '../controller/GestionMedicaments.php';
 include_once '../model/Medications.php';
+
 require_once '../controller/CommandesController.php';
 include_once '../model/Commandes.php';
 
 $commande = new CommandesController();
-$errorMessage = $commande->commandeMedicament();
+$errorMessage = $commande->commande();
 
 $medicaments = new GestionMedicaments();
 
@@ -59,6 +60,7 @@ if(!empty($errorMessage)){ ?>
                 echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
 
                 // Ajout des champs cachés pour chaque médicament
+                echo "<input name='id_stock[]' type='hidden' value='" . ($item['id_stock'] ?? '') . "' >";
                 echo "<input name='CIS[]' type='hidden' value='" . ($item['CIS'] ?? '') . "' >";
                 echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
                 echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";

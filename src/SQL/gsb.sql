@@ -33,7 +33,7 @@ drop table if exists mouvements;
 CREATE TABLE `mouvements` (
                               `id_mouvement` int(11) PRIMARY KEY auto_increment NOT NULL,
                               `id_stock` int(11) DEFAULT NULL,
-                              `type_mouvement` enum('entree','sortie','non catégorisé', 'demande') DEFAULT 'non catégorisé',
+                              `type_mouvement` enum('entree','sortie','non catégorisé') DEFAULT 'non catégorisé',
                               `quantite` int(11) ,
                               `date_mouvement` datetime DEFAULT current_timestamp(),
                               `id_commande` int(11) DEFAULT NULL
