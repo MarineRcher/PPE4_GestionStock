@@ -13,9 +13,31 @@ CREATE TABLE `utilisateurs` (
 `email` varchar(255) DEFAULT NULL,
 `mot_de_passe` varchar(255) DEFAULT NULL,
 `role` varchar(40) DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+drop table if exists  fournisseurs;
 
+CREATE TABLE `fournisseurs` (
+        `id_fournisseur` int(11) PRIMARY KEY auto_increment NOT NULL,
+        `nom` varchar(255) DEFAULT NULL,
+        `SIRET` int(20) DEFAULT NULL,
+        `email` varchar(100) DEFAULT NULL,
+        `telephone` varchar(20) DEFAULT NULL,
+        `adresse` varchar(200) DEFAULT NULL,
+        `CP` int(9) DEFAULT NULL,
+        `ville` varchar(50) default null,
+        `Categorie` enum('Subtances actives','Materiel','non_categorise') default 'non_categorise'
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+drop table if exists traces_utilisateur;
+
+CREATE TABLE `traces_utilisateur`(
+    `id_trace` int(11) primary key auto_increment not null,
+    `requete` varchar(220) default null,
+    `params` varchar(100) default null,
+    `date` datetime default current_timestamp()
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 drop table if exists commandes;
@@ -34,7 +56,6 @@ CREATE TABLE `mouvements` (
                               `id_mouvement` int(11) PRIMARY KEY auto_increment NOT NULL,
                               `id_stock` int(11) DEFAULT NULL,
                               `type_mouvement` enum('entree','sortie','non catégorisé') DEFAULT 'non catégorisé',
-                              `quantite` int(11) ,
                               `date_mouvement` datetime DEFAULT current_timestamp(),
                               `id_commande` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -3184,8 +3205,6 @@ insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (330
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (309, 3308, '60181231', 'poudre', '1,5 mg');
 insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3309,'TARTRATE DE NORADRÉNALINE', 'Subtance active', 6);
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (310, 3309, '60181402', 'solution', '0,5 mg');
-insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3310,'CITRATE D''ALVÉRINE', 'Subtance active', 6);
-insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (311, 3310, '60182237', 'capsule', '60 mg');
 insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3311,'BICARBONATE DE SODIUM', 'Subtance active', 6);
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (312, 3311, '60182486', 'solution', '1,4 g');
 insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3312,'NADROPARINE CALCIQUE ', 'Subtance active', 6);
