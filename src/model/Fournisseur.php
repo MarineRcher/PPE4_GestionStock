@@ -29,15 +29,20 @@ class Fournisseur extends \Database
         $this->pdo = $this->connect();
     }
 
-    public function ValeursAjoutFournisseur($nom, $siret, $email, $telephone, $adresse, $ville, $cp, $categorie)
+    public function getIdFournisseur($id_fournisseur)
+    {
+        $this->id_fournisseur=$id_fournisseur;
+    }
+
+    public function ValeursAjoutFournisseur($nom, $siret, $email, $telephone, $adresse, $cp, $ville, $categorie)
     {
         $this->nom= $nom;
         $this->siret=$siret;
         $this->email=$email;
         $this->telephone=$telephone;
         $this->adresse=$adresse;
-        $this->ville=$ville;
         $this->cp=$cp;
+        $this->ville=$ville;
         $this->categorie=$categorie;
     }
     public function ValeursModificationFournisseur($id_fournisseur, $nom, $siret, $email, $telephone, $adresse, $ville, $cp, $categorie)
@@ -77,9 +82,18 @@ class Fournisseur extends \Database
 
     public function AffichageFournisseurs()
     {
-        $sql = "SELECT id_fournisseur, nom, SIRET, email, telephone, ville FROM gsb.fournisseurs";
+        $sql = "SELECT id_fournisseur, nom, SIRET, email, telephone, ville, categorie FROM gsb.fournisseurs";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute();
+        $fournisseurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $fournisseurs;
+    }
+    public function AffichageFournisseurParId()
+    {
+        $sql = "SELECT id_fournisseur, nom, SIRET, email, telephone,adresse, cp,ville, categorie FROM gsb.fournisseurs where id_fournisseur=:id";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute([':id' => $this->id_fournisseur]);
         $fournisseurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $fournisseurs;
@@ -87,7 +101,7 @@ class Fournisseur extends \Database
 
     public function modificationFournisseur()
     {
-        $sql = "update gsb.fournisseurs set nom=:nom and SIRET=:SIRET, email=:email, telephone=:telephone, adresse=:adresse, CP=:CP, ville=:ville, categorie=:categorie) where id_fournisseur=:id_fournisseur";
+        $sql = "UPDATE gsb.fournisseurs SET nom=:nom, SIRET=:SIRET, email=:email, telephone=:telephone, adresse=:adresse, CP=:CP, ville=:ville, categorie=:categorie WHERE id_fournisseur=:id_fournisseur";
         $stmt = $this->pdo->prepare($sql);
 
         if ($stmt->execute([
@@ -106,6 +120,20 @@ class Fournisseur extends \Database
             $message = 'Erreur lors la modification d\'un fournisseur.';
         }
         return $message;
+    }
+
+    public function suprressionFournisseur()
+    {
+        $sql = "delete FROM gsb.fournisseurs where id_fournisseur=:id";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+      if($stmt->execute([':id' => $this->id_fournisseur])){
+          return "Fournisseur supprimé";
+      }else {
+          return "Erreur lors de la suppression du fournisseur";
+      }
+
+
+
     }
 
 

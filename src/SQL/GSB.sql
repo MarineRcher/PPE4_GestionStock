@@ -21,7 +21,7 @@ drop table if exists  fournisseurs;
 CREATE TABLE `fournisseurs` (
         `id_fournisseur` int(11) PRIMARY KEY auto_increment NOT NULL,
         `nom` varchar(255) DEFAULT NULL,
-        `SIRET` int(20) DEFAULT NULL,
+        `SIRET` BIGINT(200) DEFAULT NULL,
         `email` varchar(100) DEFAULT NULL,
         `telephone` varchar(20) DEFAULT NULL,
         `adresse` varchar(200) DEFAULT NULL,

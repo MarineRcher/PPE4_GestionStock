@@ -26,10 +26,9 @@
                 </ul>
             </li>
             <li><a href="Demandes.php">Demandes</a></li>
-            <li class="deroulant"><a href="#">Fournisseurs</a></li>
-            <li><a href="#">Gestion fournisseurs</a></li>
+            <li><a href="AfficheFournisseurs.php">Gestion fournisseurs</a></li>
             <li><a href="#">Commandes</a></li>
-            <li class="deroulant"><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
+            <li><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
 
         </ul>
     </nav>

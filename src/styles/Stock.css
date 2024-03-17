@@ -109,6 +109,75 @@ margin-left: 1vh;
     margin-right: 2vh;
 }
 
+.buttons{
+    display: flex;
+    flex-direction: row;
+
+}
+.buttonFournisseurModifier{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #0845ff;
+    color: white;
+    padding: 1vh;
+    border: none;
+    border-radius: 4px;
+
+}
+.buttonFournisseurModifier:hover {
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    color: #0845ff;
+    padding: 1vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+
+}
+.buttonFournisseurAjout{
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    color: #0845ff;
+    padding: 1vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+    margin-right: 2vh;
+}
+
+.buttonFournisseurAjout:hover {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #0845ff;
+    color: white;
+    padding: 1vh;
+    border: none;
+    border-radius: 4px;
+    margin-right: 2vh;
+}
+
+.buttonSuppression{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #0845ff;
+    color: white;
+    padding: 1vh;
+    border: none;
+    border-radius: 4px;
+    margin-right: 2vh;
+
+}
+
+.buttonSuppression:hover{
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    color: #0845ff;
+    padding: 1vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+    margin-right: 2vh;
+}
 .searchBar{
 
 }
@@ -129,7 +198,7 @@ td {
     border-top: 1px solid #e8e6e6;
     border-bottom: 1px solid #e8e6e6;
     padding: 10px;
-
+    text-align: center;
 }
 
 
@@ -137,5 +206,5 @@ td {
 .enTete{
     border-top: 1.7px solid #e8e6e6;
     padding: 10px;
-
+text-align: center;
 }

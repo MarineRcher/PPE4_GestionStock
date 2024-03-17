@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.containerTitleForm{
+    background-color: #f4f5f7;
+    margin: 0;
+    padding: 0;
+}
+h2{
+    margin-left: 3vh;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+.containerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    margin: 5vh;
+    background-color: white;
+    padding: 3vh;
+    border: 0.7px #e3e5e6 solid;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    width: 35%;
+    margin: 1vh;
+    padding: 1vh;
+}
+
+select{
+    width: 35%;
+    margin: 1vh;
+    padding: 1vh;
+}
+
+button{
+    width: 20%;
+    background-color: #0845ff;
+    color: white;
+    padding: 2vh;
+    border: none;
+    border-radius: 4px;
+    margin: 1vh;
+}
+button:hover{
+    background-color: white;
+    color: #0845ff;
+    padding: 2vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+    margin: 1vh;
+}
+
+.containerBouton{
+    display: flex;
+    justify-content: flex-end;
+}
