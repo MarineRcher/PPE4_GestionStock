@@ -34,9 +34,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
             </form>
             <div class="buttons">
                 <form class="" method="POST">
+                    <button class="buttonFournisseurAjout" action='CommandeStock.php' type="submit" name="fournisseurSelectionne">Commander</button>
+                </form>
                     <button class="buttonSuppression" name="fournisseurSelectionne" type="submit">Supprimer</button>
-
-                <a href="AjoutFournisseur.php"><button class="buttonFournisseurAjout">Ajouter un fournisseur</button></a>
+                    <button class="buttonFournisseurAjout">
+                <a href="AjoutFournisseur.php">Ajouter un fournisseur</a></button>
                 <form method="POST" action="ModificationFournisseur.php" id="monFormulaire">
                     <button class="buttonFournisseurModifier" type="submit" name="fournisseurSelectionne[]" >Modifier</button>
             </div>

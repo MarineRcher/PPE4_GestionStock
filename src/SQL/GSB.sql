@@ -45,8 +45,9 @@ drop table if exists commandes;
 CREATE TABLE `commandes` (
                              `id_commande` int(11) PRIMARY KEY auto_increment NOT NULL,
                              `id_utilisateur` int(11) DEFAULT NULL,
+                             `id_fournisseur` int(11) DEFAULT NULL,
                              `date_commande` datetime DEFAULT current_timestamp(),
-                             `statut` enum('en_attente','validee','invalidée') DEFAULT 'en_attente',
+                             `statut` enum('en_attente','validee','invalidée', 'recu') DEFAULT 'en_attente',
                              `date_disponibilite` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
