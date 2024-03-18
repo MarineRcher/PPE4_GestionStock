@@ -128,6 +128,7 @@ class Commandes extends \Database
     public function ChangerStatut()
     {
         $sql = "update gsb.commandes set statut=:statut where id_commande=:id";
+        var_dump($this->statut);
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute([
             ':statut' => $this->statut,

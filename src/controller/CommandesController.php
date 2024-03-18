@@ -73,42 +73,45 @@ class CommandesController extends Controller{
 
     public function ChangerStatut()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id']))
-            $idCommande=$_POST['id'];
-            $statut = $_POST['statut'];
 
-        $combinedArray = array_combine($idCommande, $statut);
-        foreach ($combinedArray as $idCom => $state) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])) {
+            $idCommandes = $_POST['id'];
+            $statuts = $_POST['statut'];
+
             $modelCommande = $this->model('Commandes');
-            $modelCommande->ChangerStatutParId($idCom, $state);
-            $modelCommande->ChangerStatut();
+            $modelMouvement = $this->model('Mouvements');
+
+            foreach ($statuts as $state) {
+                foreach ($idCommandes as $idCom) {
+
+                    $idCom = intval($idCom);
+                    $modelCommande->ChangerStatutParId($idCom, $state);
+                    $modelCommande->ChangerStatut();
+
+                    if ($state == 'validee') {
+
+                        $stocks = $modelMouvement->selectIdStock($idCom);
+
+                        foreach ($stocks as $stock) {
+
+                            $idStock = $stock['id_stock'];
+                            $modelMouvement->insertMouvement($idCom, $idStock);
+                            $modelMouvement->mouvementSortie();
+                            $modelMouvement->sortieStock();
+
+                        }
+
+                    } else {
+                        return 'pas valide';
+                    }
+                }
+
+
+            }
+            // header("Location: ../Vue/HomePage.php");
         }
-        $modelMouvement=$this->model('Mouvements');
-
-        foreach ($idCommande as $item) {
-            $stock = $modelMouvement->selectIdStock($item);
-            $id_stock = $stock;
-        }
-
-        var_dump($id_stock);
-        var_dump($idCommande);
-        $combinedArray = array_combine($idCommande, $id_stock);
-
-        foreach ($statut as $item){
-            if($item == 'Valide'){
-                foreach ($combinedArray as $idCom => $idStock){
-
-                    $modelMouvement->insertMouvement($idCom, $idStock);
-                    $modelMouvement->mouvementSortie();
-                    $modelMouvement->sortieStock();
-
-        }}}
-
-
-        header("Location: ../Vue/HomePage.php");
-
-
     }
+
 
 
 }

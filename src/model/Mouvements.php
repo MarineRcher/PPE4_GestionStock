@@ -13,6 +13,8 @@ class Mouvements extends \Database
 
  public $idStock;
 
+ public int $quantite;
+
 
 
     public function __construct ()
@@ -32,6 +34,8 @@ class Mouvements extends \Database
 
         $sql = "insert into gsb.mouvements (id_stock, type_mouvement, id_commande) values (:id_stock, 'sortie', :id_commande)";
         $stmt = $this->pdo->prepare($sql);
+        //$id_stock = $this->idStock['id_stock'];
+
 
         if ($stmt->execute([
             ':id_commande' =>$this->idCommande,
@@ -54,20 +58,35 @@ class Mouvements extends \Database
         return $commandes;
     }
 
-    public function sortieStock(){
-        $sql = "update gsb.stock set quantite_disponible= quantite_disponible - (select quantite from details_commande where id_commande=:idCommande) where id_stock=:id";
-        $stmt = $this->pdo->prepare($sql);
+    public function sortieStock()
+    {
+        $sqlQuantite = 'SELECT quantite FROM details_commande WHERE id_commande = :id_commande AND id_stock = :id_stock';
+        $stmtQuantite = $this->pdo->prepare($sqlQuantite);
+        if ($stmtQuantite->execute([':id_commande' => $this->idCommande, ':id_stock' => $this->idStock])) {
+            $details = $stmtQuantite->fetchAll(PDO::FETCH_ASSOC);
+            $detail['quantite']=[];
+            foreach ($details as $detail) {
+                $quantite = $detail['quantite'];
 
-        if ($stmt->execute([
-            ':id_commande' =>$this->idCommande,
-            ':id_stock' => $this->idStock,
+                $sqlUpdate = 'UPDATE gsb.stock SET quantite_disponible = quantite_disponible  - :quantite WHERE id_stock = :id_stock';
+                $stmtUpdate = $this->pdo->prepare($sqlUpdate);
 
-        ])) {
-            $message = 'stock modifie.';
+                if ($stmtUpdate->execute([
+                    ':quantite' => $quantite,
+                    ':id_stock' => $this->idStock,
+                ])) {
+
+                    $message = 'Stock modifié.';
+                } else {
+                    $message = 'Erreur lors de la modification du stock.';
+                }
+            }
+
+            return $message ?? 'Aucun détail de commande trouvé.';
         } else {
-            $message = 'Erreur lors de la modification de stock';
+            return 'Erreur lors de la récupération des détails de commande.';
         }
-        return $message;
-
     }
+
+
 }
