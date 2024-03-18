@@ -35,6 +35,13 @@ class Commandes extends \Database
         $this-> dateReservation = $dateReservation;
     }
 
+
+    public function ChangerStatutParId($idCommande, $statut)
+    {
+        $this->idCommande = $idCommande;
+        $this->statut = $statut;
+    }
+
     public function detailCommande($quantite)
     {
 
@@ -109,6 +116,28 @@ class Commandes extends \Database
             $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $commandes;
     }
+    public function selectCommandeStatut($id)
+    {
+        $sql = "select id_commande, date_commande, statut, date_disponibilite S.Categorie from gsb.commandes join stock as S on id_stock where id_commande=:id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id'=>$id]);
+            $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $commandes;
+    }
 
+    public function ChangerStatut()
+    {
+        $sql = "update gsb.commandes set statut=:statut where id_commande=:id";
+        $stmt = $this->pdo->prepare($sql);
+        if ($stmt->execute([
+            ':statut' => $this->statut,
+            ':id' => $this->idCommande
 
+        ])) {
+            $message = 'statut modifie.';
+        } else {
+            $message = 'Erreur lors de la modification du statut';
+        }
+        return $message;
+    }
 }

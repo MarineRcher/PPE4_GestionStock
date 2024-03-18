@@ -56,9 +56,41 @@ class CommandesController extends Controller{
         return $commandesParUtilisateur;
 
     }
+    public function selectCommandeStatut()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['commandeSelectionne'])) {
+            foreach ($_POST['commandeSelectionne'] as $id) {
+                $modelCommande = $this->model('Commandes');
+                $commandesParUtilisateur = $modelCommande->selectCommandeStatut($id);
+
+                if (!empty($commandesParUtilisateur)) {
+                    $commandes[] = $commandesParUtilisateur;
+                }
+            }
+            return $commandes;
+        }
+    }
 
     public function ChangerStatut()
     {
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id']))
+            $id=$_POST['id'];
+            $statut = $_POST['statut'];
+        $combinedArray = array_combine($id, $statut);
+        foreach ($combinedArray as $idCom => $state) {
+            $modelCommande = $this->model('Commandes');
+            $modelCommande->ChangerStatutParId($idCom, $state);
+            $modelCommande->ChangerStatut();
+        }
+        $modelMouvement=$this->model('Mouvement');
+        foreach ($statut as $item){
+            if($item == 'Valide'){
+
+            }
+        }
+
+
+        header("Location: ../Vue/HomePage.php");
 
 
     }

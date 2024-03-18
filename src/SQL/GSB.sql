@@ -47,7 +47,7 @@ CREATE TABLE `commandes` (
                              `id_utilisateur` int(11) DEFAULT NULL,
                              `id_fournisseur` int(11) DEFAULT NULL,
                              `date_commande` datetime DEFAULT current_timestamp(),
-                             `statut` enum('en_attente','validee','invalidée', 'recu') DEFAULT 'en_attente',
+                             `statut` enum('en_attente','validee','invalide', 'recu') DEFAULT 'en_attente',
                              `date_disponibilite` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
