@@ -95,9 +95,17 @@ class Commandes extends \Database
     }
  public function selectCommandesParUtilisateur()
     {
-        $sql = "select distinct C.id_commande, C.date_commande, C.statut, C.date_disponibilite, categorie from gsb.commandes as C join gsb.details_commande as D on D.id_commande = C.id_commande join gsb.stock as S on S.id_stock = D.id_stock where id_utilisateur = :id";
+        $sql = "select distinct C.id_commande, C.date_commande, C.statut, C.date_disponibilite, categorie from gsb.commandes as C join gsb.details_commande as D on D.id_commande = C.id_commande join gsb.stock as S on S.id_stock = D.id_stock where id_utilisateur = :id and id_fournisseur is null";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $_SESSION['id_utilisateur']]);
+            $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $commandes;
+    }
+    public function selectCommandesSuperUser()
+    {
+        $sql = "select distinct C.id_commande, C.date_commande, C.statut, C.date_disponibilite, categorie, U.nom from gsb.commandes as C join gsb.details_commande as D on D.id_commande = C.id_commande join gsb.stock as S on S.id_stock = D.id_stock join utilisateurs as U on U.id_utilisateur = C.id_utilisateur where id_fournisseur is null";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
             $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $commandes;
     }

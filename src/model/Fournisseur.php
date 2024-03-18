@@ -101,9 +101,8 @@ class Fournisseur extends \Database
 
     public function modificationFournisseur()
     {
-        $sql = "UPDATE gsb.fournisseurs SET nom=:nom, SIRET=:SIRET, email=:email, telephone=:telephone, adresse=:adresse, CP=:CP, ville=:ville, categorie=:categorie WHERE id_fournisseur=:id_fournisseur";
+        $sql = "UPDATE gsb.fournisseurs SET nom=:nom, SIRET=:SIRET, email=:email, telephone=:telephone, adresse=:adresse, CP=:CP, ville=:ville, Categorie=:categorie WHERE id_fournisseur=:id_fournisseur";
         $stmt = $this->pdo->prepare($sql);
-
         if ($stmt->execute([
             ':nom' => $this->nom,
             ':SIRET' => $this->siret,

@@ -55,7 +55,7 @@ if (!empty($_POST['subtanceActiveSelectionne']) ) {
             <?php
             // Vérifie si $dataMedicaments est vide
             if (empty($dataSubtanceActive)) {
-                echo '<div>Aucun subtance active en stock</div>';
+                echo '<div>Aucune subtance active en stock</div>';
             } else {
 
 

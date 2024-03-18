@@ -6,7 +6,11 @@ require_once '../controller/CommandesController.php';
 include_once '../model/Commandes.php';
 
 $commandesParUtilisateur = new CommandesController();
-$commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
+if($_SESSION['role'] == 'SuperUser'){
+    $commandes = $commandesParUtilisateur->selectCommandeSuperUser();
+}else {
+    $commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
+}
 
 ?>
 
@@ -25,13 +29,14 @@ $commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
     <h2>Commandes</h2>
 
     <div class="containerSearchTable">
-        <div class="containerSearchButton">
-            <form class="searchBar" method="POST">
-                <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher par numéro de commande..." ">
-                <input type = "submit"  value = "Rechercher" class="buttonRechercher">
-            </form>
-        </div>
+
         <?php
+
+        if($_SESSION['role']=='SuperUser'){
+
+        echo'<form method="POST">
+    <button>Changer le statut</button>';
+        }
         // Vérifie si $dataMedicaments est vide
         if (empty($commandes) or !isset($commandes)) {
             echo '<div>Aucune commande enregistrée</div>';
@@ -43,8 +48,12 @@ $commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
                     <th class='enTete'>Numéro de la demande</th>
                     <th class='enTete'>Statut de la demande</th>
                     <th class='enTete'>Date de disponibilité souhaitée</th>
-                    <th class='enTete'>Catégorie</th>
-                </tr>";
+                    <th class='enTete'>Catégorie</th>";
+  if($_SESSION['role'] == 'SuperUser'){
+      echo"<th class='enTete'>Nom du demandeur</th>
+<th class='enTete'>Changer le statut</th>";
+            }
+                    "</tr>";
         foreach ($commandes as $item) {
 
                 echo "<tr>
@@ -53,7 +62,19 @@ $commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
                     <td >" . $item['statut'] . "</td>
                     <td>" . $item['date_disponibilite'] . "</td>
                  <td>" . $item['categorie'] . "</td>
-                </tr>";
+                 ";
+            if($_SESSION['role'] == 'SuperUser'){
+                echo"
+                <td>".$item['nom']."</td>
+                <td><select name='statut[]'>
+           <option value='Admin' " . ($item['statut'] == 'en_attente' ? 'selected' : '') . ">En attente</option>
+           <option value='SuperUser' " . ($item['statut'] == 'validee' ? 'selected' : '') . ">Validee</option>
+           <option value='User' " . ($item['statut'] == 'invalidée' ? 'selected' : '') . ">Invalide</option>
+                </select></td>
+                </form>";
+            }
+
+                "</tr>";
 
             }
 

@@ -7,15 +7,66 @@ use src\Core\Controller;
 class CommandeStockController extends Controller
 {
 
-    public function selectSubtancesActives(){
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categorie'], $_POST['id_subtance_active'])){
+    public function selectCategorieFournisseur()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'])){
+            $modelCategorie = $this->model('CommandeStock');
+            foreach ($_POST['fournisseurSelectionne'] as $id)
+            $categorie = $modelCategorie->selectCategorie($id);
+            return $categorie;
 
-            $modelSubtancesActives = $this->model('Medications');
-            $modelSubtancesActives->rechercheSubtancesActives( $_POST['id_subtance_active'], $_POST['categorie']);
-            $dataSubtancesActives = $modelSubtancesActives->selectSubtanceActive();
+        }
+    }
+    public function selectSubtancesActives(){
+            $modelSubtancesActives = $this->model('CommandeStock');
+
+            $dataSubtancesActives = $modelSubtancesActives->selectSubtancesActives();
 
             return $dataSubtancesActives;
+    }
+ public function selectMateriel(){
+            $modelMateriel = $this->model('CommandeStock');
+
+            $dataMateriel = $modelMateriel->selectMateriel();
+
+            return $dataMateriel;
+    }
+
+    public function commande()
+    {
+
+        // Vérification de la soumission du formulaire
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible'], $_POST['idFournisseur']) ) {
+
+            if(!empty($_POST['selectedDate'])) {
+
+                $idStock = $_POST['id_stock'];
+                $quantite_choisi = $_POST['quantite_disponible'];
+                $date_livraison= $_POST['selectedDate'];
+                $idFournisseur = $_POST['idFournisseur'];
+
+                $modelCommande = $this->model('CommandeStock');
+                $modelCommande->premiereCommande($date_livraison, $idFournisseur);
+                $error = $modelCommande->commande();
+
+                $combinedArray = array_combine($idStock, $quantite_choisi);
+                foreach ($combinedArray as $stock => $quantite) {
+                    $modelCommande->detailCommande( $quantite);
+                    $errorDetail = $modelCommande->detailCommandeRequete($stock);
+                }
+                header("Location: ../Vue/HomePage.php");
+                //return $error and $errorDetail;
+            }else{
+                return 'Renseignez une date de livraison souhaitee';
+            }
+
+        } else {
+            // return "Merci de remplir les champs vides";
+
         }
 
+
+
     }
+
 }

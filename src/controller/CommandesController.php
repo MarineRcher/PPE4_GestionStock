@@ -48,6 +48,20 @@ class CommandesController extends Controller{
         return $commandesParUtilisateur;
 
     }
+ public function selectCommandeSuperUser()
+    {
+
+        $modelCommande = $this->model('Commandes');
+        $commandesParUtilisateur = $modelCommande->selectCommandesSuperUser();
+        return $commandesParUtilisateur;
+
+    }
+
+    public function ChangerStatut()
+    {
+
+
+    }
 
 
 }

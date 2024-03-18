@@ -27,7 +27,7 @@
             </li>
             <li><a href="Demandes.php">Demandes</a></li>
             <li><a href="AfficheFournisseurs.php">Gestion fournisseurs</a></li>
-            <li><a href="#">Commandes</a></li>
+            <li><a href="AfficherCommandes.php">Commandes</a></li>
             <li><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
 
         </ul>

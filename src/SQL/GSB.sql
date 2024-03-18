@@ -27,7 +27,7 @@ CREATE TABLE `fournisseurs` (
         `adresse` varchar(200) DEFAULT NULL,
         `CP` int(9) DEFAULT NULL,
         `ville` varchar(50) default null,
-        `Categorie` enum('Subtances actives','Materiel','non_categorise') default 'non_categorise'
+        `Categorie` enum('Substances actives','Materiel','non_categorise') default 'non_categorise'
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 drop table if exists traces_utilisateur;
@@ -936,9 +936,6 @@ INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (289, 289, '6018123
 
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (291, 'XYLOCAINE 10 mg/ml SANS CONSERVATEUR', 'medicament', 6);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (291, 291, '60181733', 'solution injectable');
-
-INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (292, 'ALVERINE/SIMETICONE MAYOLY SPINDLER 60 mg/300 mg', 'medicament', 6);
-INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (292, 292, '60182237', 'capsule molle');
 
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (293, 'BICARBONATE DE SODIUM BAXTER A 1', 'medicament', 6);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (293, 293, '60182486', 'solution pour perfusion');
@@ -3416,9 +3413,7 @@ insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (341
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (415, 3414, '60251352', 'poudre', '1,042 g');
 insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3415,'TRINITRINE', 'Subtance active', 6);
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (416, 3415, '60251516', 'dispositif', '31,37 mg');
-insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3416,'CITRATE D'ALVÉRINE', 'Subtance active', 6);
-insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (417, 3416, '60252027', 'capsule', '60 mg');
-insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3417,'ACÉPONATE D'HYDROCORTISONE', 'Subtance active', 6);
+insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3417,'ACÉPONATE D''HYDROCORTISONE', 'Subtance active', 6);
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (418, 3417, '60252422', 'crème', '0,127 g');
 insert into gsb.stock(id_stock, nom, categorie, quantite_disponible) values (3418,'MAGNÉSIUM (GLUCONATE DE) DIHYDRATÉ', 'Subtance active', 6);
 insert into gsb.subtance_active (id_subtance_active, id_stock, CIS, type, masse) values (419, 3418, '60252447', 'comprimé', '0,220 mg');

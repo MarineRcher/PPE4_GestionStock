@@ -1,82 +1,110 @@
 <?php
+
 session_start();
 
 require_once '../controller/CommandeStockController.php';
 require_once '../model/CommandeStock.php';
 
-$commandeStock= new CommandeStock();
+$subtanceActive = [];
+$materiel = [];
 
+$commandeStock= new controller\CommandeStockController();
 
-if(isset($_POST['categorie']) == 'Subtances actives'){
-    $subtanceActive = $commandeStock -> selectSubtancesActives();
+if (isset($_POST['fournisseurSelectionne'])) {
+    $categorie = $commandeStock->selectCategorieFournisseur();
+    foreach ($categorie as $item) {
+        if ($item['Categorie'] == 'Substances actives') {
+            $subtanceActive = $commandeStock->selectSubtancesActives();
+        } elseif ($item['Categorie'] == 'Materiel') {
+            $materiel = $commandeStock->selectMateriel();
+
+        }
+    }
 }
-
-
 ?>
-
 
 <head>
     <meta charset="utf-8">
     <title>Laboratoire GSB</title>
-    <link rel="stylesheet" href="../styles/FormulaireCommande.css">
+    <link rel="stylesheet" href="../styles/Stock.css">
 </head>
 
 <body>
-<?php require '../Vue/Header.php';
-if(!empty($errorMessage)){ ?>
-    <div class='containterErrorMessage'>
-
-        <?= $errorMessage ?>
-    </div>
-    <?php
-}?>
+<?php require '../Vue/Header.php'; ?>
 <div class="containerTitleTable">
-    <h2>Médicaments</h2>
-    <div class="formulaireCommande">
-        <?php
-        if (empty($error)) {
-            echo '<form method=POST action=""> ';
-            echo "<table>
-                    <tr> 
-                        <th class='enTete'>CIS</th>
-                        <th class='enTete'>Nom</th>
-                        <th class='enTete'>Type</th>
-                        <th class='enTete'>Quantité</th>
-                    </tr>";
-            foreach ( as $group) {
-                foreach ($group as $item) {
-                    echo "<tr>";
-                    echo "<td>" . ($item['CIS'] ?? 'Non spécifié') . "</td>";
-                    echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
-                    echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
-                    echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
+    <h2>Commande</h2>
+    <div class="containerTitleTable">
+        <div class="containerSearchTable">
+            <div class="containerSearchButton">
+                <form class="searchBar" method="POST">
+                    <input class="inputSearchBar" id="CIS" type="search" name="CIS" placeholder="Rechercher...">
+                    <input type="submit" value="Rechercher" class="buttonRechercher">
+                </form>
+                <div class="buttons">
+                    <?php if (!empty($subtanceActive)) { ?>
+                        <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
+                            <button class="buttonCommander" type="submit" name="subtanceActiveSelectionne[]">Commander</button>
 
-                    // Ajout des champs cachés pour chaque médicament
-                    echo "<input name='id_stock[]' type='hidden' value='" . ($item['id_stock'] ?? '') . "' >";
-                    echo "<input name='CIS[]' type='hidden' value='" . ($item['CIS'] ?? '') . "' >";
-                    echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
-                    echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";
-                    echo "</tr>";
+                    <?php } elseif (!empty($materiel)) { ?>
+                        <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
+                            <button class="buttonCommander" type="submit" name="materielSelectionne[]">Commander</button>
+
+                    <?php } ?>
+                </div>
+            </div>
+            <?php
+            if (empty($subtanceActive) && empty($materiel)) {
+                echo '<div>Aucune donnée en stock</div>';
+            } elseif (!empty($subtanceActive)) {
+                foreach ($_POST['fournisseurSelectionne'] as $item) {
+                    echo "<input type='hidden' name='idFournisseur' value='" . $item . "' >";
                 }
+                echo "<table>
+                <tr>
+                    <th class='enTete'></th>
+                    <th class='enTete'>CIS</th>
+                    <th class='enTete'>Nom</th>
+                    <th class='enTete'>Type</th>
+                    <th class='enTete'>Masse / unité</th>
+                    <th class='enTete'>Quantité</th>
+                </tr>";
+
+                foreach ($subtanceActive as $item) {
+                    echo "<tr>
+                    <td><input type='checkbox' name='subtanceActiveSelectionne[]' value='" . $item['CIS'] . "'></td>
+                    <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIS'] . "'>" .$item['CIS'] . "</a></td>
+                    <td>" . $item['nom']. "</td>
+                    <td>" .$item['type'] . "</td>
+                    <td>" .$item['masse'] . "</td>
+                    <td>" .$item['quantite_disponible'] . "</td>
+                </tr>";
+                }
+                echo '</form>';
+                echo "</table>";
+            } elseif (!empty($materiel)) {
+                foreach ($_POST['fournisseurSelectionne'] as $item) {
+                    echo "<input type='hidden' name='idFournisseur' value='" . $item . "' >";
+                }
+                echo "<table>
+                <tr>
+                    <th class='enTete'></th>
+                    <th class='enTete'>Nom</th>
+                    <th class='enTete'>Quantité</th>
+                </tr>";
+
+                foreach ($materiel as $item) {
+                    echo "<tr>
+                    <td><input type='checkbox' name='materielSelectionne[]' value='" . $item['id_stock'] . "'></td>
+                    <td>" . $item['nom']. "</td>
+                    <td>" .$item['quantite_disponible'] . "</td>
+                </tr>";
+                }
+                echo '</form>';
+                echo "</table>";
             }
-
-
-            echo "</table>";
-
-            echo '<label class="LabelInputButton" for="start"><strong>Date de reservation</strong></label>';
-
-            echo'<input class="LabelInputButton" placeholder="dd/mm/yyyy" type="date" id="start" name="selectedDate" min="2020-01-01" max="2030-12-31" />';
-
-
-            echo "<button class='LabelInputButton' type='submit'>Commander</button>";
-
-            echo '</form>';
-        }else{
-            echo  "<div class='error'>" . $error . "</div>";
-        }
-        ?>
+            ?>
+        </div>
     </div>
-</div>
-
 </div>
 </body>
+</html>

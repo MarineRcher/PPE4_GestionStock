@@ -10,12 +10,8 @@ include_once '../model/Commandes.php';
 
 $subtanceActive = new controller\SubtanceActiveController();
 
-
-
 $commande = new CommandesController();
 $errorMessage = $commande->commande();
-
-
 
 
 if (isset($_POST['subtanceActiveSelectionne']) && !empty($_POST['subtanceActiveSelectionne'])) {
@@ -81,7 +77,7 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
             echo'<input class="LabelInputButton" placeholder="dd/mm/yyyy" type="date" id="start" name="selectedDate" min="2020-01-01" max="2030-12-31" />';
 
 
-            echo "<button class='LabelInputButton' type='submit'>Commander</button>";
+            echo "<button class='LabelInputButton' type='submit' >Commander</button>";
 
             echo '</form>';
         }else{

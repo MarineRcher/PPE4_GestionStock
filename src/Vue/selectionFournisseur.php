@@ -33,14 +33,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
                 <input type = "submit"  value = "Rechercher" class="buttonRechercher">
             </form>
             <div class="buttons">
+                <form class="" method="POST" action="CommandeStock.php">
+                    <button class="buttonFournisseurAjout"  type="submit" name="fournisseurSelectionne">Commander</button>
 
-                    <button class="buttonSuppression" name="fournisseurSelectionne" type="submit">Supprimer</button>
-                    <button class="buttonFournisseurAjout">
-                <a href="AjoutFournisseur.php">Ajouter un fournisseur</a></button>
-                <form method="POST" action="ModificationFournisseur.php" id="monFormulaire">
-                    <a href="ModificationFournisseur.php">
-                    <button class="buttonFournisseurModifier" type="submit" name="fournisseurSelectionne" >Modifier</button>
-                    </a>
             </div>
         </div>
         <?php
@@ -73,6 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
                 </tr>";
             }
             echo '</form>';
+
             echo'</form>';
             echo "</table>";
 
