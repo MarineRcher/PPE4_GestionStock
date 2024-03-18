@@ -74,20 +74,35 @@ class CommandesController extends Controller{
     public function ChangerStatut()
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id']))
-            $id=$_POST['id'];
+            $idCommande=$_POST['id'];
             $statut = $_POST['statut'];
-        $combinedArray = array_combine($id, $statut);
+
+        $combinedArray = array_combine($idCommande, $statut);
         foreach ($combinedArray as $idCom => $state) {
             $modelCommande = $this->model('Commandes');
             $modelCommande->ChangerStatutParId($idCom, $state);
             $modelCommande->ChangerStatut();
         }
-        $modelMouvement=$this->model('Mouvement');
+        $modelMouvement=$this->model('Mouvements');
+
+        foreach ($idCommande as $item) {
+            $stock = $modelMouvement->selectIdStock($item);
+            $id_stock = $stock;
+        }
+
+        var_dump($id_stock);
+        var_dump($idCommande);
+        $combinedArray = array_combine($idCommande, $id_stock);
+
         foreach ($statut as $item){
             if($item == 'Valide'){
+                foreach ($combinedArray as $idCom => $idStock){
 
-            }
-        }
+                    $modelMouvement->insertMouvement($idCom, $idStock);
+                    $modelMouvement->mouvementSortie();
+                    $modelMouvement->sortieStock();
+
+        }}}
 
 
         header("Location: ../Vue/HomePage.php");

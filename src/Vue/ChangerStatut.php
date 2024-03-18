@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])
                 echo "<td>" . ($item['date_commande'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['statut'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['date_disponibilite'] ?? 'Non spécifié') . "</td>";
-                echo "<td>" . ($item['Categorie'] ?? 'Non spécifié') . "</td>";
+                echo "<td>" . ($item['categorie'] ?? 'Non spécifié') . "</td>";
                echo "<td><select name='statut[]'>
         <option value='en_attente' " . ($item['statut'] == 'en_attente' ? 'selected' : '') . ">En attente</option>
         <option value='validee' " . ($item['statut'] == 'validee' ? 'selected' : '') . ">Validee</option>
@@ -60,8 +60,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])
 
                 // Ajout des champs cachés pour chaque utilisateur
                 echo "<input name='id[]' type='hidden' value='" . ($item['id_commande'] ?? '') . "' >";
-               echo "<input name='Categorie[]' type='hidden' value='" . ($item['Categorie'] ?? '') . "' >";
-
 
                 echo "</tr>";
             }}

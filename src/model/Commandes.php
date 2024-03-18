@@ -118,7 +118,7 @@ class Commandes extends \Database
     }
     public function selectCommandeStatut($id)
     {
-        $sql = "select id_commande, date_commande, statut, date_disponibilite S.Categorie from gsb.commandes join stock as S on id_stock where id_commande=:id";
+        $sql = "select distinct C.id_commande, C.date_commande, C.statut, C.date_disponibilite, categorie, U.nom from gsb.commandes as C join gsb.details_commande as D on D.id_commande = C.id_commande join gsb.stock as S on S.id_stock = D.id_stock join utilisateurs as U on U.id_utilisateur = C.id_utilisateur where C.id_commande=:id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id'=>$id]);
             $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
