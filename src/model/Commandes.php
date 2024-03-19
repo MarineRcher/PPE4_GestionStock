@@ -122,7 +122,9 @@ class Commandes extends \Database
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id'=>$id]);
             $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $commandes;
+            if(!empty($commandes)) {
+                return $commandes;
+            }
     }
 
     public function ChangerStatut()

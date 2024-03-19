@@ -2,6 +2,8 @@
 
 namespace controller;
 include_once '../Core/controller.php';
+
+use http\Header;
 use src\Core\Controller;
 
 $controller = new Controller();
@@ -40,7 +42,10 @@ class MaterielController extends Controller
                     $dataMateriel[] = $materielInfo; // Ajouter au tableau
                 }
             }
-            return $dataMateriel;
+            if(empty($dataMateriel)){
+                \header("Location: MaterielStock.php");
+            }else{
+            return $dataMateriel;}
 
         } else {
             echo "Sélectionnez du matériel";

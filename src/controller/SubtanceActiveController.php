@@ -40,7 +40,11 @@ class SubtanceActiveController extends Controller
                     $dataSubtanceActive[] = $subtanceActiveInfo; // Ajouter au tableau
                 }
             }
-             return $dataSubtanceActive;
+            if(empty($dataSubtanceActive)){
+                header("Location: SubtanceActiveStock.php");
+            }else {
+                return $dataSubtanceActive;
+            }
 
         } else {
             echo "Sélectionnez des subtances actives";

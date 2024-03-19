@@ -15,14 +15,24 @@ class CommandeStockController extends Controller
     }
     public function selectCategorieFournisseur()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'])){
-            $modelCategorie = $this->model('CommandeStock');
-            foreach ($_POST['fournisseurSelectionne'] as $id)
-            $categorie = $modelCategorie->selectCategorie($id);
-            return $categorie;
 
+        if($_SERVER["REQUEST_METHOD"] == "POST" ){
+        if(isset($_POST['fournisseurSelectionne']) && is_array($_POST['fournisseurSelectionne'])){
+            $modelCategorie = $this->model('CommandeStock');
+           foreach ($_POST['fournisseurSelectionne'] as $id) {
+                $categorie = $modelCategorie->selectCategorie($id);
+           }
+            if(empty($categorie)){
+                header('Location: selectionFournisseur.php');
+            }else {
+                return $categorie;
+
+            }
+        }
+            header('Location: selectionFournisseur.php');
         }
     }
+
     public function selectSubtancesActives(){
             $modelSubtancesActives = $this->model('CommandeStock');
 

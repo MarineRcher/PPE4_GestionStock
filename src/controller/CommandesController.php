@@ -58,17 +58,24 @@ class CommandesController extends Controller{
     }
     public function selectCommandeStatut()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['commandeSelectionne'])) {
-            foreach ($_POST['commandeSelectionne'] as $id) {
-                $modelCommande = $this->model('Commandes');
-                $commandesParUtilisateur = $modelCommande->selectCommandeStatut($id);
 
-                if (!empty($commandesParUtilisateur)) {
-                    $commandes[] = $commandesParUtilisateur;
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['commandeSelectionne'])) {
+                foreach ($_POST['commandeSelectionne'] as $id) {
+                    $modelCommande = $this->model('Commandes');
+                    $commandesParUtilisateur = $modelCommande->selectCommandeStatut($id);
+
+                    if (!empty($commandesParUtilisateur)) {
+                        $commandes[] = $commandesParUtilisateur;
+                    }
                 }
+                    return $commandes;
+                
+            }else{
+               header('Location: HomePage.php');
+
             }
-            return $commandes;
-        }
+
+
     }
 
     public function ChangerStatut()

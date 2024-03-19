@@ -37,7 +37,11 @@ $controller = new Controller();
                         $dataMedicaments[] = $medicamentInfo; // Ajouter au tableau
                     }
                 }
-                return $dataMedicaments;
+                if(empty($dataMedicaments)){
+                    header("Location: MedicationStock.php");
+                }else {
+                    return $dataMedicaments;
+                }
 
             } else {
                 echo "Sélectionnez des médicaments";

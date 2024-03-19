@@ -19,20 +19,27 @@ class GestionUtilisateurs extends Controller
 
     public function utilisateursSelectionnes() {
         $utilisateursSelectionnes = []; // Initialiser en dehors de la boucle
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['utilisateurSelectionne'])) {
-            $id = $_POST['utilisateurSelectionne'];
-            foreach ($id as $item) {
-                $modelMedicaments = $this->model('Users');
-                $utilisateurs = $modelMedicaments->selectUtilisateurs($item);
-                if (!empty($utilisateurs)) { // Vérifier si les données ne sont pas vides
-                    $utilisateursSelectionnes[] = $utilisateurs; // Ajouter au tableau
+        if($_SERVER["REQUEST_METHOD"] == "POST" ) {
+            if (isset($_POST['utilisateurSelectionne'])) {
+                $id = $_POST['utilisateurSelectionne'];
+                foreach ($id as $item) {
+                    $modelMedicaments = $this->model('Users');
+                    $utilisateurs = $modelMedicaments->selectUtilisateurs($item);
+                    if (!empty($utilisateurs)) { // Vérifier si les données ne sont pas vides
+                        $utilisateursSelectionnes[] = $utilisateurs; // Ajouter au tableau
+                    }
                 }
+                if (empty($utilisateursSelectionnes)) {
+                    header("Location: GestionUtilisateurs.php");
+                } else {
+                    return $utilisateursSelectionnes;
+                }
+
+
             }
-            return $utilisateursSelectionnes;
-
-
-        } else {
-            echo "Sélectionnez des utilisateurs";
+            if (empty($_POST['utilisateurSelectionne'])) {
+                header("Location: GestionUtilisateurs.php");
+            }
         }
     }
 

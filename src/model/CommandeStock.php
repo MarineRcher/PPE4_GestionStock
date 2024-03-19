@@ -92,8 +92,6 @@ class CommandeStock extends \Database
 
         if (!empty($categorie)){
             return $categorie;
-        }else{
-            return 'erreur lors de la recuperation de la categorie';
         }
     }
 

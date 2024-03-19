@@ -45,6 +45,7 @@ if (!empty($_POST['materielSelectionne']) ) {
                 <div class="buttons">
 
                     <button class="buttonHistorique">Historique</button>
+
                     <form method="POST" action="CommandeMateriel.php" id="monFormulaire">
                         <button class="buttonCommander" type="submit" name="materielSelectionne[]">Réserver</button>
 

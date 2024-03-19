@@ -10,7 +10,7 @@ $materiel = [];
 
 $commandeStock= new controller\CommandeStockController();
 
-if (isset($_POST['fournisseurSelectionne'])) {
+
     $categorie = $commandeStock->selectCategorieFournisseur();
     foreach ($categorie as $item) {
         if ($item['Categorie'] == 'Substances actives') {
@@ -20,7 +20,7 @@ if (isset($_POST['fournisseurSelectionne'])) {
 
         }
     }
-}
+
 ?>
 
 <head>

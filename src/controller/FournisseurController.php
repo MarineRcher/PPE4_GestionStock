@@ -70,19 +70,33 @@ class FournisseurController extends Controller
         $fournisseur = $this->model('Fournisseur');
         $fournisseurs = $fournisseur->AffichageFournisseurs();
         return $fournisseurs;
+
     }
     public function selectFournisseurParId()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'])) {
-            $id=$_POST['fournisseurSelectionne'];
-            foreach ($id as $item) {
-                $fournisseur = $this->model('Fournisseur');
-                $fournisseur->getIdFournisseur($item);
-                $fournisseurSelect = $fournisseur->AffichageFournisseurParId();
-                $fournisseurs[] = $fournisseurSelect;
+        ob_start();
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST['fournisseurSelectionne'])) {
+                $id = $_POST['fournisseurSelectionne'];
+                foreach ($id as $item) {
+                    $fournisseur = $this->model('Fournisseur');
+                    $fournisseur->getIdFournisseur($item);
+                    $fournisseurSelect = $fournisseur->AffichageFournisseurParId();
+                    $fournisseurs[] = $fournisseurSelect;
+                }
+                if (empty($fournisseurs)) {
+                    header("Location: AfficheFournisseurs.php");
+                } else {
+                    return $fournisseurs;
+                }
+
             }
-            return $fournisseurs;
+            if(empty($_POST['fournisseurSelectionne'])) {
+            header("Location: AfficheFournisseurs.php");
         }
+        }
+
+
     }
 
 }

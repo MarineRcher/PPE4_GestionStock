@@ -16,7 +16,7 @@ $materiel = new \controller\MaterielController();
 
 if (isset($_POST['materielSelectionne']) && !empty($_POST['materielSelectionne'])) {
     $materielSelectionne = $materiel->panierMateriel();
-
+  
 }
 if (isset($_POST['quantite_disponible'])){$_POST['quantite_disponible'] = [];}
 
