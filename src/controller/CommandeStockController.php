@@ -7,6 +7,12 @@ use src\Core\Controller;
 class CommandeStockController extends Controller
 {
 
+    public function selectCommandesFournisseurs()
+    {
+        $modelCommandes = $this->model('CommandeStock');
+        $commandes= $modelCommandes->selectCommandesFournisseurs();
+        return $commandes;
+    }
     public function selectCategorieFournisseur()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'])){
@@ -65,8 +71,47 @@ class CommandeStockController extends Controller
 
         }
 
+    }
+
+    public function ChangerStatut()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])) {
+            $idCommandes = $_POST['id'];
+            $statuts = $_POST['statut'];
+
+            $modelCommande = $this->model('CommandeStock');
+            $modelMouvement = $this->model('Mouvements');
+
+            foreach ($statuts as $state) {
+                foreach ($idCommandes as $idCom) {
+
+                    $idCom = intval($idCom);
+                    $modelCommande->ChangerStatutParId($idCom, $state);
+                    $modelCommande->ChangerStatut();
+
+                    if ($state == 'recu') {
+
+                        $stocks = $modelMouvement->selectIdStock($idCom);
+
+                        foreach ($stocks as $stock) {
+
+                            $idStock = $stock['id_stock'];
+                            $modelMouvement->insertMouvement($idCom, $idStock);
+                            $modelMouvement->entreeMouvement();
+                            $modelMouvement->entreeStock();
+
+                        }
+
+                    } else {
+                        return 'pas valide';
+                    }
+                }
 
 
+            }
+            header("Location: ../Vue/HomePage.php");
+        }
     }
 
 }

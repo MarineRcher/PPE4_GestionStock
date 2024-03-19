@@ -108,7 +108,7 @@ class CommandesController extends Controller{
 
 
             }
-            // header("Location: ../Vue/HomePage.php");
+             header("Location: ../Vue/HomePage.php");
         }
     }
 

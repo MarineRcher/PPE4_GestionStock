@@ -4,6 +4,10 @@ session_start();
 require_once '../controller/CommandesController.php';
 include_once '../model/Commandes.php';
 
+require_once '../controller/CommandeStockController.php';
+include_once '../model/CommandeStock.php';
+
+$commandeFournisseurs= new \controller\CommandeStockController();
 
 $commandesParUtilisateur = new CommandesController();
 
@@ -13,7 +17,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])
  $commandesParUtilisateur->ChangerStatut();
 }
 
-
+if(isset($_POST['idFournisseur'])){
+    $commandeFournisseurs->ChangerStatut();
+}
 
 ?>
 
@@ -46,6 +52,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])
                     </tr>";
             foreach ($commandesSelectionne as $group) {
                 foreach ($group as $item){
+
+
                 echo "<tr>";
                 echo "<td>" . ($item['id_commande'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['date_commande'] ?? 'Non spécifié') . "</td>";
@@ -55,8 +63,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])
                echo "<td><select name='statut[]'>
         <option value='en_attente' " . ($item['statut'] == 'en_attente' ? 'selected' : '') . ">En attente</option>
         <option value='validee' " . ($item['statut'] == 'validee' ? 'selected' : '') . ">Validee</option>
-        <option value='invalide' " . ($item['statut'] == 'invalidée' ? 'selected' : '') . ">Invalide</option>
-    </select></td>";
+        <option value='invalide' " . ($item['statut'] == 'invalidée' ? 'selected' : '') . ">Invalide</option>";
+               if(isset($item['id_fournisseur'])){
+       echo "<option value='recu' " . ($item['statut'] == 'recu' ? 'selected' : '') . ">Recu</option>";
+            echo'<input type="hidden" value="'.$item['id_fournisseur'].'" name="idFournisseur">';
+       }
+   echo "</select></td>";
 
                 // Ajout des champs cachés pour chaque utilisateur
                 echo "<input name='id[]' type='hidden' value='" . ($item['id_commande'] ?? '') . "' >";

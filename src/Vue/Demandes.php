@@ -27,7 +27,7 @@ if($_SESSION['role'] == 'SuperUser'){
 <body>
 <?php require '../Vue/Header.php'; ?>
 <div class="containerTitleTable">
-    <h2>Commandes</h2>
+    <h2>Demandes de reservation</h2>
 
     <div class="containerSearchTable">
 

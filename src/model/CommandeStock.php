@@ -31,7 +31,11 @@ class CommandeStock extends \Database
         $this->pdo = $this->connect();
 
     }
-
+    public function ChangerStatutParId($idCommande, $statut)
+    {
+        $this->idCommande = $idCommande;
+        $this->statut = $statut;
+    }
     public function premiereCommande($dateLivraison, $id_fournisseur)
     {
         $this->dateLivraison = $dateLivraison;
@@ -44,6 +48,18 @@ class CommandeStock extends \Database
         $this-> quantite = $quantite;
     }
 
+
+    public function selectCommandesFournisseurs()
+    {
+        $sql="select distinct C.id_commande, C.id_fournisseur, C.date_commande, C.statut, C.date_disponibilite, categorie from gsb.commandes as C join gsb.details_commande as D on D.id_commande = C.id_commande join gsb.stock as S on S.id_stock = D.id_stock where id_fournisseur is not null;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $commandes= $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($commandes)){
+            return $commandes;
+        }
+
+    }
     public function selectSubtancesActives()
     {
         $sql= "select CIS, S.nom, type, masse, S.quantite_disponible from gsb.stock as S join gsb.subtance_active as A on A. id_stock = S.id_stock where categorie='Subtance Active' ";
@@ -116,6 +132,23 @@ class CommandeStock extends \Database
             $message = 'Commande envoye.';
         } else {
             $message = 'Erreur lors de l\'envoie';
+        }
+        return $message;
+    }
+
+    public function ChangerStatut()
+    {
+        $sql = "update gsb.commandes set statut=:statut where id_commande=:id";
+        var_dump($this->statut);
+        $stmt = $this->pdo->prepare($sql);
+        if ($stmt->execute([
+            ':statut' => $this->statut,
+            ':id' => $this->idCommande
+
+        ])) {
+            $message = 'statut modifie.';
+        } else {
+            $message = 'Erreur lors de la modification du statut';
         }
         return $message;
     }

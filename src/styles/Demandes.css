@@ -10,9 +10,16 @@ h2{
     font-weight: 500;
     font-style: normal;
 }
+.buttonChangerStatut{
+    background-color: white;
+    color: #0845ff;
+    padding: 1vh;
+    border: solid 1px #0845ff;
+    border-radius: 4px;
+    margin-left: 1vh;
+}
 
-
-.buttonRechercher{
+.buttonChangerStatut:hover{
     background-color: #0845ff;
     color: white;
     padding: 1vh;
@@ -21,13 +28,27 @@ h2{
     margin-left: 1vh;
 }
 
-.buttonRechercher:hover{
+button{
+    background-color: #0845ff;
+    color: white;
+    padding: 1vh;
+    border: none;
+    border-radius: 4px;
+    margin-left: 1vh;
+}
+
+button:hover{
     background-color: white;
     color: #0845ff;
     padding: 1vh;
     border: solid 1px #0845ff;
     border-radius: 4px;
     margin-left: 1vh;
+}
+
+.bouttons{
+    display: flex;
+    flex-direction: row;
 }
 
 .containerSearchTable {
