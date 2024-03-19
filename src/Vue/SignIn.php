@@ -30,6 +30,7 @@ $errorMessage = $loginController->login();
         Mot de passe<input type="text" name="password" id="password" class="input" required>
         <input type="submit" value="Connexion" class="button">
         <p>Vous n'avez pas de compte ? <a href="SignUp.php"><strong>Inscrivez-vous</strong><a/> </p>
+        <p>Vous avez oubliez votre mot de passe ? <a href="ChangerMdp.php"><strong>Modifiez-le</strong><a/> </p>
     </form>
 
 </div>

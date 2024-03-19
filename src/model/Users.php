@@ -36,6 +36,12 @@ class Users extends \Database
     {
         $this-> role = $role;
     }
+  public function Mdp($email,$motDePasse, $nom ):void
+    {
+        $this-> email = $email;
+        $this->motDePasse=$motDePasse;
+        $this->nom=$nom;
+    }
 
     public function verify_user(string $email)
     {
@@ -96,6 +102,20 @@ class Users extends \Database
             return "Role modifie avec succes";
         }else {
             return 'Erreur lors de la modification de role';
+        }
+
+    }  public function MiseAJourMdp()
+    {
+        $sql = "update gsb.utilisateurs set mot_de_passe=:mot_de_passe where email=:email and nom=:nom";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+
+        if($stmt->execute( [':mot_de_passe' => $this->motDePasse,
+            ':email' => $this->email,
+            ':nom' => $this->nom
+        ])){
+            return "Mot de passe modifie avec succes";
+        }else {
+            return 'Erreur lors de la modification de mot de passe';
         }
 
     }

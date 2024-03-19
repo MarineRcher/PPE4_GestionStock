@@ -106,6 +106,7 @@ ALTER TABLE `commandes`
 ALTER TABLE `mouvements`
     ADD KEY `id_stock` (`id_stock`),
     ADD KEY `id_commande` (`id_commande`);
+ALTER TABLE stock ADD COLUMN prix INT DEFAULT 100;
 
 
 COMMIT;

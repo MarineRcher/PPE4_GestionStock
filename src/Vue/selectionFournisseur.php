@@ -28,10 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
 
     <div class="containerSearchTable">
         <div class="containerSearchButton">
-            <form class="searchBar" method="POST">
-                <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher..." ">
-                <input type = "submit"  value = "Rechercher" class="buttonRechercher">
-            </form>
+
             <div class="buttons">
                 <form class="" method="POST" action="CommandeStock.php">
                     <button class="buttonFournisseurAjout"  type="submit" name="fournisseurSelectionne">Commander</button>

@@ -73,6 +73,7 @@ $commandeStock= new controller\CommandeStockController();
                     <th class='enTete'>Type</th>
                     <th class='enTete'>Masse / unité</th>
                     <th class='enTete'>Quantité</th>
+                       <th class='enTete'>Prix unitaire</th>
                 </tr>";
 
                 foreach ($subtanceActive as $item) {
@@ -83,6 +84,7 @@ $commandeStock= new controller\CommandeStockController();
                     <td>" .$item['type'] . "</td>
                     <td>" .$item['masse'] . "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
+                    <td>" .$item['prix'] . "</td>
                 </tr>";
                 }
                 echo '</form>';
@@ -98,6 +100,7 @@ $commandeStock= new controller\CommandeStockController();
                     <th class='enTete'>Nom</th>
                     <th class='enTete'>Type</th>
                     <th class='enTete'>Quantité</th>
+                       <th class='enTete'>Prix unitaire</th>
                 </tr>";
 
                 foreach ($medicaments as $item) {
@@ -107,6 +110,7 @@ $commandeStock= new controller\CommandeStockController();
                     <td>" . $item['nom']. "</td>
                     <td>" .$item['type'] . "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
+                      <td>" .$item['prix'] . "</td>
                 </tr>";
                 }
                 echo '</form>';
@@ -120,6 +124,7 @@ $commandeStock= new controller\CommandeStockController();
                     <th class='enTete'></th>
                     <th class='enTete'>Nom</th>
                     <th class='enTete'>Quantité</th>
+                       <th class='enTete'>Prix unitaire</th>
                 </tr>";
 
                 foreach ($materiel as $item) {
@@ -127,6 +132,7 @@ $commandeStock= new controller\CommandeStockController();
                     <td><input type='checkbox' name='materielSelectionne[]' value='" . $item['id_stock'] . "'></td>
                     <td>" . $item['nom']. "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
+                      <td>" .$item['prix'] . "</td>
                 </tr>";
                 }
                 echo '</form>';

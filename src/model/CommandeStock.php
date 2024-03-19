@@ -62,7 +62,7 @@ class CommandeStock extends \Database
     }
     public function selectSubtancesActives()
     {
-        $sql= "select CIS, S.nom, type, masse, S.quantite_disponible from gsb.stock as S join gsb.subtance_active as A on A. id_stock = S.id_stock where categorie='Subtance Active' ";
+        $sql= "select CIS, S.nom, type, masse, S.quantite_disponible, S.prix from gsb.stock as S join gsb.subtance_active as A on A. id_stock = S.id_stock where categorie='Subtance Active' ";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute();
         $subtanceActive = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class CommandeStock extends \Database
         }
     } public function selectMedicaments()
     {
-        $sql= "select CIS, S.nom, type, S.quantite_disponible from gsb.stock as S join gsb.medicaments as A on A. id_stock = S.id_stock where categorie='medicament' ";
+        $sql= "select CIS, S.nom, type, S.quantite_disponible, S.prix from gsb.stock as S join gsb.medicaments as A on A. id_stock = S.id_stock where categorie='medicament' ";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute();
         $medicament = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -83,7 +83,7 @@ class CommandeStock extends \Database
     }
     public function selectMateriel()
     {
-        $sql= "select id_stock, nom, quantite_disponible from gsb.stock where categorie='Materiel' ";
+        $sql= "select id_stock, nom, quantite_disponible, prix from gsb.stock where categorie='Materiel' ";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute();
         $materiel = $stmt->fetchAll(PDO::FETCH_ASSOC);

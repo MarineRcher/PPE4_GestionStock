@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['statut'], $_POST['id'])
  $commandesParUtilisateur->ChangerStatut();
 }
 
+
 if(isset($_POST['idFournisseur'])){
     $commandeFournisseurs->ChangerStatut();
 }

@@ -66,4 +66,28 @@ class GestionUtilisateurs extends Controller
 
 
     }
+    public function changerMdp()
+    {
+
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['nom'], $_POST['passwordConfirm1'], $_POST['passwordConfirm2'])) {
+            if ($_POST['passwordConfirm1'] == $_POST['passwordConfirm2']) {
+                $nouveauMdp = password_hash($_POST['passwordConfirm1'], PASSWORD_DEFAULT);
+                $email = $_POST['email'];
+                $nom = $_POST['nom'];
+
+                $modelCommande = $this->model('Users');
+
+                $modelCommande->Mdp($email, $nouveauMdp, $nom);
+               $modelCommande->MiseAJourMdp();
+                header("Location: ../Vue/SignIn.php");
+            } else {
+                return "Merci de renseigner deux mêmes mots de passes";
+            }
+        } else {
+            return "Merci de remplir les champs vides";
+
+        }
+
+    }
 }

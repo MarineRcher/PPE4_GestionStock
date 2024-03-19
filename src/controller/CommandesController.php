@@ -60,7 +60,7 @@ class CommandesController extends Controller{
     {
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['commandeSelectionne'])) {
-                var_dump($_POST['commandeSelectionne']);
+
                 foreach ($_POST['commandeSelectionne'] as $id) {
                     $modelCommande = $this->model('Commandes');
                     $commandesParUtilisateur = $modelCommande->selectCommandeStatut($id);
@@ -69,10 +69,14 @@ class CommandesController extends Controller{
                         $commandes[] = $commandesParUtilisateur;
                     }
                 }
+                if(isset($commandes)) {
                     return $commandes;
-                
+                }else{
+                    header('Location: HomePage.php');
+
+                }
             }else{
-               header('Location: HomePage.php');
+                header('Location: HomePage.php');
 
             }
 

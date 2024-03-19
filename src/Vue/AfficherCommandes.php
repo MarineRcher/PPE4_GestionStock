@@ -21,7 +21,7 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
 <body>
 <?php require '../Vue/Header.php'; ?>
 <div class="containerTitleTable">
-    <h2>Commandes fouurnisseurs</h2>
+    <h2>Commandes fournisseurs</h2>
 
     <div class="containerSearchTable">
 
@@ -64,16 +64,16 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
 echo"
               
           
-                </form>";
+              
 
 
-                "</tr>";
+                </tr>";
 
             }
 
             echo "</table>";
 
-
+           echo" </form>";
 
         }
         ?>
