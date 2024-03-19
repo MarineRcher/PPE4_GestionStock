@@ -3,7 +3,6 @@
 namespace controller;
 include_once '../Core/controller.php';
 
-use http\Header;
 use src\Core\Controller;
 
 $controller = new Controller();

@@ -45,7 +45,8 @@ $fournisseur->modificationFournisseur();
             <label>Catégorie</label>
             <select name="categorie">
                 <option value="Substances actives" <?php echo ($item['categorie'] == 'Subtances actives') ? 'selected' : ''; ?>>Substances actives</option>
-                <option value="Matériel" <?php echo ($item['categorie'] == 'Materiel') ? 'selected' : ''; ?>>Matériel</option>
+                <option value="Materiel" <?php echo ($item['categorie'] == 'Materiel') ? 'selected' : ''; ?>>Matériel</option>
+                <option value="Medicament" <?php echo ($item['categorie'] == 'Medicament') ? 'selected' : ''; ?>>Medicament</option>
             </select>
             <input type="hidden" name="id" value="<?php echo $item['id_fournisseur']; ?>">
 

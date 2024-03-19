@@ -70,6 +70,16 @@ class CommandeStock extends \Database
         if (!empty($subtanceActive)){
             return $subtanceActive;
         }
+    } public function selectMedicaments()
+    {
+        $sql= "select CIS, S.nom, type, S.quantite_disponible from gsb.stock as S join gsb.medicaments as A on A. id_stock = S.id_stock where categorie='medicament' ";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute();
+        $medicament = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($medicament)){
+            return $medicament;
+        }
     }
     public function selectMateriel()
     {

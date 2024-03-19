@@ -60,6 +60,7 @@ class CommandesController extends Controller{
     {
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['commandeSelectionne'])) {
+                var_dump($_POST['commandeSelectionne']);
                 foreach ($_POST['commandeSelectionne'] as $id) {
                     $modelCommande = $this->model('Commandes');
                     $commandesParUtilisateur = $modelCommande->selectCommandeStatut($id);

@@ -43,9 +43,10 @@ if (!empty($_POST['materielSelectionne']) ) {
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">
-
-                    <button class="buttonHistorique">Historique</button>
-
+                    <form action="Historique.php" method="POST">
+                    <button class="buttonHistorique" name="categorie" type="submit">Historique</button>
+                    <input type="hidden" name="categorie" value="Materiel">
+                    </form>
                     <form method="POST" action="CommandeMateriel.php" id="monFormulaire">
                         <button class="buttonCommander" type="submit" name="materielSelectionne[]">Réserver</button>
 

@@ -18,6 +18,8 @@ $commandeStock= new controller\CommandeStockController();
         } elseif ($item['Categorie'] == 'Materiel') {
             $materiel = $commandeStock->selectMateriel();
 
+        }elseif($item['Categorie'] == 'Medicament'){
+            $medicaments = $commandeStock->selectMedicaments();
         }
     }
 
@@ -49,11 +51,15 @@ $commandeStock= new controller\CommandeStockController();
                         <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
                             <button class="buttonCommander" type="submit" name="materielSelectionne[]">Commander</button>
 
-                    <?php } ?>
+                    <?php } elseif (!empty($medicaments)) { ?>
+                            <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
+                                <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]">Commander</button>
+
+                                <?php } ?>
                 </div>
             </div>
             <?php
-            if (empty($subtanceActive) && empty($materiel)) {
+            if (empty($subtanceActive) && empty($materiel) && empty($medicaments)) {
                 echo '<div>Aucune donnée en stock</div>';
             } elseif (!empty($subtanceActive)) {
                 foreach ($_POST['fournisseurSelectionne'] as $item) {
@@ -76,6 +82,30 @@ $commandeStock= new controller\CommandeStockController();
                     <td>" . $item['nom']. "</td>
                     <td>" .$item['type'] . "</td>
                     <td>" .$item['masse'] . "</td>
+                    <td>" .$item['quantite_disponible'] . "</td>
+                </tr>";
+                }
+                echo '</form>';
+                echo "</table>";
+            }elseif (!empty($medicaments)) {
+                foreach ($_POST['fournisseurSelectionne'] as $item) {
+                    echo "<input type='hidden' name='idFournisseur' value='" . $item . "' >";
+                }
+                echo "<table>
+                <tr>
+                    <th class='enTete'></th>
+                    <th class='enTete'>CIS</th>
+                    <th class='enTete'>Nom</th>
+                    <th class='enTete'>Type</th>
+                    <th class='enTete'>Quantité</th>
+                </tr>";
+
+                foreach ($medicaments as $item) {
+                    echo "<tr>
+                    <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIS'] . "'></td>
+                    <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIS'] . "'>" .$item['CIS'] . "</a></td>
+                    <td>" . $item['nom']. "</td>
+                    <td>" .$item['type'] . "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
                 </tr>";
                 }

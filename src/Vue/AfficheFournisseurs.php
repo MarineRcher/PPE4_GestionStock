@@ -9,6 +9,7 @@ $fournisseurs = $fournisseur->selectFournisseurs();
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'])){
     $fournisseurs = $fournisseur->supprimerFournisseur();
+
 }
 
 ?>
@@ -35,8 +36,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
             <div class="buttons">
 
                     <button class="buttonSuppression" name="fournisseurSelectionne" type="submit">Supprimer</button>
-                    <button class="buttonFournisseurAjout">
-                <a href="AjoutFournisseur.php">Ajouter un fournisseur</a></button>
+
+                <a href="AjoutFournisseur.php">
+                <button class="buttonFournisseurAjout">
+                Ajouter un fournisseur</button></a>
                 <form method="POST" action="ModificationFournisseur.php" id="monFormulaire">
                     <a href="ModificationFournisseur.php">
                     <button class="buttonFournisseurModifier" type="submit" name="fournisseurSelectionne" >Modifier</button>
@@ -72,10 +75,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
                       <td>" .$item['categorie'] . "</td>
                 </tr>";
             }
-            echo '</form>';
+
             echo'</form>';
             echo "</table>";
-
+            echo'</form>';
 
 
         }

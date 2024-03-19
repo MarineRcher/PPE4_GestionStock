@@ -40,8 +40,9 @@ $fournisseur->AjoutFournisseur();
             <input name="ville">
             <label>Catégorie</label>
             <select name="categorie">
-                <option>Subtances actives</option>
-                <option>Matériel</option>
+                <option>Substances actives</option>
+                <option>Materiel</option>
+                <option>Medicament</option>
             </select>
 
         <div class="containerBouton">

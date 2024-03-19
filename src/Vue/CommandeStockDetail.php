@@ -11,6 +11,9 @@ include_once '../model/Materiel.php';
 require_once '../controller/CommandeStockController.php';
 include_once '../model/CommandeStock.php';
 
+include_once '../controller/GestionMedicaments.php';
+include_once '../model/Medications.php';
+$medicament= new GestionMedicaments();
 $subtanceActive = new controller\SubtanceActiveController();
 $materiel = new controller\MaterielController();
 
@@ -22,6 +25,10 @@ if (isset($_POST['subtanceActiveSelectionne']) && !empty($_POST['subtanceActiveS
 }
 if (isset($_POST['materielSelectionne'])) {
     $materielSelectionne = $materiel->panierMateriel();
+}
+if(isset($_POST['medicamentsSelectionne'])){
+    $medicaments= $medicament->panierMedicament();
+
 }
     if (isset($_POST['quantite_disponible'])){$_POST['quantite_disponible'] = [];}
 
@@ -68,6 +75,35 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
                         echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
                         echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
                         echo "<td>" . ($item['masse'] ?? 'Non spécifié') . "</td>";
+                        echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
+
+                        // Ajout des champs cachés pour chaque médicament
+                        echo "<input name='id_stock[]' type='hidden' value='" . ($item['id_stock'] ?? '') . "' >";
+                        echo "<input name='CIS[]' type='hidden' value='" . ($item['CIS'] ?? '') . "' >";
+                        echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
+                        echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";
+                        echo "</tr>";
+                    }
+                }
+
+
+                echo "</table>";
+            }elseif(isset($medicaments)) {
+                echo "<input type='hidden' name='idFournisseur' value='" . $_POST['idFournisseur'] . "' >";
+
+                echo "<table>
+                    <tr> 
+                        <th class='enTete'>CIS</th>
+                        <th class='enTete'>Nom</th>
+                        <th class='enTete'>Type</th>
+                        <th class='enTete'>Quantité</th>
+                    </tr>";
+                foreach ($medicaments as $group) {
+                    foreach ($group as $item) {
+                        echo "<tr>";
+                        echo "<td>" . ($item['CIS'] ?? 'Non spécifié') . "</td>";
+                        echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
+                        echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
                         echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
 
                         // Ajout des champs cachés pour chaque médicament

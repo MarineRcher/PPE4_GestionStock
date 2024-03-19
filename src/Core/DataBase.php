@@ -2,10 +2,10 @@
 
 class Database {
 
-    private string $host = 'localhost';
+    private string $host = 'db';
     private string $dbname = 'gsb';
-    private string $username = 'GSBuser';
-    private string $password = '4mC+9u}7!Q9asJ';
+    private string $username = 'root';
+    private string $password = 'root';
 
     private $dbHandler; // destine a contenir la connexion a la base de donnees (une instance de pdo)
     private $statement;
@@ -19,7 +19,7 @@ class Database {
     {
         try
         {
-            $pdo = new PDO('mysql:host=localhost;dbname=gsb;charset=utf8mb4', 'GSBuser', '4mC+9u}7!Q9asJ',array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+            $pdo = new PDO('mysql:host=db;dbname=gsb;charset=utf8mb4', 'root', 'root',array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return $pdo;

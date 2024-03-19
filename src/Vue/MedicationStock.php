@@ -45,8 +45,10 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">
-
-                    <button class="buttonHistorique">Historique</button>
+                    <form action="Historique.php" method="POST">
+                    <button class="buttonHistorique" name="categorie" type="submit">Historique</button>
+                        <input type="hidden" name="categorie" value="medicament">
+                    </form>
                     <form method="POST" action="CommandeMedicament.php" id="monFormulaire">
                        <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]" >Réserver</button>
 

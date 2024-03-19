@@ -27,7 +27,7 @@ CREATE TABLE `fournisseurs` (
         `adresse` varchar(200) DEFAULT NULL,
         `CP` int(9) DEFAULT NULL,
         `ville` varchar(50) default null,
-        `Categorie` enum('Substances actives','Materiel','non_categorise') default 'non_categorise'
+        `Categorie` enum('Substances actives','Materiel','Medicament', 'non_categorise') default 'non_categorise'
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 drop table if exists traces_utilisateur;

@@ -47,6 +47,13 @@ class CommandeStockController extends Controller
 
             return $dataMateriel;
     }
+public function selectMedicaments(){
+            $modelMedicament = $this->model('CommandeStock');
+
+            $dataMedicaments = $modelMedicament->selectMedicaments();
+
+            return $dataMedicaments;
+    }
 
     public function commande()
     {

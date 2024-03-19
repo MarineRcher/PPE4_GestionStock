@@ -134,5 +134,15 @@ public function entreeStock()
         }
     }
 
+    public function selectMouvementByCategorie($categorie){
+        $sql="select distinct M.date_mouvement, M.type_mouvement, S.nom as nom_produit, S.categorie, D.quantite, U.nom from mouvements as M join stock as S on S.id_stock= M.id_stock join commandes as C on C.id_commande = M.id_commande join details_commande as D on D.id_commande = M.id_commande join utilisateurs as U on U.id_utilisateur=C.id_utilisateur where categorie=:categorie";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':categorie' => $categorie]);
+        $mouvements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($mouvements)){
+            return $mouvements;
+        }
+    }
+
 
 }
