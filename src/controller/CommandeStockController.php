@@ -59,22 +59,27 @@ public function selectMedicaments(){
     {
 
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible'], $_POST['idFournisseur']) ) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible'], $_POST['idFournisseur'], $_POST['prix']) ) {
 
             if(!empty($_POST['selectedDate'])) {
-
+                $prix=$_POST['prix'];
                 $idStock = $_POST['id_stock'];
                 $quantite_choisi = $_POST['quantite_disponible'];
                 $date_livraison= $_POST['selectedDate'];
                 $idFournisseur = $_POST['idFournisseur'];
 
+                $combinedArray= array_combine($quantite_choisi,$prix);
+                foreach ($combinedArray as $quantite => $prixUnitaire){
+                    $prixTotal = $quantite * $prixUnitaire;
+                }
+
                 $modelCommande = $this->model('CommandeStock');
-                $modelCommande->premiereCommande($date_livraison, $idFournisseur);
+                $modelCommande->premiereCommande($date_livraison, $idFournisseur, );
                 $error = $modelCommande->commande();
 
                 $combinedArray = array_combine($idStock, $quantite_choisi);
                 foreach ($combinedArray as $stock => $quantite) {
-                    $modelCommande->detailCommande( $quantite);
+                    $modelCommande->detailCommande($quantite, $prixTotal);
                     $errorDetail = $modelCommande->detailCommandeRequete($stock);
                 }
                 header("Location: ../Vue/HomePage.php");
@@ -84,7 +89,7 @@ public function selectMedicaments(){
             }
 
         } else {
-            // return "Merci de remplir les champs vides";
+             return "Merci de remplir les champs vides";
 
         }
 

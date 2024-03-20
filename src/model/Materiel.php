@@ -45,7 +45,7 @@ class Materiel extends \Database
 
     public function panierMateriel()
     {
-        $sql = "select id_stock, nom, quantite_disponible from gsb.stock  WHERE id_stock = :id_stock and categorie='Materiel'";
+        $sql = "select id_stock, nom, quantite_disponible, prix from gsb.stock  WHERE id_stock = :id_stock and categorie='Materiel'";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id_stock', $this->idMateriel, PDO::PARAM_STR);
         $stmt->execute(); // Exécutez la requête préparée.

@@ -44,7 +44,8 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
                     <th class='enTete'>Numéro de la demande</th>
                     <th class='enTete'>Statut de la demande</th>
                     <th class='enTete'>Date de disponibilité souhaitée</th>
-                    <th class='enTete'>Catégorie</th>";
+                    <th class='enTete'>Catégorie</th>
+                    <th class='enTete'>Prix total</th>";
 
 
 
@@ -59,6 +60,7 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
                     <td >" . $item['statut'] . "</td>
                     <td>" . $item['date_disponibilite'] . "</td>
                  <td>" . $item['categorie'] . "</td>
+                 <td>" . $item['total_prix'] . "</td>
                  
                  ";
 echo"

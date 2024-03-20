@@ -45,7 +45,7 @@ class Users extends \Database
 
     public function verify_user(string $email)
     {
-        $sql = "SELECT id_utilisateur, email, mot_de_passe, role FROM utilisateurs WHERE email = :email";
+        $sql = "SELECT id_utilisateur, email, mot_de_passe, role, tentative FROM utilisateurs WHERE email = :email";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -77,7 +77,7 @@ class Users extends \Database
 
     public function GestionUtilisateurs()
     {
-        $sql = "SELECT id_utilisateur, nom, prenom, email, role FROM utilisateurs";
+        $sql = "SELECT id_utilisateur, nom, prenom, email, role, tentative FROM utilisateurs";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -87,24 +87,37 @@ class Users extends \Database
 
     public function selectUtilisateurs($id)
     {
-        $sql = "SELECT id_utilisateur, nom, prenom, email, role FROM utilisateurs where id_utilisateur=:id";
+        $sql = "SELECT id_utilisateur, nom, prenom, email, role, tentative FROM utilisateurs where id_utilisateur=:id";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
         $stmt->execute( [':id' => $id]);
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $users;
     }
-    public function MiseAJoutRole($id)
+    public function MiseAJoutRole($id, $tentative)
     {
-        $sql = "update gsb.utilisateurs set role=:role where id_utilisateur=:id";
+        $sql = "update gsb.utilisateurs set role=:role and tentative=:tentative where id_utilisateur=:id";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
-        if($stmt->execute( [':id' => $id, ':role' => $this->role])){
+        if($stmt->execute( [':id' => $id, ':tentative'=> $tentative, ':role' => $this->role])){
             return "Role modifie avec succes";
         }else {
             return 'Erreur lors de la modification de role';
         }
 
-    }  public function MiseAJourMdp()
+    }  public function miseAJourTentative()
+    {
+        $sql = "update gsb.utilisateurs set tentative=0 where id_utilisateur=:id";
+        $stmt = $this->pdo->prepare($sql);
+      $stmt->execute( [':id' => $_SESSION['id']]);
+
+    }public function ajoutTentative()
+    {
+        $sql = "update gsb.utilisateurs set tentative= tentative +1 where id_utilisateur=:id";
+        $stmt = $this->pdo->prepare($sql);
+      $stmt->execute( [':id' => $_SESSION['id']]);
+
+    }
+    public function MiseAJourMdp()
     {
         $sql = "update gsb.utilisateurs set mot_de_passe=:mot_de_passe where email=:email and nom=:nom";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo

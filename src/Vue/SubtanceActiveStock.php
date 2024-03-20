@@ -62,7 +62,7 @@ if (!empty($_POST['subtanceActiveSelectionne']) ) {
             } else {
 
 
-                // Si $dataMedicaments n'est pas vide, afficher les données
+
                 echo "<table>
                 <tr>
                     <th class='enTete'></th>

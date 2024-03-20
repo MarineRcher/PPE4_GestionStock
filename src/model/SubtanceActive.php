@@ -58,7 +58,7 @@ class SubtanceActive extends \Database
     }
     public function panierSubtanceActive()
     {
-        $sql = "select S.id_stock, CIS, S.nom, type, masse, S.quantite_disponible from gsb.stock as S join gsb.subtance_active as M on M. id_stock = S.id_stock WHERE CIS = :CIS and categorie='Subtance Active'";
+        $sql = "select S.id_stock, CIS, S.nom, type, masse, S.quantite_disponible, S.prix from gsb.stock as S join gsb.subtance_active as M on M. id_stock = S.id_stock WHERE CIS = :CIS and categorie='Subtance Active'";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':CIS', $this->CIS, PDO::PARAM_STR); // Liez le paramètre CIS correctement.
         $stmt->execute(); // Exécutez la requête préparée.

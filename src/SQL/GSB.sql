@@ -108,6 +108,13 @@ ALTER TABLE `mouvements`
     ADD KEY `id_commande` (`id_commande`);
 ALTER TABLE stock ADD COLUMN prix INT DEFAULT 100;
 
+ALTER TABLE details_commande ADD COLUMN prixTotal int;
+
+
+ALTER TABLE commandes ADD COLUMN prixTotal int;
+
+ALTER TABLE utilisateurs ADD COLUMN tentatives int;
+
 
 COMMIT;
 

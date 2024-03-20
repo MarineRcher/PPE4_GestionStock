@@ -45,6 +45,7 @@ if(!empty($errorMessage)){ ?>
                         <th class='enTete'>Prénom</th>
                         <th class='enTete'>Email</th>
                         <th class='enTete'>Role</th>
+                   <th class='enTete'>Nombre de tentatives</th>
                     </tr>";
             foreach ($utilisateurSelectionne as $item) {
                 echo "<tr>";
@@ -52,17 +53,18 @@ if(!empty($errorMessage)){ ?>
                 echo "<td>" . ($item['prenom'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['email'] ?? 'Non spécifié') . "</td>";
                 echo "<td><select name='role[]'>
-           <option value='Admin' " . ($item['role'] == 'Admin' ? 'selected' : '') . ">Admin</option>
+         
+         <option value='Admin' " . ($item['role'] == 'Admin' ? 'selected' : '') . ">Admin</option>
            <option value='SuperUser' " . ($item['role'] == 'SuperUser' ? 'selected' : '') . ">SuperUser</option>
            <option value='User' " . ($item['role'] == 'User' ? 'selected' : '') . ">User</option>
     </select></td>";
+                echo "<td><input class='inputQuantity' type='text' name='tentative[]' value='" . ($item['tentative'] ?? '0') . "' /></td>";
 
                 // Ajout des champs cachés pour chaque utilisateur
                 echo "<input name='id[]' type='hidden' value='" . ($item['id_utilisateur'] ?? '') . "' >";
                 echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
                 echo "<input name='prenom[]' type='hidden' value='" . ($item['prenom'] ?? '') . "' >";
                 echo "<input name='email[]' type='hidden' value='" . ($item['email'] ?? '') . "' >";
-
                 echo "</tr>";
             }
 

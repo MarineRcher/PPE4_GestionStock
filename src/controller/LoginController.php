@@ -19,20 +19,26 @@ class LoginController extends Controller {
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            $user_data = $this->model('Users');
-           $user_data = $user_data->verify_user($email);
+            $user_model = $this->model('Users');
+           $user_data = $user_model->verify_user($email);
+
 
             if (!empty($user_data)) {
-                if (password_verify($password, $user_data['mot_de_passe'])) {
-                   $_SESSION['id_utilisateur'] = $user_data['id_utilisateur'];
-                    $_SESSION['email_utilisateur'] = $user_data['email'];
-                    $_SESSION['role'] = $user_data['role'];
+                if($user_data['tentative'] < 5) {
+                    if (password_verify($password, $user_data['mot_de_passe'])) {
+                        $_SESSION['id_utilisateur'] = $user_data['id_utilisateur'];
+                        $_SESSION['email_utilisateur'] = $user_data['email'];
+                        $_SESSION['role'] = $user_data['role'];
+                        $user_model->miseAJourTentative();
+                        header("Location: ../Vue/HomePage.php");
 
-                    header("Location: ../Vue/HomePage.php");
-
-                    exit;
-                } else {
-                    $errorMessage = 'Email ou mot de passe incorrect.';
+                        exit;
+                    } else {
+                        $user_model->ajoutTentative();
+                        $errorMessage = 'Email ou mot de passe incorrect.';
+                    }
+                }else{
+                    $errorMessage = "Nombre de tentatives de connexion trop important";
                 }
 
             }else {

@@ -47,16 +47,16 @@ class GestionUtilisateurs extends Controller
     {
 
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset( $_POST['id'], $_POST['role']) ) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset( $_POST['id'], $_POST['role'], $_POST['tentative']) ) {
                 $id =  $_POST['id'];
                 $role = $_POST['role'];
-
+                $tentatives = $_POST['tentative'];
                 $modelCommande = $this->model('Users');
 
                 $combinedArray = array_combine($id, $role);
                 foreach ($combinedArray as $id_utilisateur => $role_utilisateur) {
                     $modelCommande->updateRole($role_utilisateur);
-                    $errorDetail = $modelCommande->MiseAJoutRole($id_utilisateur);
+                    $errorDetail = $modelCommande->MiseAJoutRole($id_utilisateur, $tentatives);
                 }
                 header("Location: ../Vue/GestionUtilisateurs.php");
         } else {

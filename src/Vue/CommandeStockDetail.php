@@ -67,6 +67,7 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
                         <th class='enTete'>Type</th>
                         <th class='enTete'>Masse</th>
                         <th class='enTete'>Quantité</th>
+                        <th class='enTete'>Prix unitaire</th>
                     </tr>";
                 foreach ($SubtanceActiveSelectionne as $group) {
                     foreach ($group as $item) {
@@ -76,12 +77,13 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
                         echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
                         echo "<td>" . ($item['masse'] ?? 'Non spécifié') . "</td>";
                         echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
-
+                        echo "<td>" . $item['prix'] ."</td>";
                         // Ajout des champs cachés pour chaque médicament
                         echo "<input name='id_stock[]' type='hidden' value='" . ($item['id_stock'] ?? '') . "' >";
                         echo "<input name='CIS[]' type='hidden' value='" . ($item['CIS'] ?? '') . "' >";
                         echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
                         echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";
+                        echo "<input name='prix[]' type='hidden' value='" . ($item['prix'] ?? '') . "' >";
                         echo "</tr>";
                     }
                 }
@@ -97,6 +99,7 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
                         <th class='enTete'>Nom</th>
                         <th class='enTete'>Type</th>
                         <th class='enTete'>Quantité</th>
+                           <th class='enTete'>Prix unitaire</th>
                     </tr>";
                 foreach ($medicaments as $group) {
                     foreach ($group as $item) {
@@ -105,12 +108,14 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
                         echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
                         echo "<td>" . ($item['type'] ?? 'Non spécifié') . "</td>";
                         echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['CIS'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
-
+                        echo "<td>" . $item['prix'] ."</td>";
                         // Ajout des champs cachés pour chaque médicament
                         echo "<input name='id_stock[]' type='hidden' value='" . ($item['id_stock'] ?? '') . "' >";
                         echo "<input name='CIS[]' type='hidden' value='" . ($item['CIS'] ?? '') . "' >";
                         echo "<input name='nom[]' type='hidden' value='" . ($item['nom'] ?? '') . "' >";
                         echo "<input name='type[]' type='hidden' value='" . ($item['type'] ?? '') . "' >";
+                        echo "<input name='prix[]' type='hidden' value='" . ($item['prix'] ?? '') . "' >";
+
                         echo "</tr>";
                     }
                 }
@@ -124,15 +129,17 @@ if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
                     <tr> 
                         <th class='enTete'>Nom</th>
                         <th class='enTete'>Quantité</th>
+                           <th class='enTete'>Prix unitaire</th>
                     </tr>";
                 foreach ($materielSelectionne as $group) {
                     foreach ($group as $item) {
                         echo "<tr>";
                         echo "<td>" . ($item['nom'] ?? 'Non spécifié') . "</td>";
                         echo "<td><input class='inputQuantity' type='text' name='quantite_disponible[" . $item['id_stock'] . "]' value='" . ($item['quantite_disponible'] ?? '0') . "' /></td>";
-
+                        echo "<td>" . $item['prix'] ."</td>";
                         // Ajout des champs cachés pour chaque médicament
                         echo "<input name='id_stock[]' type='hidden' value='" . ($item['id_stock'] ?? '') . "' >";
+                        echo "<input name='prix[]' type='hidden' value='" . ($item['prix'] ?? '') . "' >";
                         echo "</tr>";
                     }
                 }

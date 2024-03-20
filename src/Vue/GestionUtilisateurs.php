@@ -23,13 +23,10 @@ $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
 
     <div class="containerSearchTable">
         <div class="containerSearchButton">
-            <form class="searchBar" method="POST">
-                <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher..." ">
-                <input type = "submit"  value = "Rechercher" class="buttonRechercher">
-            </form>
+
             <div class="buttons">
                 <form method="POST" action="ChangerRole.php" id="monFormulaire">
-                    <button class="buttonRole" type="submit" name="utilisateurSelectionne[]" >Changer role</button>
+                    <button class="buttonRole" type="submit" name="utilisateurSelectionne[]" >Changer role ou nombre de tentative de connexion</button>
 
             </div>
         </div>
@@ -46,6 +43,7 @@ $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
                     <th class='enTete'>Prenom</th>
                     <th class='enTete'>Email</th>
                     <th class='enTete'>Role</th>
+                    <th class='enTete'>Tentatives de connexion</th>
                 </tr>";
             foreach ($dataUtilisateurs as $item) {
 
@@ -55,6 +53,7 @@ $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
                     <td >" . $item['prenom']. "</td>
                     <td >" .$item['email'] . "</td>
                     <td>" .$item['role'] . "</td>
+                      <td>" .$item['tentative'] . "</td>
                 </tr>";
             }
             echo'</form>';
