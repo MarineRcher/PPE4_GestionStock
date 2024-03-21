@@ -108,14 +108,14 @@ class CommandeStock extends \Database
         }
     }
 
-    public function commande()
+    public function commande($id)
     {
         $_SESSION['IDCommande'] =[];
         $sql = "INSERT INTO commandes (id_utilisateur, date_disponibilite, id_fournisseur) VALUES (:id_utilisateur, :date_disponibilite, :id_fournisseur)";
         $stmt = $this->pdo->prepare($sql);
 
         if ($stmt->execute([
-            ':id_utilisateur' => $_SESSION['id_utilisateur'],
+            ':id_utilisateur' => $id,
             ':date_disponibilite' => $this->dateLivraison,
             ':id_fournisseur' => $this->id_fournisseur,
 

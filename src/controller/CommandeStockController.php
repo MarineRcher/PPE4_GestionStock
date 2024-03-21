@@ -3,7 +3,8 @@
 namespace controller;
 include_once '../Core/controller.php';
 use src\Core\Controller;
-
+require_once '../controller/JWT.php';
+use controller\JWT;
 class CommandeStockController extends Controller
 {
 
@@ -94,8 +95,9 @@ public function selectMedicaments(){
     {
 
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible'], $_POST['idFournisseur'], $_POST['prix']) ) {
-
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'],$_POST['quantite_disponible'], $_POST['idFournisseur'], $_POST['prix']) ) {
+            $jwt = new \controller\JWT();
+            $payload = $jwt->get_payload($_COOKIE['JWT']);
             if(!empty($_POST['selectedDate'])) {
                 $prix=$_POST['prix'];
                 $idStock = $_POST['id_stock'];
@@ -110,7 +112,8 @@ public function selectMedicaments(){
 
                 $modelCommande = $this->model('CommandeStock');
                 $modelCommande->premiereCommande($date_livraison, $idFournisseur, );
-                $error = $modelCommande->commande();
+
+                $error = $modelCommande->commande($payload['user_id']);
 
                 $combinedArray = array_combine($idStock, $quantite_choisi);
                 foreach ($combinedArray as $stock => $quantite) {

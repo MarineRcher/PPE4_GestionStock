@@ -4,10 +4,13 @@ session_start();
 // Inclure le fichier contenant la classe GestionMedicaments
 require_once '../controller/CommandesController.php';
 include_once '../model/Commandes.php';
+include_once '../controller/JWT.php';
+$jwt = new \controller\JWT();
+$payload = $jwt->get_payload($_COOKIE['JWT']);
 
 $commandesParUtilisateur = new CommandesController();
 
-if($_SESSION['role'] == 'SuperUser'){
+if($payload['user_role'] == 'SuperUser'){
     $commandes = $commandesParUtilisateur->selectCommandeSuperUser();
 }else {
     $commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
@@ -33,7 +36,7 @@ if($_SESSION['role'] == 'SuperUser'){
 
         <?php
 
-        if($_SESSION['role']=='SuperUser'){
+        if($payload['user_role']=='SuperUser'){
 
         echo'<form method="POST" action="ChangerStatut.php">
             <button type="submit">Changer le statut</button>';
@@ -51,7 +54,7 @@ if($_SESSION['role'] == 'SuperUser'){
                     <th class='enTete'>Statut de la demande</th>
                     <th class='enTete'>Date de disponibilité souhaitée</th>
                     <th class='enTete'>Catégorie</th>";
-  if($_SESSION['role'] == 'SuperUser'){
+  if($payload['user_role'] == 'SuperUser'){
       echo"<th class='enTete'>Nom du demandeur</th>";
             }
                     "</tr>";
@@ -65,7 +68,7 @@ if($_SESSION['role'] == 'SuperUser'){
                     <td>" . $item['date_disponibilite'] . "</td>
                  <td>" . $item['categorie'] . "</td>
                  ";
-            if($_SESSION['role'] == 'SuperUser'){
+            if($payload['user_role'] == 'SuperUser'){
                 echo"
                 <td>".$item['nom']."</td>
           

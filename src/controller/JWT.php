@@ -1,7 +1,7 @@
 <?php
 
 namespace controller;
-
+require_once __DIR__ . '/../Config/Config.php';
 class JWT
 {
     /**

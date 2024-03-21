@@ -61,7 +61,8 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
                     <td>" . $item['date_disponibilite'] . "</td>
                  <td>" . $item['categorie'] . "</td>
                  <td>" . $item['total_prix'] . "</td>
-                 
+                 <input type='hidden' name='idFournisseur' value='".$item['id_fournisseur']."'>
+            
                  ";
 echo"
               

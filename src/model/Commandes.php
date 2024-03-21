@@ -47,14 +47,14 @@ class Commandes extends \Database
 
         $this-> quantite = $quantite;
     }
-    public function commande()
+    public function commande($id)
     {
         $_SESSION['IDCommande'] =[];
         $sql = "INSERT INTO commandes (id_utilisateur, date_disponibilite) VALUES (:id_utilisateur, :date_disponibilite)";
         $stmt = $this->pdo->prepare($sql);
 
         if ($stmt->execute([
-            ':id_utilisateur' => $_SESSION['id_utilisateur'],
+            ':id_utilisateur' => $id,
             ':date_disponibilite' => $this->dateReservation,
 
         ])) {
@@ -100,11 +100,11 @@ class Commandes extends \Database
         }
         return $message;
     }
- public function selectCommandesParUtilisateur()
+ public function selectCommandesParUtilisateur($id)
     {
         $sql = "select distinct C.id_commande, C.date_commande, C.statut, C.date_disponibilite, categorie from gsb.commandes as C join gsb.details_commande as D on D.id_commande = C.id_commande join gsb.stock as S on S.id_stock = D.id_stock where id_utilisateur = :id and id_fournisseur is null";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $_SESSION['id_utilisateur']]);
+        $stmt->execute([':id' => $id]);
             $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $commandes;
     }

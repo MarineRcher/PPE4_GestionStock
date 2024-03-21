@@ -2,7 +2,8 @@
 
 include_once '../Core/controller.php';
 use src\Core\Controller;
-
+require_once '../controller/JWT.php';
+use controller\JWT;
 $controller = new Controller();
 class CommandesController extends Controller{
 
@@ -10,7 +11,10 @@ class CommandesController extends Controller{
     {
 
         // Vérification de la soumission du formulaire
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'], $_SESSION['id_utilisateur'], $_POST['quantite_disponible']) ) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_stock'], $_POST['selectedDate'],  $_POST['quantite_disponible']) ) {
+            $jwt = new JWT();
+            $payload = $jwt->get_payload($_COOKIE['JWT']);
+
             if(!empty($_POST['selectedDate'])) {
 
                 $idStock = $_POST['id_stock'];
@@ -19,7 +23,8 @@ class CommandesController extends Controller{
 
                 $modelCommande = $this->model('Commandes');
                 $modelCommande->premiereCommande($date_resolution);
-                $error = $modelCommande->commande();
+
+                $error = $modelCommande->commande($payload['user_id']);
 
                 $combinedArray = array_combine($idStock, $quantite_choisi);
                 foreach ($combinedArray as $stock => $quantite) {
@@ -42,15 +47,15 @@ class CommandesController extends Controller{
 
     public function selectCommandeParUtilisateur()
     {
-
+        $jwt = new JWT();
+        $payload = $jwt->get_payload($_COOKIE['JWT']);
         $modelCommande = $this->model('Commandes');
-        $commandesParUtilisateur = $modelCommande->selectCommandesParUtilisateur();
+        $commandesParUtilisateur = $modelCommande->selectCommandesParUtilisateur($payload['user_id']);
         return $commandesParUtilisateur;
 
     }
  public function selectCommandeSuperUser()
     {
-
         $modelCommande = $this->model('Commandes');
         $commandesParUtilisateur = $modelCommande->selectCommandesSuperUser();
         return $commandesParUtilisateur;

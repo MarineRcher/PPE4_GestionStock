@@ -27,13 +27,11 @@ class LoginController extends Controller {
             if (!empty($user_data)) {
                 if($user_data['tentative'] < 5) {
                     if (password_verify($password, $user_data['mot_de_passe'])) {
-                        $_SESSION['id_utilisateur'] = $user_data['id_utilisateur'];
-                        $_SESSION['email_utilisateur'] = $user_data['email'];
-                        $_SESSION['role'] = $user_data['role'];
-                        $user_model->miseAJourTentative($_SESSION['id_utilisateur']);
-                       // $JWT = new \controller\JWT();
-                        //$payload = $jwt->generer_payload($user_data['id_utilisateur'], $user_data['email'], $user_data['role']);
-                        //setcookie("JWT", $jwt->generer_jwt($payload), time() + 14400);
+
+                        $user_model->miseAJourTentative($user_data['id_utilisateur']);
+                        $jwt = new \controller\JWT();
+                        $payload = $jwt->generer_payload($user_data['id_utilisateur'], $user_data['email'], $user_data['role']);
+                        setcookie("JWT", $jwt->generer_jwt($payload), time() + 14400);
                         header("Location: ../Vue/HomePage.php");
 
                         exit;
