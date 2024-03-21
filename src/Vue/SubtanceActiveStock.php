@@ -41,7 +41,7 @@ if (!empty($_POST['subtanceActiveSelectionne']) ) {
         <div class="containerSearchTable">
             <div class="containerSearchButton">
                 <form class="searchBar" method="POST">
-                    <input class="inputSearchBar" id="CIS" type="search" name="CIS" placeholder="Rechercher..." ">
+                    <input class="inputSearchBar" id="CIS" type="search" name="CIS" placeholder="Rechercher par CIS" ">
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">

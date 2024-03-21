@@ -39,7 +39,7 @@ if (!empty($_POST['materielSelectionne']) ) {
         <div class="containerSearchTable">
             <div class="containerSearchButton">
                 <form class="searchBar" method="POST">
-                    <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher..." ">
+                    <input class="inputSearchBar" id="nom" type="search" name="nom" placeholder="Rechercher par nom" ">
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">

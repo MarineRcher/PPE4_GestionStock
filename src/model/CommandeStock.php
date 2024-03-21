@@ -164,4 +164,33 @@ class CommandeStock extends \Database
         }
         return $message;
     }
+
+    public function rechercherMateriel($nom)
+    {
+        $sql= "select id_stock, S.nom, S.quantite_disponible, S.prix from gsb.stock as S where nom like :nom and categorie='Materiel' ";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute([':nom' =>  $nom . '%']);
+        $materiel = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $materiel;
+    }
+
+    public function rechercherSubtanceActive($CIS)
+    {
+        $sql= "select CIS, S.nom, type, masse, S.quantite_disponible, S.prix from gsb.stock as S join gsb.subtance_active as A on A. id_stock = S.id_stock where CIS like :CIS and categorie='Subtance Active'";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute([':CIS' =>  $CIS . '%']);
+        $subtanceActive = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $subtanceActive;
+    }
+    public function rechercherMedicaments($CIS)
+    {
+        $sql= "select CIS, S.nom, type, S.quantite_disponible, S.prix from gsb.stock as S join gsb.medicaments as M on M. id_stock = S.id_stock where CIS like :CIS and categorie='medicament' ";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute([':CIS' =>  $CIS . '%']);
+        $medicaments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $medicaments;
+    }
 }

@@ -47,7 +47,7 @@ class Users extends \Database
     {
         $sql = "SELECT id_utilisateur, email, mot_de_passe, role, tentative FROM utilisateurs WHERE email = :email";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
-        $stmt->execute(['email' => $email]);
+        $stmt->execute([':email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!empty($user)) {
@@ -94,27 +94,28 @@ class Users extends \Database
 
         return $users;
     }
-    public function MiseAJoutRole($id, $tentative)
+    public function MiseAJoutRole($id_utilisateur, $tentative)
     {
-        $sql = "update gsb.utilisateurs set role=:role and tentative=:tentative where id_utilisateur=:id";
+        $sql = "update gsb.utilisateurs set role=:role,tentative=:tentative where id_utilisateur=:id";
         $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
-        if($stmt->execute( [':id' => $id, ':tentative'=> $tentative, ':role' => $this->role])){
+        if($stmt->execute( [':id' => $id_utilisateur, ':role' => $this->role, ':tentative'=> $tentative])){
             return "Role modifie avec succes";
         }else {
             return 'Erreur lors de la modification de role';
         }
 
-    }  public function miseAJourTentative()
+    }  public function miseAJourTentative($id)
     {
         $sql = "update gsb.utilisateurs set tentative=0 where id_utilisateur=:id";
         $stmt = $this->pdo->prepare($sql);
-      $stmt->execute( [':id' => $_SESSION['id']]);
+      $stmt->execute( [':id' => $id]);
 
-    }public function ajoutTentative()
+    }public function ajoutTentative($id)
     {
-        $sql = "update gsb.utilisateurs set tentative= tentative +1 where id_utilisateur=:id";
+
+        $sql = "update gsb.utilisateurs set tentative = tentative + 1 where id_utilisateur=:id";
         $stmt = $this->pdo->prepare($sql);
-      $stmt->execute( [':id' => $_SESSION['id']]);
+      $stmt->execute( [':id' => $id]);
 
     }
     public function MiseAJourMdp()

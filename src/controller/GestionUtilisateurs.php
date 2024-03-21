@@ -53,12 +53,25 @@ class GestionUtilisateurs extends Controller
                 $tentatives = $_POST['tentative'];
                 $modelCommande = $this->model('Users');
 
-                $combinedArray = array_combine($id, $role);
-                foreach ($combinedArray as $id_utilisateur => $role_utilisateur) {
-                    $modelCommande->updateRole($role_utilisateur);
-                    $errorDetail = $modelCommande->MiseAJoutRole($id_utilisateur, $tentatives);
-                }
-                header("Location: ../Vue/GestionUtilisateurs.php");
+            $combinedArray = [];
+            foreach ($id as $key => $value) {
+                $combinedArray[] = [
+                    'id' => $id[$key],
+                    'role' => $role[$key],
+                    'tentative' => $tentatives[$key]
+                ];
+            }
+
+            foreach ($combinedArray as $userData) {
+                $id_utilisateur = $userData['id'];
+                $role_utilisateur = $userData['role'];
+                $tentative_utilisateur = $userData['tentative'];
+
+                $modelCommande->updateRole($role_utilisateur);
+                $errorDetail = $modelCommande->MiseAJoutRole($id_utilisateur, $tentative_utilisateur);
+            }
+
+            header("Location: ../Vue/GestionUtilisateurs.php");
         } else {
             return "Merci de remplir les champs vides";
 

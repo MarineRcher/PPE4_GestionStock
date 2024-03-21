@@ -26,7 +26,7 @@ $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
 
             <div class="buttons">
                 <form method="POST" action="ChangerRole.php" id="monFormulaire">
-                    <button class="buttonRole" type="submit" name="utilisateurSelectionne[]" >Changer role ou nombre de tentative de connexion</button>
+                    <button class="buttonRole" type="submit" name="utilisateurSelectionne[]" >Changer role ou debloquer un compte</button>
 
             </div>
         </div>

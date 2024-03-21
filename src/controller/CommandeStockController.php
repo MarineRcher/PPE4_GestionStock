@@ -7,6 +7,36 @@ use src\Core\Controller;
 class CommandeStockController extends Controller
 {
 
+    public function rechercherMateriel(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])){
+
+            $modelMateriel = $this->model('CommandeStock');
+            $dataMateriel = $modelMateriel->rechercherMateriel($_POST['nom']);
+
+            return $dataMateriel;
+        }
+
+    }
+    public function rechercherMedicament(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIS'])){
+            $modelMedicaments = $this->model('CommandeStock');
+            $dataMedicaments = $modelMedicaments->rechercherMedicaments($_POST['CIS']);
+
+            return $dataMedicaments;
+        }
+
+    }
+
+    public function rechercherSubtanceActive(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIS'])){
+
+            $modelSubtanceActive = $this->model('CommandeStock');
+            $dataSubtanceActive = $modelSubtanceActive->rechercherSubtanceActive($_POST['CIS']);
+
+            return $dataSubtanceActive;
+        }
+
+    }
     public function selectCommandesFournisseurs()
     {
         $modelCommandes = $this->model('CommandeStock');
@@ -17,13 +47,18 @@ class CommandeStockController extends Controller
     {
 
         if($_SERVER["REQUEST_METHOD"] == "POST" ){
-        if(isset($_POST['fournisseurSelectionne']) && is_array($_POST['fournisseurSelectionne'])){
+        if(isset($_POST['fournisseurSelectionne'])){
+            if(is_array($_POST['fournisseurSelectionne'])){
             $modelCategorie = $this->model('CommandeStock');
            foreach ($_POST['fournisseurSelectionne'] as $id) {
                 $categorie = $modelCategorie->selectCategorie($id);
-           }
+
+           }}else{
+                $modelCategorie = $this->model('CommandeStock');
+                $categorie = $modelCategorie->selectCategorie($_POST['fournisseurSelectionne']);
+            }
             if(empty($categorie)){
-                header('Location: selectionFournisseur.php');
+               header('Location: selectionFournisseur.php');
             }else {
                 return $categorie;
 

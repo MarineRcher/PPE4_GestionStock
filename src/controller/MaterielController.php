@@ -17,13 +17,13 @@ class MaterielController extends Controller
     }
 
     public function rechercherMateriel(){
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['CIS'])){
-            $CIS = $_POST['CIS'];
-            $modelMedicaments = $this->model('Medications');
-            $modelMedicaments->rechercheCIS($CIS);
-            $dataMedicaments = $modelMedicaments->rechercherMedicaments();
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])){
 
-            return $dataMedicaments;
+            $modelMateriel = $this->model('Materiel');
+            $modelMateriel->nom($_POST['nom']);
+            $dataMateriel = $modelMateriel->rechercherMateriel();
+
+            return $dataMateriel;
         }
 
     }

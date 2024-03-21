@@ -24,6 +24,9 @@ class Materiel extends \Database
         $this-> nom = $nom;
         $this-> idMateriel = $idMateriel;
         $this-> quantite = $quantite;
+    } public function nom($nom)
+    {
+        $this-> nom = $nom;
     }
   public function panier($idMateriel)
     {
@@ -54,6 +57,15 @@ class Materiel extends \Database
         if (!empty($materiel)){
             return $materiel;
         }
+    }
+    public function rechercherMateriel()
+    {
+        $sql= "select id_stock, S.nom, S.quantite_disponible from gsb.stock as S where nom like :nom and categorie='Materiel' ";
+        $stmt = $this->pdo->prepare($sql); // Utilise la propriété $pdo
+        $stmt->execute([':nom' =>  $this->nom . '%']);
+        $materiel = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $materiel;
     }
 
 }

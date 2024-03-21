@@ -30,16 +30,6 @@ CREATE TABLE `fournisseurs` (
         `Categorie` enum('Substances actives','Materiel','Medicament', 'non_categorise') default 'non_categorise'
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-drop table if exists traces_utilisateur;
-
-CREATE TABLE `traces_utilisateur`(
-    `id_trace` int(11) primary key auto_increment not null,
-    `requete` varchar(220) default null,
-    `params` varchar(100) default null,
-    `date` datetime default current_timestamp()
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
 drop table if exists commandes;
 
 CREATE TABLE `commandes` (
@@ -113,7 +103,7 @@ ALTER TABLE details_commande ADD COLUMN prixTotal int;
 
 ALTER TABLE commandes ADD COLUMN prixTotal int;
 
-ALTER TABLE utilisateurs ADD COLUMN tentatives int;
+ALTER TABLE utilisateurs ADD COLUMN tentative int;
 
 
 COMMIT;
@@ -177,7 +167,7 @@ INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (26, 26, '60014894'
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (27, 'CARVEDILOL VIATRIS 25 mg', 'medicament', 6);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (27, 27, '60016308', 'comprimé pelliculé sécable');
 
-INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (28, 'LEVOCARNIL 1 g/5 ml', 'medicament', 6);
+INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (28, 'LEVOCARNIL 1 g/5 ml', 'medicament', 3);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (28, 28, '60016589', 'solution injectable');
 
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (29, 'LYRICA 300 mg', 'medicament', 6);
@@ -186,7 +176,7 @@ INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (29, 29, '60018088'
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (30, 'ENTECAVIR TEVA 1 mg', 'medicament', 6);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (30, 30, '60018444', 'comprimé pelliculé');
 
-INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (31, 'PERINDOPRIL TOSILATE TEVA 10 mg', 'medicament', 6);
+INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (31, 'PERINDOPRIL TOSILATE TEVA 10 mg', 'medicament', 3);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (31, 31, '60018896', 'comprimé pelliculé');
 
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (32, 'OPTICRON 2 POUR CENT', 'medicament', 6);
@@ -204,7 +194,7 @@ INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (35, 35, '60019813'
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (36, 'SOLIAN 100 mg', 'medicament', 6);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (36, 36, '60019927', 'comprimé sécable');
 
-INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (37, 'SPIRONOLACTONE VIATRIS 75 mg', 'medicament', 6);
+INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (37, 'SPIRONOLACTONE VIATRIS 75 mg', 'medicament', 3);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (37, 37, '60021127', 'comprimé pelliculé');
 
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (38, 'PERSANTINE 75 mg', 'medicament', 6);

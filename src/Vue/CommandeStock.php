@@ -5,21 +5,29 @@ session_start();
 require_once '../controller/CommandeStockController.php';
 require_once '../model/CommandeStock.php';
 
-$subtanceActive = [];
-$materiel = [];
+
+$dataSubtanceActive = [];
+$dataMateriel = [];
 
 $commandeStock= new controller\CommandeStockController();
 
 
     $categorie = $commandeStock->selectCategorieFournisseur();
+
     foreach ($categorie as $item) {
         if ($item['Categorie'] == 'Substances actives') {
-            $subtanceActive = $commandeStock->selectSubtancesActives();
+
+                $dataSubtanceActive = $commandeStock->selectSubtancesActives();
+
         } elseif ($item['Categorie'] == 'Materiel') {
-            $materiel = $commandeStock->selectMateriel();
+
+                $dataMateriel = $commandeStock->selectMateriel();
+
 
         }elseif($item['Categorie'] == 'Medicament'){
-            $medicaments = $commandeStock->selectMedicaments();
+
+                $dataMedicaments = $commandeStock->selectMedicaments();
+
         }
     }
 
@@ -38,20 +46,17 @@ $commandeStock= new controller\CommandeStockController();
     <div class="containerTitleTable">
         <div class="containerSearchTable">
             <div class="containerSearchButton">
-                <form class="searchBar" method="POST">
-                    <input class="inputSearchBar" id="CIS" type="search" name="CIS" placeholder="Rechercher...">
-                    <input type="submit" value="Rechercher" class="buttonRechercher">
-                </form>
+
                 <div class="buttons">
-                    <?php if (!empty($subtanceActive)) { ?>
+                    <?php if (!empty($dataSubtanceActive)) { ?>
                         <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
                             <button class="buttonCommander" type="submit" name="subtanceActiveSelectionne[]">Commander</button>
 
-                    <?php } elseif (!empty($materiel)) { ?>
+                    <?php } elseif (!empty($dataMateriel)) { ?>
                         <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
                             <button class="buttonCommander" type="submit" name="materielSelectionne[]">Commander</button>
 
-                    <?php } elseif (!empty($medicaments)) { ?>
+                    <?php } elseif (!empty($dataMedicaments)) { ?>
                             <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
                                 <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]">Commander</button>
 
@@ -59,9 +64,9 @@ $commandeStock= new controller\CommandeStockController();
                 </div>
             </div>
             <?php
-            if (empty($subtanceActive) && empty($materiel) && empty($medicaments)) {
+            if (empty($dataSubtanceActive) && empty($dataMateriel) && empty($dataMedicaments)) {
                 echo '<div>Aucune donnée en stock</div>';
-            } elseif (!empty($subtanceActive)) {
+            } elseif (!empty($dataSubtanceActive)) {
                 foreach ($_POST['fournisseurSelectionne'] as $item) {
                     echo "<input type='hidden' name='idFournisseur' value='" . $item . "' >";
                 }
@@ -76,7 +81,7 @@ $commandeStock= new controller\CommandeStockController();
                        <th class='enTete'>Prix unitaire</th>
                 </tr>";
 
-                foreach ($subtanceActive as $item) {
+                foreach ($dataSubtanceActive as $item) {
                     echo "<tr>
                     <td><input type='checkbox' name='subtanceActiveSelectionne[]' value='" . $item['CIS'] . "'></td>
                     <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIS'] . "'>" .$item['CIS'] . "</a></td>
@@ -89,9 +94,10 @@ $commandeStock= new controller\CommandeStockController();
                 }
                 echo '</form>';
                 echo "</table>";
-            }elseif (!empty($medicaments)) {
+            }elseif (!empty($dataMedicaments)) {
                 foreach ($_POST['fournisseurSelectionne'] as $item) {
                     echo "<input type='hidden' name='idFournisseur' value='" . $item . "' >";
+                    echo "<input type='hidden' name='fournisseurSelectionne' value='" . $item . "' >";
                 }
                 echo "<table>
                 <tr>
@@ -103,7 +109,7 @@ $commandeStock= new controller\CommandeStockController();
                        <th class='enTete'>Prix unitaire</th>
                 </tr>";
 
-                foreach ($medicaments as $item) {
+                foreach ($dataMedicaments as $item) {
                     echo "<tr>
                     <td><input type='checkbox' name='medicamentsSelectionne[]' value='" . $item['CIS'] . "'></td>
                     <td><a href='https://base-donnees-publique.medicaments.gouv.fr/extrait.php?specid=".$item['CIS'] . "'>" .$item['CIS'] . "</a></td>
@@ -111,11 +117,12 @@ $commandeStock= new controller\CommandeStockController();
                     <td>" .$item['type'] . "</td>
                     <td>" .$item['quantite_disponible'] . "</td>
                       <td>" .$item['prix'] . "</td>
+                     
                 </tr>";
                 }
                 echo '</form>';
                 echo "</table>";
-            } elseif (!empty($materiel)) {
+            } elseif (!empty($dataMateriel)) {
                 foreach ($_POST['fournisseurSelectionne'] as $item) {
                     echo "<input type='hidden' name='idFournisseur' value='" . $item . "' >";
                 }
@@ -127,7 +134,7 @@ $commandeStock= new controller\CommandeStockController();
                        <th class='enTete'>Prix unitaire</th>
                 </tr>";
 
-                foreach ($materiel as $item) {
+                foreach ($dataMateriel as $item) {
                     echo "<tr>
                     <td><input type='checkbox' name='materielSelectionne[]' value='" . $item['id_stock'] . "'></td>
                     <td>" . $item['nom']. "</td>
