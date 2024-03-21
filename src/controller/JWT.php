@@ -136,29 +136,8 @@ class JWT
         return $payload["exp"] < $now->getTimestamp();
     }
 
-    /**
-     * Vérifie si le token JWT est conforme aux normes JWT
-     *
-     * @param string $token
-     * @return bool
-     */
-    public function est_valide(string $token): bool
-    {
-        return preg_match(
-                '/^[a-zA-Z0-9\-_=]+\.[a-zA-Z0-9\-_=]+\.[a-zA-Z0-9\-_=]+$/',
-                $token,
-            ) === 1;
-    }
 
-    /**
-     * Récupère le role de l'utilisateur connécté
-     *
-     * @param string $token
-     * @return string
-     */
-    public function get_role(string $token): string
-    {
-        $payload = $this->get_payload($token);
-        return $payload["user_role"];
-    }
+
+
+
 }
