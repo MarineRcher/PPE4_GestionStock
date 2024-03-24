@@ -85,15 +85,20 @@ class GestionUtilisateurs extends Controller
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['nom'], $_POST['passwordConfirm1'], $_POST['passwordConfirm2'])) {
             if ($_POST['passwordConfirm1'] == $_POST['passwordConfirm2']) {
-                $nouveauMdp = password_hash($_POST['passwordConfirm1'], PASSWORD_DEFAULT);
-                $email = $_POST['email'];
-                $nom = $_POST['nom'];
+                if (preg_match("/^(?=.*[A-Z])(?=.*\d)(?=.*\W).{12,}$/", $_POST['password'])) {
+                    $nouveauMdp = password_hash($_POST['passwordConfirm1'], PASSWORD_DEFAULT);
+                    $email = $_POST['email'];
+                    $nom = $_POST['nom'];
 
-                $modelCommande = $this->model('Users');
+                    $modelCommande = $this->model('Users');
 
-                $modelCommande->Mdp($email, $nouveauMdp, $nom);
-               $modelCommande->MiseAJourMdp();
-                header("Location: ../Vue/SignIn.php");
+                    $modelCommande->Mdp($email, $nouveauMdp, $nom);
+                    $modelCommande->MiseAJourMdp();
+                    header("Location: ../Vue/SignIn.php");
+                }else{
+                    return 'Le mot de passe doit contenir au moins 12 caractères, 1 majuscule, 1 chiffre et 1 caractère spécial.';
+
+                }
             } else {
                 return "Merci de renseigner deux mêmes mots de passes";
             }

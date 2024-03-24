@@ -78,34 +78,9 @@ class JWT
         return $jwt;
     }
 
-    /**
-     * Vérifie si le token JWT est valide
-     *
-     * @param string $token
-     * @return bool
-     */
-    public function verifier_validite(string $token): bool
-    {
-        $payload = $this->get_payload($token);
 
-        $token_verifie = $this->generer_jwt((array) $payload, 0);
 
-        return $token === $token_verifie;
-    }
 
-    /**
-     * Récupère le header contenue dans le token JWT
-     *
-     * @param string $token
-     * @return array
-     */
-    public function get_header(string $token): array
-    {
-        $array = explode(".", $token);
-        $header = $array[0];
-
-        return json_decode(base64_decode($header), true);
-    }
 
     /**
      * Récupère le payload contenue dans le token JWT
@@ -121,20 +96,7 @@ class JWT
         return json_decode(base64_decode($payload), true);
     }
 
-    /**
-     * Vérifie si le token JWT est expiré
-     *
-     * @param string $token
-     * @return bool
-     */
-    public function est_expire(string $token): bool
-    {
-        $payload = $this->get_payload($token);
 
-        $now = new \DateTime();
-
-        return $payload["exp"] < $now->getTimestamp();
-    }
 
 
 

@@ -59,7 +59,7 @@ class Users extends \Database
 
     public function AddUser()
     {
-        $sql = "INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe) VALUES (:nom, :prenom, :email, :password)";
+        $sql = "INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role) VALUES (:nom, :prenom, :email, :password, 'User')";
         $stmt = $this->pdo->prepare($sql);
 
         if ($stmt->execute([

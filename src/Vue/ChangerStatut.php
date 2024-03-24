@@ -61,9 +61,12 @@ if(isset($_POST['idFournisseur'])){
                 echo "<td>" . ($item['date_disponibilite'] ?? 'Non spécifié') . "</td>";
                 echo "<td>" . ($item['categorie'] ?? 'Non spécifié') . "</td>";
                echo "<td><select name='statut[]'>
-        <option value='en_attente' " . ($item['statut'] == 'en_attente' ? 'selected' : '') . ">En attente</option>
-        <option value='validee' " . ($item['statut'] == 'validee' ? 'selected' : '') . ">Validee</option>
-        <option value='invalide' " . ($item['statut'] == 'invalidée' ? 'selected' : '') . ">Invalide</option>";
+        <option value='en_attente' " . ($item['statut'] == 'en_attente' ? 'selected' : '') . ">En attente</option>";
+   if(empty($item['id_fournisseur'])){
+
+     echo"   <option value='validee' " . ($item['statut'] == 'validee' ? 'selected' : '') . ">Validee</option>";
+     }
+      echo  "<option value='invalide' " . ($item['statut'] == 'invalidée' ? 'selected' : '') . ">Invalide</option>";
                if(isset($item['id_fournisseur'])){
        echo "<option value='recu' " . ($item['statut'] == 'recu' ? 'selected' : '') . ">Recu</option>";
             echo'<input type="hidden" value="'.$item['id_fournisseur'].'" name="idFournisseur">';

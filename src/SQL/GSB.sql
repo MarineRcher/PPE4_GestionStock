@@ -107,7 +107,11 @@ ALTER TABLE utilisateurs ADD COLUMN tentative int;
 
 
 COMMIT;
+insert into utilisateurs(nom, prenom, email, mot_de_passe, role, tentative) values ('Admin', 'Admin', 'admin@gmail.com','$2y$10$lIVMnuRHTrXp8yV/KsioUOSyIYfKRWbNWfa5EZCnbHfhvGotUahAy', 'Admin', 0);
 
+insert into utilisateurs(nom, prenom, email, mot_de_passe, role, tentative) values ('SuperUser', 'SuperUser', 'SuperUser@gmail.com','$2y$10$rIQw4IyTnqYHEYxSxnCvC.qumfIc1erqiFeCbFi.O1njb.t39s.Ve', 'SuperUser', 0);
+
+insert into utilisateurs(nom, prenom, email, mot_de_passe, role, tentative) values ('User', 'User', 'User@gmail.com','$2y$10$EMe5Z4PSc./bJDeqC9Eo/ebNOYjAl/gX7pPJ354zYZt1Lvqx9fXkW', 'User',0);
 
 INSERT INTO stock (id_stock, nom, categorie, quantite_disponible) VALUES (8, 'ANASTROZOLE ACCORD 1 mg', 'medicament', 6);
 INSERT INTO medicaments (id_med, id_stock, CIS, type) VALUES (8, 8, '60002283', 'comprimé pelliculé');

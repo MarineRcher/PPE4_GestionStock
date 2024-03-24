@@ -14,6 +14,7 @@ class RegisterController extends Controller {
                 $prenom = $_POST['name'];
                 $nom = $_POST['lastName'];
                 $email = $_POST['email'];
+                if (preg_match("/^(?=.*[A-Z])(?=.*\d)(?=.*\W).{12,}$/", $_POST['password'])) {
                 $motDePasse = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hashage du mot de passe
 
                 $user_data = $this->model('Users');
@@ -32,6 +33,10 @@ class RegisterController extends Controller {
 
 
                    header("Location: ../Vue/SignIn.php");
+                }
+                }else{
+                    $message = 'Le mot de passe doit contenir au moins 12 caractères, 1 majuscule, 1 chiffre et 1 caractère spécial.';
+
                 }
             } else {
                 $message = 'Les deux mot de passes doivent être les mêmes';

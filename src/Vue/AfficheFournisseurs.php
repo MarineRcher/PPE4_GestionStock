@@ -8,7 +8,7 @@ $fournisseur = new controller\FournisseurController();
 $fournisseurs = $fournisseur->selectFournisseurs();
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'])){
-    $fournisseurs = $fournisseur->supprimerFournisseur();
+  
 
 }
 
@@ -31,7 +31,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
         <div class="containerSearchButton">
             <div class="buttons">
 
-                    <button class="buttonSuppression" name="fournisseurSelectionne" type="submit">Supprimer</button>
 
                 <a href="AjoutFournisseur.php">
                 <button class="buttonFournisseurAjout">
