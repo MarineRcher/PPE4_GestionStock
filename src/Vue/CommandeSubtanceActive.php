@@ -1,12 +1,9 @@
 <?php
-session_start();
+require_once __DIR__ . '/../controller/SubtanceActiveController.php';
+include_once __DIR__ . '/../model/SubtanceActive.php';
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/SubtanceActiveController.php';
-include_once '../model/SubtanceActive.php';
-
-require_once '../controller/CommandesController.php';
-include_once '../model/Commandes.php';
+require_once __DIR__ . '/../controller/CommandesController.php';
+include_once __DIR__ . '/../model/Commandes.php';
 
 $subtanceActive = new controller\SubtanceActiveController();
 
@@ -29,7 +26,7 @@ if (isset($_POST['quantite_disponible'])){$_POST['quantite_disponible'] = [];}
 </head>
 
 <body>
-<?php require '../Vue/Header.php';
+<?php require __DIR__ . '/../Vue/Header.php';
 if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
     <div class='containterErrorMessage'>
 

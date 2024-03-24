@@ -1,8 +1,8 @@
 <?php
 
 // Inclure le fichier contenant la classe LoginController
-require_once '../controller/GestionUtilisateurs.php';
-include_once '../model/Users.php';
+require_once __DIR__ . '/../controller/GestionUtilisateurs.php';
+include_once __DIR__ . '/../model/Users.php';
 // Créer une instance de LoginController
 $registerUser = new \controller\GestionUtilisateurs();
 
@@ -38,8 +38,8 @@ $errorMessage = $registerUser->changerMdp();
             Confirmation mot de passe<input type="text" name="passwordConfirm1" id="passwordConfirm" class="input">
             Confirmation du nouveau mot de passe<input type="text" name="passwordConfirm2" id="passwordConfirm" class="input">
             <input type="submit" value="Modifier" class="button">
-            <p>Vous n'avez pas de compte ? <a href="SignUp.php"><strong>Inscrivez-vous</strong><a/> </p>
-            <p>Vous avez un compte ? <a href="SignIn.php"><strong>Connectez-vous</strong><a/> </p>
+            <p>Vous n'avez pas de compte ? <a href="index?page=inscription"><strong>Inscrivez-vous</strong><a/> </p>
+            <p>Vous avez un compte ? <a href="index?page=login"><strong>Connectez-vous</strong><a/> </p>
         </form>
     </div>
 </div>

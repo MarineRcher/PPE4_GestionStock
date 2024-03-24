@@ -1,18 +1,17 @@
 <?php
-session_start();
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/SubtanceActiveController.php';
-include_once '../model/SubtanceActive.php';
 
-require_once '../controller/MaterielController.php';
-include_once '../model/Materiel.php';
+require_once __DIR__ . '/../controller/SubtanceActiveController.php';
+include_once __DIR__ . '/../model/SubtanceActive.php';
 
-require_once '../controller/CommandeStockController.php';
-include_once '../model/CommandeStock.php';
+require_once __DIR__ . '/../controller/MaterielController.php';
+include_once __DIR__ . '/../model/Materiel.php';
 
-include_once '../controller/GestionMedicaments.php';
-include_once '../model/Medications.php';
+require_once __DIR__ . '/../controller/CommandeStockController.php';
+include_once __DIR__ . '/../model/CommandeStock.php';
+
+include_once __DIR__ . '/../controller/GestionMedicaments.php';
+include_once __DIR__ . '/../model/Medications.php';
 $medicament= new GestionMedicaments();
 $subtanceActive = new controller\SubtanceActiveController();
 $materiel = new controller\MaterielController();
@@ -42,7 +41,7 @@ if(isset($_POST['medicamentsSelectionne'])){
 </head>
 
 <body>
-<?php require '../Vue/Header.php';
+<?php require __DIR__ . '/../Vue/Header.php';
 
 if(!empty($errorMessage) or empty($_POST['SubtanceActiveSelectionne'])){ ?>
 <div class='containterErrorMessage'>

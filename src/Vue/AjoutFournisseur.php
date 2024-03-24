@@ -1,8 +1,7 @@
 <?php
-session_start();
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/FournisseurController.php';
-include_once '../model/Fournisseur.php';
+
+require_once __DIR__ . '/../controller/FournisseurController.php';
+include_once __DIR__ . '/../model/Fournisseur.php';
 
 $fournisseur = new controller\FournisseurController();
 $fournisseur->AjoutFournisseur();
@@ -17,7 +16,7 @@ $fournisseur->AjoutFournisseur();
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleForm">
     <h2>Fournisseurs</h2>
 

@@ -15,3 +15,14 @@ mot de passe : root
 
 Puis pour finir entrer 
 ```source GSB.sql```
+Si Apache ne fonctionne pas, dans docker, aller dans web-1, puis files>etc/apache2/apache2.conf
+
+Changer AllowOverride None par AllowOveride All dans le partie surlignée.
+
+```
+<Directory /var/www/>
+	Options Indexes FollowSymLinks
+	AllowOverride All
+	Require all granted
+</Directory>
+```

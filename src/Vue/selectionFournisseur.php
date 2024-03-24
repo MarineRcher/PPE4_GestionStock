@@ -1,8 +1,6 @@
 <?php
-session_start();
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/FournisseurController.php';
-include_once '../model/Fournisseur.php';
+require_once __DIR__ . '/../controller/FournisseurController.php';
+include_once __DIR__ . '/../model/Fournisseur.php';
 
 $fournisseur = new controller\FournisseurController();
 $fournisseurs = $fournisseur->selectFournisseurs();
@@ -22,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Fournisseurs</h2>
 
@@ -30,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fournisseurSelectionne'
         <div class="containerSearchButton">
 
             <div class="buttons">
-                <form class="" method="POST" action="CommandeStock.php">
+                <form class="" method="POST" action="index?page=CommandeFournisseur">
                     <button class="buttonFournisseurAjout"  type="submit" name="fournisseurSelectionne">Commander</button>
 
             </div>

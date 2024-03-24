@@ -3,7 +3,7 @@
 namespace model;
 use PDO;
 
-require '../Core/DataBase.php';
+require_once __DIR__ . '/../Core/DataBase.php';
 
 class stock extends \Database
 {

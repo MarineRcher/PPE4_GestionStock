@@ -2,7 +2,7 @@
 
 namespace controller;
 
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
 
 
@@ -30,7 +30,7 @@ class GestionUtilisateurs extends Controller
                     }
                 }
                 if (empty($utilisateursSelectionnes)) {
-                    header("Location: GestionUtilisateurs.php");
+                    header("Location: index.php?page=Utilisateur");
                 } else {
                     return $utilisateursSelectionnes;
                 }
@@ -38,7 +38,7 @@ class GestionUtilisateurs extends Controller
 
             }
             if (empty($_POST['utilisateurSelectionne'])) {
-                header("Location: GestionUtilisateurs.php");
+                header("Location: index.php?page=Utilisateur");
             }
         }
     }
@@ -71,7 +71,7 @@ class GestionUtilisateurs extends Controller
                 $errorDetail = $modelCommande->MiseAJoutRole($id_utilisateur, $tentative_utilisateur);
             }
 
-            header("Location: ../Vue/GestionUtilisateurs.php");
+            header("Location: index.php?page=Utilisateur");
         } else {
             return "Merci de remplir les champs vides";
 
@@ -94,7 +94,7 @@ class GestionUtilisateurs extends Controller
 
                     $modelCommande->Mdp($email, $nouveauMdp, $nom);
                     $modelCommande->MiseAJourMdp();
-                    header("Location: ../Vue/SignIn.php");
+                    header("Location: index.php?page=login");
                 }else{
                     return 'Le mot de passe doit contenir au moins 12 caractères, 1 majuscule, 1 chiffre et 1 caractère spécial.';
 

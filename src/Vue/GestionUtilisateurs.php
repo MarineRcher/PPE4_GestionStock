@@ -1,8 +1,6 @@
 <?php
-session_start();
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/GestionUtilisateurs.php';
-include_once '../model/Users.php';
+require_once __DIR__ . '/../controller/GestionUtilisateurs.php';
+include_once __DIR__ . '/../model/Users.php';
 
 $utilisateurs = new controller\GestionUtilisateurs();
 $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
@@ -17,7 +15,7 @@ $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Utilisateurs</h2>
 
@@ -25,7 +23,7 @@ $dataUtilisateurs = $utilisateurs->selectUtilisateurs();
         <div class="containerSearchButton">
 
             <div class="buttons">
-                <form method="POST" action="ChangerRole.php" id="monFormulaire">
+                <form method="POST" action="index.php?page=role" id="monFormulaire">
                     <button class="buttonRole" type="submit" name="utilisateurSelectionne[]" >Changer role ou debloquer un compte</button>
 
             </div>

@@ -1,9 +1,9 @@
 <?php
-session_start();
+
 
 // Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/CommandeStockController.php';
-include_once '../model/CommandeStock.php';
+require_once __DIR__ . '/../controller/CommandeStockController.php';
+include_once __DIR__ . '/../model/CommandeStock.php';
 
 $modelCommandes = new \controller\CommandeStockController();
 $commandes = $modelCommandes->selectCommandesFournisseurs();
@@ -19,7 +19,7 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Commandes fournisseurs</h2>
 
@@ -28,8 +28,8 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
         <?php
 
         echo'<div class="bouttons">
-      <a href="selectionFournisseur.php"><button>commander</button></a>
-         <form method="POST" action="ChangerStatut.php">
+      <a href="index.php?page=selectFournisseur"><button>commander</button></a>
+         <form method="POST" action="index.php?page=status">
           <button class="buttonChangerStatut" type="submit" name="commandeSelectionne[]">Changer le status</button>
 </div>';
         // Vérifie si $dataMedicaments est vide

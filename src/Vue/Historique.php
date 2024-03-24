@@ -1,8 +1,8 @@
 <?php
-session_start();
 
-include_once '../controller/MouvementController.php';
-include_once '../model/Mouvements.php';
+
+include_once __DIR__ . '/../controller/MouvementController.php';
+include_once __DIR__ . '/../model/Mouvements.php';
 
 $mouvement= new \controller\MouvementController();
 
@@ -17,7 +17,7 @@ $historique=$mouvement->selectMouvements();
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Mouvements dans le stock</h2>
 

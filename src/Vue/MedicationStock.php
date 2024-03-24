@@ -1,11 +1,11 @@
 <?php
-session_start();
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/GestionMedicaments.php';
-include_once '../model/Medications.php';
+require_once __DIR__ . '/../controller/GestionMedicaments.php';
+include_once __DIR__ . '/../model/Medications.php';
 
-
+include_once __DIR__ . '/../controller/JWT.php';
+$jwt = new \controller\JWT();
+$payload = $jwt->get_payload($_COOKIE['JWT']);
 // Créer une instance de GestionMedicaments
 $medicaments = new GestionMedicaments();
 
@@ -34,7 +34,7 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Médicaments</h2>
     <div class="containerTitleTable">
@@ -45,11 +45,13 @@ if (!empty($_POST['medicamentsSelectionne']) ) {
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">
-                    <form action="Historique.php" method="POST">
+                    <?php  if($payload['user_role'] == 'Admin' or $payload['user_role'] == 'SuperUser') {?>
+                    <form action="index.php?page=historique" method="POST">
                     <button class="buttonHistorique" name="categorie" type="submit">Historique</button>
                         <input type="hidden" name="categorie" value="medicament">
                     </form>
-                    <form method="POST" action="CommandeMedicament.php" id="monFormulaire">
+                    <?php }?>
+                    <form method="POST" action="index.php?page=ReservationMedicament" id="monFormulaire">
                        <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]" >Réserver</button>
 
                 </div>

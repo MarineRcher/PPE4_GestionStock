@@ -1,7 +1,7 @@
 <?php
 
 namespace controller;
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
 
 $controller = new Controller();
@@ -41,7 +41,7 @@ class SubtanceActiveController extends Controller
                 }
             }
             if(empty($dataSubtanceActive)){
-                header("Location: SubtanceActiveStock.php");
+                header("Location: index.php?page=subtanceActive");
             }else {
                 return $dataSubtanceActive;
             }

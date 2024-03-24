@@ -1,12 +1,10 @@
 <?php
-session_start();
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/MaterielController.php';
-include_once '../model/Materiel.php';
+require_once __DIR__ . '/../controller/MaterielController.php';
+include_once __DIR__ . '/../model/Materiel.php';
 
-require_once '../controller/CommandesController.php';
-include_once '../model/Commandes.php';
+require_once __DIR__ . '/../controller/CommandesController.php';
+include_once __DIR__ . '/../model/Commandes.php';
 
 $commande = new CommandesController();
 $errorMessage = $commande->commande();
@@ -30,7 +28,7 @@ if (isset($_POST['quantite_disponible'])){$_POST['quantite_disponible'] = [];}
 </head>
 
 <body>
-<?php require '../Vue/Header.php';
+<?php require __DIR__ . '/../Vue/Header.php';
 if(!empty($errorMessage)){ ?>
     <div class='containterErrorMessage'>
 

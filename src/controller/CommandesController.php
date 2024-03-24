@@ -1,8 +1,8 @@
 <?php
 
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
-require_once '../controller/JWT.php';
+require_once __DIR__ . '/../controller/JWT.php';
 use controller\JWT;
 $controller = new Controller();
 class CommandesController extends Controller{
@@ -31,7 +31,7 @@ class CommandesController extends Controller{
                     $modelCommande->detailCommande( $quantite);
                     $errorDetail = $modelCommande->detailCommandeRequete($stock);
                 }
-                header("Location: ../Vue/HomePage.php");
+                header("Location: index.php?page=homepage");
                 //return $error and $errorDetail;
             }else{
                 return 'Renseignez une date de réservation';
@@ -77,11 +77,11 @@ class CommandesController extends Controller{
                 if(isset($commandes)) {
                     return $commandes;
                 }else{
-                    header('Location: HomePage.php');
+                    header('Location: index.php?page=homepage');
 
                 }
             }else{
-                header('Location: HomePage.php');
+                header('Location: index.php?page=homepage');
 
             }
 
@@ -125,7 +125,7 @@ class CommandesController extends Controller{
 
 
             }
-             header("Location: ../Vue/HomePage.php");
+             header("Location: index.php?page=homepage");
         }
     }
 

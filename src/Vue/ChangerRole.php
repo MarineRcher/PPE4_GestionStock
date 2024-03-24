@@ -1,9 +1,9 @@
 <?php
-session_start();
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/GestionUtilisateurs.php';
-include_once '../model/Users.php';
+
+
+require_once __DIR__ . '/../controller/GestionUtilisateurs.php';
+include_once __DIR__ . '/../model/Users.php';
 
 $role = new \controller\GestionUtilisateurs();
 if(isset($_POST['id'])){
@@ -25,7 +25,7 @@ if (isset($_POST['utilisateurSelectionne']) && !empty($_POST['utilisateurSelecti
 </head>
 
 <body>
-<?php require '../Vue/Header.php';
+<?php require __DIR__ . '/../Vue/Header.php';
 if(!empty($errorMessage)){ ?>
     <div class='containterErrorMessage'>
 

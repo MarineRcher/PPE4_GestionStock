@@ -1,7 +1,7 @@
 <?php
 
 namespace controller;
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
 
 class FournisseurController extends Controller
@@ -17,7 +17,7 @@ class FournisseurController extends Controller
             $fournisseur->AjoutFournisseur();
 
 
-            header("Location: ../Vue/HomePage.php");
+            header("Location: index.php?page=homepage");
 
         } else {
             $message="Merci de remplir les coordonnées du fournisseur";
@@ -38,7 +38,7 @@ class FournisseurController extends Controller
                  $fournisseur->suprressionFournisseur();
              }
 
-           header("Location: ../Vue/HomePage.php");
+           header("Location: index.php?page=homepage");
 
         } else {
             $message="Erreu lors de la suppression";
@@ -58,7 +58,7 @@ class FournisseurController extends Controller
                 $fournisseur->ValeursModificationFournisseur($id_fournisseur, $_POST['nom'], $_POST['SIRET'], $email, $_POST['telephone'], $_POST['adresse'], $_POST['ville'], $_POST['cp'], $_POST['categorie']);
 
                 $fournisseur->modificationFournisseur();
-            header("Location: ../Vue/AfficheFournisseurs.php");
+            header("Location: index.php?page=fournisseurs");
 
         } else {
             $message="Merci de remplir les coordonnées du fournisseur";
@@ -85,14 +85,14 @@ class FournisseurController extends Controller
                     $fournisseurs[] = $fournisseurSelect;
                 }
                 if (empty($fournisseurs)) {
-                    header("Location: AfficheFournisseurs.php");
+                    header("Location: index.php?page=fournisseurs");
                 } else {
                     return $fournisseurs;
                 }
 
             }
             if(empty($_POST['fournisseurSelectionne'])) {
-            header("Location: AfficheFournisseurs.php");
+            header("Location: index.php?page=fournisseurs");
         }
         }
 

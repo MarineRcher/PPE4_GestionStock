@@ -1,11 +1,10 @@
 <?php
-session_start();
+require_once __DIR__ . '/../controller/MaterielController.php';
+include_once __DIR__ . '/../model/Materiel.php';
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/MaterielController.php';
-include_once '../model/Materiel.php';
-
-
+include_once __DIR__ . '/../controller/JWT.php';
+$jwt = new \controller\JWT();
+$payload = $jwt->get_payload($_COOKIE['JWT']);
 // Créer une instance de GestionMedicaments
 $materiel= new \controller\MaterielController();
 
@@ -32,7 +31,7 @@ if (!empty($_POST['materielSelectionne']) ) {
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Matériel</h2>
     <div class="containerTitleTable">
@@ -43,11 +42,13 @@ if (!empty($_POST['materielSelectionne']) ) {
                     <input type = "submit"  value = "Rechercher" class="buttonRechercher">
                 </form>
                 <div class="buttons">
-                    <form action="Historique.php" method="POST">
+                    <?php  if($payload['user_role'] == 'Admin' or $payload['user_role'] == 'SuperUser') {?>
+                    <form action="index.php?page=historique" method="POST">
                     <button class="buttonHistorique" name="categorie" type="submit">Historique</button>
                     <input type="hidden" name="categorie" value="Materiel">
                     </form>
-                    <form method="POST" action="CommandeMateriel.php" id="monFormulaire">
+                    <?php }?>
+                    <form method="POST" action="index.php?page=ReservationMateriel" id="monFormulaire">
                         <button class="buttonCommander" type="submit" name="materielSelectionne[]">Réserver</button>
 
                 </div>

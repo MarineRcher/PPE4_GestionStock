@@ -1,6 +1,6 @@
 <?php
-session_start();
-include_once '../Core/controller.php';
+
+include_once  __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
 include_once 'JWT.php';
 
@@ -11,7 +11,7 @@ class LoginController extends Controller {
     {
 
         if (isset($_SESSION['id_utilisateur'])) {
-            header("Location: ../Vue/HomePage.php");
+            header("Location: index.php?page=homepage");
             exit;
         }
 
@@ -32,7 +32,7 @@ class LoginController extends Controller {
                         $jwt = new \controller\JWT();
                         $payload = $jwt->generer_payload($user_data['id_utilisateur'], $user_data['email'], $user_data['role']);
                         setcookie("JWT", $jwt->generer_jwt($payload), time() + 14400);
-                        header("Location: ../Vue/HomePage.php");
+                        header("Location: index.php?page=homepage");
 
                         exit;
                     } else {

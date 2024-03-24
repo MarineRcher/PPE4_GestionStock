@@ -1,5 +1,5 @@
 <?php
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
 
 $controller = new Controller();
@@ -38,7 +38,7 @@ $controller = new Controller();
                     }
                 }
                 if(empty($dataMedicaments)){
-                    header("Location: MedicationStock.php");
+                    header("Location: index.php?page=medicament");
                 }else {
                     return $dataMedicaments;
                 }

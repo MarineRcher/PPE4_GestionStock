@@ -1,11 +1,11 @@
 <?php
-session_start();
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/CommandesController.php';
-include_once '../model/Commandes.php';
 
-require_once '../controller/CommandeStockController.php';
-include_once '../model/CommandeStock.php';
+
+require_once __DIR__ . '/../controller/CommandesController.php';
+include_once __DIR__ . '/../model/Commandes.php';
+
+require_once __DIR__ . '/../controller/CommandeStockController.php';
+include_once __DIR__ . '/../model/CommandeStock.php';
 
 $commandeFournisseurs= new \controller\CommandeStockController();
 
@@ -32,7 +32,7 @@ if(isset($_POST['idFournisseur'])){
 </head>
 
 <body>
-<?php require '../Vue/Header.php';
+<?php require __DIR__ . '/../Vue/Header.php';
 ?>
 <div class="containerTitleTable">
     <h2>Changement de statut</h2>

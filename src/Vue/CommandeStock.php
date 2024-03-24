@@ -1,9 +1,9 @@
 <?php
 
-session_start();
 
-require_once '../controller/CommandeStockController.php';
-require_once '../model/CommandeStock.php';
+
+require_once __DIR__ . '/../controller/CommandeStockController.php';
+require_once __DIR__ . '/../model/CommandeStock.php';
 
 
 $dataSubtanceActive = [];
@@ -40,7 +40,7 @@ $commandeStock= new controller\CommandeStockController();
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Commande</h2>
     <div class="containerTitleTable">
@@ -49,15 +49,15 @@ $commandeStock= new controller\CommandeStockController();
 
                 <div class="buttons">
                     <?php if (!empty($dataSubtanceActive)) { ?>
-                        <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
+                        <form method="POST" action="index?page=Commande" id="monFormulaire">
                             <button class="buttonCommander" type="submit" name="subtanceActiveSelectionne[]">Commander</button>
 
                     <?php } elseif (!empty($dataMateriel)) { ?>
-                        <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
+                        <form method="POST" action="index?page=Commande" id="monFormulaire">
                             <button class="buttonCommander" type="submit" name="materielSelectionne[]">Commander</button>
 
                     <?php } elseif (!empty($dataMedicaments)) { ?>
-                            <form method="POST" action="CommandeStockDetail.php" id="monFormulaire">
+                            <form method="POST" action="index?page=Commande" id="monFormulaire">
                                 <button class="buttonCommander" type="submit" name="medicamentsSelectionne[]">Commander</button>
 
                                 <?php } ?>

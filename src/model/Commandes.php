@@ -3,7 +3,7 @@
 namespace model;
 
 use PDO;
-require_once '../Core/DataBase.php';
+require_once __DIR__ . '/../Core/DataBase.php';
 
 class Commandes extends \Database
 {

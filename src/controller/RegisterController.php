@@ -1,5 +1,5 @@
 <?php
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
 
 $controller = new Controller();
@@ -32,7 +32,7 @@ class RegisterController extends Controller {
                     $user_data->AddUser();
 
 
-                   header("Location: ../Vue/SignIn.php");
+                   header("Location: index.php?page=login");
                 }
                 }else{
                     $message = 'Le mot de passe doit contenir au moins 12 caractères, 1 majuscule, 1 chiffre et 1 caractère spécial.';

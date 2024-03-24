@@ -1,7 +1,7 @@
 <?php
 
 namespace controller;
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 
 use src\Core\Controller;
 

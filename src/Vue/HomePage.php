@@ -1,8 +1,7 @@
 <?php
-session_start();
 
-require_once '../controller/stockOutController.php';
-require_once '../model/stock.php';
+require_once __DIR__ . '/../controller/stockOutController.php';
+require_once __DIR__ . '/../model/stock.php';
 
 $stock=new controller\stockOutController();
 
@@ -17,7 +16,8 @@ $data=$stock->finStock();
 
 <?php
 
-require '../Vue/Header.php';
+
+require __DIR__ . '/../Vue/Header.php';
 if(empty($data)){
 
 }else{
@@ -35,6 +35,6 @@ foreach ($data as $item) {
 
 <?php
 
-require '../Vue/Footer.php';
 
+require __DIR__ . '/../Vue/Footer.php';
 ?>

@@ -1,9 +1,9 @@
 <?php
 
 namespace controller;
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 use src\Core\Controller;
-require_once '../controller/JWT.php';
+require_once __DIR__ . '/../controller/JWT.php';
 use controller\JWT;
 class CommandeStockController extends Controller
 {
@@ -59,13 +59,13 @@ class CommandeStockController extends Controller
                 $categorie = $modelCategorie->selectCategorie($_POST['fournisseurSelectionne']);
             }
             if(empty($categorie)){
-               header('Location: selectionFournisseur.php');
+               header('Location: index.php?page=selectFournisseur');
             }else {
                 return $categorie;
 
             }
         }
-            header('Location: selectionFournisseur.php');
+            header('Location: index.php?page=selectFournisseur');
         }
     }
 
@@ -120,7 +120,7 @@ public function selectMedicaments(){
                     $modelCommande->detailCommande($quantite, $prixTotal);
                     $errorDetail = $modelCommande->detailCommandeRequete($stock);
                 }
-                header("Location: ../Vue/HomePage.php");
+                header("Location: index.php?page=homepage");
                 //return $error and $errorDetail;
             }else{
                 return 'Renseignez une date de livraison souhaitee';
@@ -170,7 +170,7 @@ public function selectMedicaments(){
 
 
             }
-            header("Location: ../Vue/HomePage.php");
+            header("Location: index.php?page=homepage");
         }
     }
 

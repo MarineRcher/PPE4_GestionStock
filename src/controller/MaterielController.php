@@ -1,7 +1,7 @@
 <?php
 
 namespace controller;
-include_once '../Core/controller.php';
+include_once __DIR__ . '/../Core/controller.php';
 
 use src\Core\Controller;
 
@@ -42,7 +42,7 @@ class MaterielController extends Controller
                 }
             }
             if(empty($dataMateriel)){
-                \header("Location: MaterielStock.php");
+                \header("Location: index.php?page=materiel");
             }else{
             return $dataMateriel;}
 

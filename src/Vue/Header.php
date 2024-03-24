@@ -1,3 +1,9 @@
+<?php
+include_once __DIR__ . '/../controller/JWT.php';
+$jwt = new \controller\JWT();
+$payload = $jwt->get_payload($_COOKIE['JWT']);
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -17,19 +23,22 @@
         </div>
     <nav>
         <ul>
-            <li><a href="HomePage.php">Accueil</a></li>
+            <li><a href="index.php?page=homepage">Accueil</a></li>
             <li class="deroulant" ><a href="#">Gestion de stock &ensp;</a>
                 <ul class="sous">
-                    <li><a href="MedicationStock.php">Médicaments</a></li>
-                    <li><a href="SubtanceActiveStock.php">Subtances Actives</a></li>
-                    <li><a href="MaterielStock.php">Matériels</a></li>
+                    <li><a href="index.php?page=medicament">Médicaments</a></li>
+                    <li><a href="index.php?page=subtanceActive">Subtances Actives</a></li>
+                    <li><a href="index.php?page=materiel">Matériels</a></li>
                 </ul>
             </li>
-            <li><a href="Demandes.php">Demandes</a></li>
-            <li><a href="AfficheFournisseurs.php">Gestion fournisseurs</a></li>
-            <li><a href="AfficherCommandes.php">Commandes</a></li>
-            <li><a href="GestionUtilisateurs.php">Utilisateurs</a></li>
-
+            <li><a href="index.php?page=demande">Demandes</a></li>
+<?php
+            if($payload['user_role'] == 'Admin' or $payload['user_role'] == 'SuperUser') {?>
+            <li><a href="index.php?page=fournisseurs">Gestion fournisseurs</a></li>
+            <li><a href="index.php?page=commande">Commandes</a></li>
+            <?php }if($payload['user_role'] == 'Admin'){ ?>
+            <li><a href="index.php?page=Utilisateur">Utilisateurs</a></li>
+<?php } ?>
         </ul>
     </nav>
 

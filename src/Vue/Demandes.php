@@ -1,16 +1,15 @@
 <?php
-session_start();
 
-// Inclure le fichier contenant la classe GestionMedicaments
-require_once '../controller/CommandesController.php';
-include_once '../model/Commandes.php';
-include_once '../controller/JWT.php';
+
+require_once __DIR__ . '/../controller/CommandesController.php';
+include_once __DIR__ . '/../model/Commandes.php';
+include_once __DIR__ . '/../controller/JWT.php';
 $jwt = new \controller\JWT();
 $payload = $jwt->get_payload($_COOKIE['JWT']);
 
 $commandesParUtilisateur = new CommandesController();
 
-if($payload['user_role'] == 'SuperUser'){
+if($payload['user_role'] == 'SuperUser'or $payload['user_role']=='Admin'){
     $commandes = $commandesParUtilisateur->selectCommandeSuperUser();
 }else {
     $commandes = $commandesParUtilisateur->selectCommandeParUtilisateur();
@@ -28,7 +27,7 @@ if($payload['user_role'] == 'SuperUser'){
 </head>
 
 <body>
-<?php require '../Vue/Header.php'; ?>
+<?php require __DIR__ . '/../Vue/Header.php'; ?>
 <div class="containerTitleTable">
     <h2>Demandes de reservation</h2>
 
@@ -36,9 +35,9 @@ if($payload['user_role'] == 'SuperUser'){
 
         <?php
 
-        if($payload['user_role']=='SuperUser'){
+        if($payload['user_role']=='SuperUser' or $payload['user_role']=='Admin'){
 
-        echo'<form method="POST" action="ChangerStatut.php">
+        echo'<form method="POST" action="index.php?page=status">
             <button type="submit">Changer le statut</button>';
         }
         // Vérifie si $dataMedicaments est vide
@@ -54,7 +53,7 @@ if($payload['user_role'] == 'SuperUser'){
                     <th class='enTete'>Statut de la demande</th>
                     <th class='enTete'>Date de disponibilité souhaitée</th>
                     <th class='enTete'>Catégorie</th>";
-  if($payload['user_role'] == 'SuperUser'){
+  if($payload['user_role'] == 'SuperUser' or $payload['user_role']=='Admin'){
       echo"<th class='enTete'>Nom du demandeur</th>";
             }
                     "</tr>";
@@ -68,7 +67,7 @@ if($payload['user_role'] == 'SuperUser'){
                     <td>" . $item['date_disponibilite'] . "</td>
                  <td>" . $item['categorie'] . "</td>
                  ";
-            if($payload['user_role'] == 'SuperUser'){
+            if($payload['user_role'] == 'SuperUser' or $payload['user_role']=='Admin'){
                 echo"
                 <td>".$item['nom']."</td>
           
