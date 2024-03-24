@@ -28,7 +28,7 @@ $commandes = $modelCommandes->selectCommandesFournisseurs();
         <?php
 
         echo'<div class="bouttons">
-      <a href="index.php?page=selectFournisseur"><button>commander</button></a>
+      <a href="index.php?page=selectFournisseur"><button>Commander</button></a>
          <form method="POST" action="index.php?page=status">
           <button class="buttonChangerStatut" type="submit" name="commandeSelectionne[]">Changer le status</button>
 </div>';
