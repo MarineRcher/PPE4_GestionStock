@@ -4,10 +4,12 @@ include_once __DIR__ . '/../src/controller/JWT.php';
 
 $page = $_GET['page'] ?? 'default';
 $jwt = new \controller\JWT();
-$payload = $jwt->get_payload($_COOKIE['JWT']);
-if (!isset($payload['user_id']) && in_array($page, ['homepage', 'medicament', 'materiel', 'subtanceActive', 'ReservationMateriel', 'ReservationSubtances', 'ReservationMedicament','demande', 'Utilisateur', 'role', 'commande', 'status', 'fournisseurs', 'AjoutFournisseur', 'ModificationFournisseur', 'selectFournisseur', 'Commande', 'historique'])) {
-    $page = 'login';
+if(isset($_COOKIE['JWT'])) {
+    $payload = $jwt->get_payload($_COOKIE['JWT']);
 }
+    if (!isset($payload['user_id']) && in_array($page, ['homepage', 'medicament', 'materiel', 'subtanceActive', 'ReservationMateriel', 'ReservationSubtances', 'ReservationMedicament', 'demande', 'Utilisateur', 'role', 'commande', 'status', 'fournisseurs', 'AjoutFournisseur', 'ModificationFournisseur', 'selectFournisseur', 'Commande', 'historique'])) {
+        $page = 'login';
+    }
 
 switch ($page) {
     case 'login':
