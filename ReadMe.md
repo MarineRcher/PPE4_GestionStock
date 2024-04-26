@@ -11,3 +11,6 @@ Il suffit de lancer les fichiers docker depuis le dossier Docker:
 
 Pour se deplacer dans un dossier depuis un terminal, il faut utiliser la commande 
 ```cd nom_du_dossier```
+
+Pour se connecter :
+http://localhost:8089/src/controller/index?page=login
