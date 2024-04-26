@@ -2,13 +2,14 @@ version: "3.8"
 
 services:
   web:
+    container_name: web
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8089:80"
     volumes:
-      - ./:/var/www/html
+      - ../:/var/www/html
     depends_on:
       - db
     networks:
@@ -25,15 +26,16 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3306"
+      - "3306:3306"
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./config/script_db.sh:/docker-entrypoint-initdb.d/script_db.sh
+      - ./config/GSB.sql:/docker-entrypoint-initdb.d/GSB.sql
     networks:
       - app-network
+
+volumes:
+  dbdata:
 
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  dbdata:
