@@ -22,7 +22,7 @@ class LoginController extends Controller {
 
             $user_model = $this->model('Users');
            $user_data = $user_model->verify_user($email);
-var_dump($user_data);
+
 
             if (!empty($user_data)) {
                 if($user_data['tentative'] < 5) {
