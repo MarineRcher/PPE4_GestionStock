@@ -11,7 +11,6 @@ $data=$stock->finStock();
     <head>
         <meta charset="utf-8">
         <title>Laboratoire GSB</title>
-        <link rel="stylesheet" href="../styles/GestionUtilisateurs.css">
     </head>
 
 <?php
@@ -22,13 +21,13 @@ if(empty($data)){
 
 }else{
 ?>
-<h3>Produits prochainement en rupture de stock</h3>
+<h3 style='margin: 3vh'>Produits prochainement en rupture de stock</h3>
 
 <?php
 
 foreach ($data as $item) {
 
-    echo "<li>".$item['nom']." : ".$item['quantite_disponible']."</li>";
+    echo "<li style='margin: 3vh'>".$item['nom']." : ".$item['quantite_disponible']."</li>";
 }
 }
 ?>
